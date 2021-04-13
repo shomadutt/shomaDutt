@@ -1,0 +1,140 @@
+    <!doctype html>
+    
+    <html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <title>APIs From GeoNames WebServices</title>
+        <meta name="description" content="GeoNames APIs">
+        <meta name="author" content="Shoma Dutt">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="libs/css/api.css" type="text/css" rel="stylesheet">
+        <link rel="icon" type="image/png" href="api.png" />
+    </head>
+    
+    <body>
+               
+        <table id="apiTable">
+         
+            <tr>
+                <th>API name</th>
+                <th>API description</th>
+                <th></th>              
+            </tr> 
+            
+            <tr>
+                <td>
+                    children
+                </td>
+                <td>
+                    Finds the children (admin divisions and populated places) for a given geonameId
+                    <br><br>
+                   
+                    <select id="selGeonameId">
+                        <option value="3183560">3183560</option>
+                        <option value="3164857">3164857</option>
+                        <option value="3169778">3169778</option>
+                        <option value="3182306">3182306</option>
+                        <option value="2525468">2525468</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btnRun" id="childrenSubmit">Submit</button>
+                </td>                 
+            </tr>
+        
+            <tr>
+                <td>
+                    findNearby
+                </td>
+                <td>
+                    Finds the nearby toponym / reverse geocoding
+                    <br><br>
+                   
+                    <select id="selLat">
+                        <option value="47.30437">47.30437</option>
+                    </select>
+                
+                    <select id="selLong">
+                        <option value="8.99667">8.99667</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btnRun" id="nearbySubmit">Submit</button>
+                </td>            
+            </tr>
+
+            <tr>
+                <td>
+                    neighbours
+                </td>
+                <td>
+                    Finds all neighbours for a country or administrative division
+                    <br><br>
+                   
+                    <select id="selGeonameId">
+                        <option value="2658434">2658434</option>
+                        <option value="2782113">2782113</option>
+                        <option value="3017382">3017382</option>
+                        <option value="2921044">2921044</option>
+                        <option value="3175395">3175395</option>
+                        <option value="3042058">3042058</option>
+                    </select>
+
+                </td>
+                <td>
+                    <button class="btnRun" id="neighbourSubmit">Submit</button>
+                </td>         
+            </tr>  
+            
+        </table> 
+
+        <div id="gridContainer">
+                
+            <div class="resultsHeading" colspan="2">Children Results</div>
+            <div></div>
+            <div class="resultsHeading" colspan="2">Toponym Results</div>  
+            <div></div>
+            <div class="resultsHeading" colspan="2">Neighbours Results</div>
+            <div></div>
+            <div>Name:</div>
+            <div id="txtNameChild"></div>  
+            <div>Name:</div>
+            <div id="txtNameNearby"></div>
+            <div>Toponym Name:</div>
+            <div id="txtToponymName"></div>
+            <div>Latitude:</div>
+            <div id="txtLat"></div>
+            <div>Geoname Id:</div>
+            <div id="txtGeonameId"></div>
+            <div>Name:</div>
+            <div id="txtNameNeighbour"></div>
+            <div>Longitude:</div>
+            <div id="txtLng"></div>
+            <div>Country Code:</div>
+            <div id="txtCountryCodeNearby"></div>
+            <div>Country Code:</div>
+            <div id="txtCountryCodeNeighbour"></div>
+            <div>Country Code:</div>
+            <div id="txtCountryCodeChild"></div>
+            <div>Country Name:</div>
+            <div id="txtCountryNameNearby"></div>
+            <div>Country Name:</div>
+            <div id="txtCountryNameNeighbour"></div>
+            <div>Country Name:</div>
+            <div id="txtCountryNameChild"></div>
+            <div>Distance:</div>
+            <div id="txtDistance"></div>
+            <div></div>
+            <div></div>
+           
+        </div>
+     
+        <div id=”preloader”></div>
+
+        <script type="application/javascript" src="libs/js/jquery-2.2.3.min.js"></script>
+        <script type="application/javascript" src="libs/js/script.js"></script>
+        
+    </body>
+
+</html>
