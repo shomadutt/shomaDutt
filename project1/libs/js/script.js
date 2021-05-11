@@ -79,24 +79,24 @@ $(document).ready(function () {
 
 
 
-      // opencage
+      // openweather
 
       $.ajax({
-        url: "libs/php/getOpenCage.php",
+        url: "libs/php/getOpenWeather.php",
         type: 'POST',
         dataType: 'json',
         data: {
-          q: encodeURIComponent(userLat + ',' + userLng)
+          
+          lon: userLng,
+          lat: userLat
+
         },
         success: function(result) {
   
           console.log(JSON.stringify(result));
+
+          
   
-          // if (result.status.name == "ok") {
-  
-          //   console.log(result['data'][0].components.country);
-           
-          // }
         
         },
         error: function(jqXHR, textStatus, errorThrown) {
