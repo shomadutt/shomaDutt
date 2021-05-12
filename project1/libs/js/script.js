@@ -79,24 +79,29 @@ $(document).ready(function () {
 
 
 
-      // openweather
+      // restcountries
 
       $.ajax({
-        url: "libs/php/getOpenWeather.php",
+        url: "libs/php/getRestCountries.php",
         type: 'POST',
         dataType: 'json',
         data: {
           
-          lon: userLng,
-          lat: userLat
+          
+         q: String(userLat) + ',' + String(userLng)
+
+         //q: userLat, userLng
 
         },
         success: function(result) {
   
           console.log(JSON.stringify(result));
 
-          
-  
+
+          if (result.status.name == "ok") {
+
+            
+          }
         
         },
         error: function(jqXHR, textStatus, errorThrown) {
