@@ -37,18 +37,18 @@ $(document).ready(function () {
         .bindPopup("This is your location.")
         .openPopup();
 
-      // From https://www.geodatasource.com/developers/javascript
-      // Use Haversine function to find the distance between 2 points
-
-      // Select country
+      // Set up the countries and iso codes in the Select dropdown
       $("#selName").append("<option>" + " Select a country " + "</option>");
+      $("#selIsoCode2").append(
+        "<option>" + " Select a country ISO2 code " + "</option>"
+      );
 
       $.ajax({
         //4
         url: "libs/php/getCountryBorders.php",
         type: "POST",
         dataType: "json",
-        data:  "{}",
+        data: "{}",
 
         success: function (result) {
           //5
@@ -60,57 +60,62 @@ $(document).ready(function () {
           if (result.status.name == "ok") {
             //6
             for (let i = 0; i < result.data.length; i++) {
-              //7
-              $("#selName").append(
-                "<option>" +
-                  result.data[i].properties.name +
-                  " " +
-                  result.data[i].properties.iso_a3 +
-                  "</option>"
-              );
 
+                // $('#selName').append(
+                
+                //   "<option>" +
+                //   result.data[i].properties.iso_a2 
+                //   + "</option>"
+ 
+                //   );
+
+
+                  $("#selName").append(
+                    "<option value = { name: result.data[i].properties.name, isoCode2: result.data[i].properties.iso_a2 }>" +
+                      result.data[i].properties.name 
+                      +
+                      " " +
+                      result.data[i].properties.iso_a2 +
+                      "</option>"
+                  );
+
+              
               // Use countryBorders.geo.json to set the borders of the countries
 
               L.geoJSON(result.data[i]).addTo(map);
             } //7
+
+            // The country and iso code are chosen from the Select dropdown and the Run button is clicked
+            $("#btnRun").click(function () {
+              //8
+
+              $.ajax({
+                //9
+                url: "libs/php/getOpenCage.php",
+                type: "POST",
+                dataType: "json",
+                data: {
+                  q: $('#selName').val()
+                },
+
+                success: function (result) {
+                  //10
+
+                  JSON.stringify(result);
+
+                  //console.log(JSON.stringify(result));
+
+                  if (result.status.name == "ok") {
+                    //11
+
+                    console.log(result["data"].results[0].components);
+                  } //11
+                }, //10
+              }); //9
+            }); //8
           } //6
         }, //5
       }); //4
-
-
-
-      // restcountries
-
-      $.ajax({
-        url: "libs/php/getRestCountries.php",
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          
-          
-         q: String(userLat) + ',' + String(userLng)
-
-         //q: userLat, userLng
-
-        },
-        success: function(result) {
-  
-          console.log(JSON.stringify(result));
-
-
-          if (result.status.name == "ok") {
-
-            
-          }
-        
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          // your error code
-        }
-      }); 
-
-
-     
     }); //3
 
     // error: function (jqXHR, textStatus, errorThrown) {
