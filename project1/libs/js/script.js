@@ -11,119 +11,152 @@ $(window).on("load", function () {
 $(document).ready(function () {
   //1
 
-  // User location on map
+  // User location on the map
 
-  if ("geolocation" in navigator) {
-    //2
+  // if ("geolocation" in navigator) {
+    //   //2
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-      //3
+    
+      // Select dropdown
 
-      let userLat = position.coords.latitude;
-      let userLng = position.coords.longitude;
-
-      // console.log(userLat);
-      // console.log(userLong);
-
-      let map = L.map("map").setView([userLat, userLng], 13);
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      L.marker([userLat, userLng])
-        .addTo(map)
-        .bindPopup("This is your location.")
-        .openPopup();
-
-      // Set up the countries and iso codes in the Select dropdown
-      $("#selName").append("<option>" + " Select a country " + "</option>");
-      $("#selIsoCode2").append(
-        "<option>" + " Select a country ISO2 code " + "</option>"
+      // Create the text "Select a country" in the dropdown
+      $("#selectCountry").append(
+        "<option>" + " Select a country " + "</option>"
       );
 
+      // Fill the dropdown with countries
       $.ajax({
-        //4
+        // 3      
         url: "libs/php/getCountryBorders.php",
         type: "POST",
         dataType: "json",
         data: "{}",
 
         success: function (result) {
-          //5
+          //4
 
           JSON.stringify(result);
 
           //console.log(JSON.stringify(result));
 
           if (result.status.name == "ok") {
-            //6
+            //5
             for (let i = 0; i < result.data.length; i++) {
+              //6
 
-                // $('#selName').append(
-                
-                //   "<option>" +
-                //   result.data[i].properties.iso_a2 
-                //   + "</option>"
- 
-                //   );
+              $("#selectCountry").append(
+                `<option value = "${result.data[i].properties.iso_a2}">` +
+                  result.data[i].properties.name +
+                  "</option>"
+              );
 
-
-                  $("#selName").append(
-                    "<option value = { name: result.data[i].properties.name, isoCode2: result.data[i].properties.iso_a2 }>" +
-                      result.data[i].properties.name 
-                      +
-                      " " +
-                      result.data[i].properties.iso_a2 +
-                      "</option>"
-                  );
-
-              
               // Use countryBorders.geo.json to set the borders of the countries
 
-              L.geoJSON(result.data[i]).addTo(map);
-            } //7
+              //L.geoJSON(result.data[i]).addTo(map);
 
-            // The country and iso code are chosen from the Select dropdown and the Run button is clicked
-            $("#btnRun").click(function () {
-              //8
+              let currentBorderLat =
+                result.data[i].geometry.coordinates[0][0][0][0];
+              let currentBorderLng =
+                result.data[i].geometry.coordinates[0][0][0][1];
 
-              $.ajax({
-                //9
-                url: "libs/php/getOpenCage.php",
-                type: "POST",
-                dataType: "json",
-                data: {
-                  q: $('#selName').val()
-                },
+                console.log(currentBorderLat);
+                console.log(currentBorderLng);
+              
+                // Select dropdown and holiday information
+                $("#selectHolidayInfo").click(function () {
+                  //7
 
-                success: function (result) {
-                  //10
+                  let map = L.map("map").setView(
+                    [currentBorderLat, currentBorderLng],
+                    13
+                  );
+    
+                  L.tileLayer(
+                    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    {
+                      attribution:
+                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    }
+                  ).addTo(map);
+    
+                 
+    
 
-                  JSON.stringify(result);
+                  // Add an icon for the user location
 
-                  //console.log(JSON.stringify(result));
+                  // var greenIcon = L.icon({
+                  //   iconUrl:
+                  //     "https://shomadutt.com/project1/libs/Leaflet/images/globe.png",
+                  //   shadowUrl:
+                  //     "https://shomadutt.com/project1/libs/Leaflet/images/shadow.png",
 
-                  if (result.status.name == "ok") {
-                    //11
+                  //   iconSize: [60, 95], // size of the icon
+                  //   shadowSize: [50, 64], // size of the shadow
+                  //   iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+                  //   shadowAnchor: [4, 62], // the same for the shadow
+                  //   popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+                  // });
 
-                    console.log(result["data"].results[0].components);
-                  } //11
-                }, //10
-              }); //9
-            }); //8
-          } //6
-        }, //5
-      }); //4
-    }); //3
+                  // L.marker([currentBorderLat, currentBorderLng], {
+                  //   icon: greenIcon,
+                  // }).addTo(map);
 
-    // error: function (jqXHR, textStatus, errorThrown) {
-    //   // your error code
-    // }
-  } else {
-    //2
+                  $.ajax({
+                    //8
+                    url: "libs/php/getHolidayInfo.php",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                      countryCode: $("#selectCountry").val(),
+                    },
 
-    console.log("Browser does not support geolocation!");
-  }
+                    success: function (result) {
+                      //9
+
+                      JSON.stringify(result);
+
+                      //console.log(JSON.stringify(result));
+
+                      if (result.status.name == "ok") {
+                        //10
+
+                        function getInfoFrom() {
+                          let holidayPopup = [];
+
+                          for (let j = 0; j < result["data"].length; j++) {
+                            let stringLine =
+                              result["data"][j].date +
+                              " " +
+                              result["data"][j].localName;
+                            holidayPopup.push(stringLine);
+                          }
+                          return holidayPopup;
+                        }
+
+                        var holidayData = getInfoFrom().join(" <br>");
+
+                        let selectHolidayPopup = L.popup()
+                          .setLatLng([currentBorderLat, currentBorderLng])
+                          .setContent(holidayData)
+                          .openOn(map);
+                      } //10
+                    }, //9
+
+                  }); //8
+                  }); //7
+                  } //6
+                  }//5          
+        } //4
+      }); //3
+
+              
+
+    //   error: function (jqXHR, textStatus, errorThrown) {
+    //     // your error code
+    //   }
+  // } else {
+  //   //   //2
+
+  //   console.log("Browser does not support geolocation!");
+  // }
 }); //1
