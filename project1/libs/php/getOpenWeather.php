@@ -9,8 +9,7 @@
 
 	$key = '98656d2fa9e4faeaab5bf485faabcff9';
 
-	$url='http://api.openweathermap.org/data/2.5/weather/json?&lat=' . $_REQUEST['lat']. '&lon=' . $_REQUEST['lon'] . '&appid=' . $key;
-
+	$url='http://api.openweathermap.org/data/2.5/weather?&lat=' . $_REQUEST['lat']. '&lon=' . $_REQUEST['lon'] . '&appid=' . $key;
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

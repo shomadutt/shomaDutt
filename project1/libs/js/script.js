@@ -61,11 +61,11 @@ $(document).ready(function () {
         popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
       });
 
-      let userMarker = L.marker([userLat, userLng], { icon: globeIcon }).addTo(
-        map
-      );
+      let userMarker = L.marker([userLat, userLng], { icon: globeIcon })
+        .bindPopup("Your location")
+        .addTo(map);
 
-      // Add the user's border
+      // Create the geojson layer
 
       let geojsonLayer;
 
@@ -111,9 +111,116 @@ $(document).ready(function () {
                     ) {
                       geojsonLayer = L.geoJson(resultCountry.data[i].geometry);
 
-                      geojsonLayer.addTo(map);
+                      //geojsonLayer.addTo(map);
                     }
                   } // 10
+                } //9
+              }, //8
+            }); //7
+          } //6
+        }, //5
+      }); //4
+
+      // Create markers of different landmarks
+
+      $.ajax({
+        //4
+        url: "libs/php/getOpenCage.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          q: String(userLat) + "," + String(userLng),
+        },
+        success: function (resultCage) {
+          //5
+          //console.log(JSON.stringify(result));
+
+          if (resultCage.status.name == "ok") {
+            //6
+
+            $.ajax({
+              //7
+
+              url: "libs/php/getCountryBorders.php",
+              type: "POST",
+              dataType: "json",
+              data: "{}",
+
+              success: function (resultCountry) {
+                //8
+
+                JSON.stringify(resultCountry);
+
+                //console.log(JSON.stringify(result));
+
+                if (resultCountry.status.name == "ok") {
+                  //9
+
+                  for (let i = 0; i < resultCountry.data.length; i++) {
+                    // 10
+                    if (
+                      resultCountry.data[i].properties.iso_a2 ===
+                      resultCage[
+                        "data"
+                      ].results[0].components.country_code.toUpperCase()
+                    ) {
+                      // Create a cluster group of famous landmarks
+                      let markers = L.markerClusterGroup();
+
+                      markers.addLayer(
+                        L.marker([51.510357, -0.116773], {
+                          icon: globeIcon,
+                        }).bindPopup("Big Ben")
+                      );
+                      markers.addLayer(
+                        L.marker([51.503399, -0.119519], {
+                          icon: globeIcon,
+                        }).bindPopup("London Eye")
+                      );
+                      markers.addLayer(
+                        L.marker([51.502777, -0.15125], {
+                          icon: globeIcon,
+                        }).bindPopup("Hyde Park Corner")
+                      );
+                      markers.addLayer(
+                        L.marker([51.501476, -0.140634], {
+                          icon: globeIcon,
+                        }).bindPopup("Buckingham Palace")
+                      );
+                      markers.addLayer(
+                        L.marker([51.4967, -0.1764], {
+                          icon: globeIcon,
+                        }).bindPopup("Natural History Museum")
+                      );
+                      markers.addLayer(
+                        L.marker([51.49829, -0.13153], {
+                          icon: globeIcon,
+                        }).bindPopup("Westminster Abbey")
+                      );
+                      markers.addLayer(
+                        L.marker([51.51218, -0.09199], {
+                          icon: globeIcon,
+                        }).bindPopup("Tower Of London")
+                      );
+                      markers.addLayer(
+                        L.marker([51.496639, -0.17218], {
+                          icon: globeIcon,
+                        }).bindPopup("Victoria And Albert Museum")
+                      );
+                      markers.addLayer(
+                        L.marker([51.508972, -0.128794], {
+                          icon: globeIcon,
+                        }).bindPopup("National Gallery")
+                      );
+                      markers.addLayer(
+                        L.marker([51.518757, -0.126168], {
+                          icon: globeIcon,
+                        }).bindPopup("British Museum")
+                      );
+
+                      map.addLayer(markers);
+                    }
+                  }
                 } //9
               }, //8
             }); //7
@@ -239,6 +346,11 @@ $(document).ready(function () {
 
                           map.fitBounds(geojsonLayer.getBounds());
 
+                          // Ensure the user's location marker is on the map
+                          if (map.removeLayer(userMarker)) {
+                            map.addLayer(userMarker);
+                          }
+
                           selectButton = btn;
                           selectButton.button.style.backgroundColor = "#007bff";
                           userCountryPopup
@@ -297,13 +409,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         let userAddressPopup = L.popup()
                           .setLatLng([userLat, userLng])
@@ -418,13 +528,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getOpenWeather.php",
@@ -558,13 +666,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getGeonamesWiki.php",
@@ -654,13 +760,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getCountryInfo.php",
@@ -767,13 +871,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getHolidayInfo.php",
@@ -871,13 +973,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getIncomeInfo.php",
@@ -960,13 +1060,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getCountryFlag.php",
@@ -1049,13 +1147,11 @@ $(document).ready(function () {
                       ) {
                         map.removeLayer(geojsonLayer);
 
-                        geojsonLayer = L.geoJson(
-                          resultCountry.data[i].geometry
-                        );
+                        map.setView([userLat, userLng], 13);
 
-                        geojsonLayer.addTo(map);
-
-                        map.fitBounds(geojsonLayer.getBounds());
+                        if (map.removeLayer(userMarker)) {
+                          map.addLayer(userMarker);
+                        }
 
                         $.ajax({
                           url: "libs/php/getCoronaInfo.php",
@@ -1136,7 +1232,7 @@ $(document).ready(function () {
         });
       });
 
-      // select dropdown
+      // Select dropdown
 
       $.ajax({
         //7
@@ -1162,7 +1258,7 @@ $(document).ready(function () {
                   "</option>"
               );
 
-              // Select country from dropdown and add the border and country stats information
+              // Select the country from the dropdown and add the border and country stats information
               $("#selectCountryInfo").click(function () {
                 if (
                   $("#selectCountry").val() ===
@@ -1247,42 +1343,13 @@ $(document).ready(function () {
                               result["data"][0].population
                           )
                           .openOn(map);
-
-                        // Create random points within a country's borders 
-                        // Have to use variable markers otherwise does not work
-
-                        let markers = L.markerClusterGroup();
-
-                        let bounds = geojsonLayer.getBounds();
-                     
-                        let lat;
-                        let lng;
-
-                        let x_max = bounds._northEast.lat;
-                        let x_min = bounds._southWest.lat;
-                        let y_max = bounds._northEast.lng;
-                        let y_min = bounds._southWest.lng;
-
-                        for (let j = 0; j < 10; j++) {
-
-                          lat = x_min + Math.random() * (x_max - x_min);
-                          lng = y_min + Math.random() * (y_max - y_min);
-
-                          markers.addLayer(L.marker([lat, lng]));                          
-                         
-                        }
-
-                        map.addLayer(markers);
-                        
-                        map.fitBounds(markers).getBounds();
-        
                       } //11
                     }, //10
                   }); //9
                 }
               });
 
-              // Select country from dropdown and add the border and country holiday information
+              // Select the country from the dropdown and add the border and country holiday information
               $("#selectHolidayInfo").click(function () {
                 if (
                   $("#selectCountry").val() ===
@@ -1345,7 +1412,7 @@ $(document).ready(function () {
                 }
               });
 
-              // Select country from dropdown and add the border and country income information
+              // Select the country from the dropdown and add the border and country income information
               $("#selectIncomeInfo").click(function () {
                 if (
                   $("#selectCountry").val() ===
@@ -1396,7 +1463,7 @@ $(document).ready(function () {
                 }
               });
 
-              // Select country from dropdown and add the border and country flag
+              // Select the country from the dropdown and add the border and country flag
               $("#selectFlag").click(function () {
                 if (
                   $("#selectCountry").val() ===
@@ -1445,7 +1512,7 @@ $(document).ready(function () {
                 }
               });
 
-              // Select country from dropdown and add the border and coronavirus information
+              // Select the country from the dropdown and add the border and coronavirus information
               $("#selectCoronaInfo").click(function () {
                 if (
                   $("#selectCountry").val() ===

@@ -7,49 +7,73 @@
     <meta name="author" content="Shoma Dutt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="icon" type="image/png" href="world.png" />
+    <link rel="icon" type="image/png" href="atlas.png" />
     <link rel="stylesheet" href="libs/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="libs/fontawesome-free-5.15.3-web/css/all.min.css"/>
     <link rel="stylesheet" href="libs/Leaflet/leaflet.css" />
     <link rel="stylesheet" href="libs/easyButton/easy-button.css" />
-    <link rel="stylesheet" href="libs/css/gazetteer.min.css"/>
+    <link rel="stylesheet" href="libs/css/gazetteer.css"/>
+    <link rel="stylesheet" href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css" />
   </head>
 
   <body>
+
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      -->
+     
       <!-- Brand -->
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="index.html">
+        <img id="logo" src="atlas.png" class="image-responsive" height="60px" alt="world" />Gazetteer
+      </a>
 
       <!-- Links -->
       <ul class="navbar-nav">
+
+
+        <div class="btn-sm btn-light" id="user">User</div>
+
+        <div class="btn-group userGroup">
+          <button type="button" class="btn btn-primary btn-sm" id="userAddress">Address</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userWeather">Weather</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userWiki">Nearby wiki links</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userCountryInfo">Country</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userHoliday">Holidays</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userIncome">Income</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userFlag">Flag</button>
+          <button type="button" class="btn btn-primary btn-sm" id="userCoronaInfo">Coronavirus</button>
+        </div>
+
         <!-- Dropdown -->
-        <select id="selName"></select>
 
-        <button id="btnRun">Run</button>
+        <select class="btn-sm btn-light" id="selectCountry"></select>
 
-        <li class="nav-item">
-          <button id="capital">Your Capital city</button>
-        </li>
+        <div class="btn-group selectGroup">
+          <button type="button" class="btn btn-primary btn-sm" id="selectCountryInfo">Stats</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectHolidayInfo">Holidays</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectIncomeInfo">Income</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectFlag">Flag</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectCoronaInfo">Coronavirus</button>
+        </div>
+
       </ul>
     </nav>
-    <br />
 
-    <div class="container-fluid">
-      <div id="map"></div>
-    </div>
-
-    <div id=”preloader”></div>
+    <div class="container-fluid" id="map"></div>
+        
+    <div id="preloader"></div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="libs/bootstrap-5.0.0-beta3-dist/js/bootstrap.min.js"></script>
     <script src="libs/fontawesome-free-5.15.3-web/js/all.min.js"></script>
     <script src="libs/Leaflet/leaflet.js"></script>
     <script src="libs/easyButton/easy-button.js"></script>
+    <script src="libs/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster-src.js"></script>
+    <script src="libs/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
+   
     <script
       type="application/javascript"
       src="libs/js/jquery-2.2.3.min.js"
     ></script>
-    <script src="libs/js/script.min.js"></script>
+    <script src="libs/js/script.js"></script>
   </body>
 </html>
