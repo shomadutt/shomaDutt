@@ -29,26 +29,14 @@
       <!-- Links -->
       <ul class="navbar-nav">
 
-
-        <div class="btn-sm btn-light" id="user">User</div>
-
-        <div class="btn-group userGroup">
-          <button type="button" class="btn btn-primary btn-sm" id="userAddress">Address</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userWeather">Weather</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userWiki">Nearby wiki links</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userCountryInfo">Country</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userHoliday">Holidays</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userIncome">Income</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userFlag">Flag</button>
-          <button type="button" class="btn btn-primary btn-sm" id="userCoronaInfo">Coronavirus</button>
-        </div>
-
         <!-- Dropdown -->
 
         <select class="btn-sm btn-light" id="selectCountry"></select>
 
-        <div class="btn-group selectGroup">
+        <div class="btn-group">
           <button type="button" class="btn btn-primary btn-sm" id="selectCountryInfo">Stats</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectCountryWeather">Weather</button>
+          <button type="button" class="btn btn-primary btn-sm" id="selectCountryWiki">Wiki links</button>
           <button type="button" class="btn btn-primary btn-sm" id="selectHolidayInfo">Holidays</button>
           <button type="button" class="btn btn-primary btn-sm" id="selectIncomeInfo">Income</button>
           <button type="button" class="btn btn-primary btn-sm" id="selectFlag">Flag</button>
@@ -59,7 +47,7 @@
     </nav>
 
     <div class="container-fluid" id="map"></div>
-        
+
     <div id="preloader"></div>
 
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
