@@ -11,9 +11,6 @@ $(window).on("load", function () {
 $(document).ready(function () {
   //1
 
-  // Create the text "Select a country" in the dropdown
-  $("#selectCountry").append("<option>" + " Select a country " + "</option>");
-
   // Create a map with the user's location
   if ("geolocation" in navigator) {
     //2
@@ -47,7 +44,6 @@ $(document).ready(function () {
       }).addTo(map);
 
       // Add an icon for the user location
-
       let globeIcon = L.icon({
         iconUrl: "https://shomadutt.com/project1/libs/Leaflet/images/globe.png",
         shadowUrl:
@@ -65,8 +61,6 @@ $(document).ready(function () {
         .addTo(map);
 
       let geojsonLayer;
-
-      // Create the border for the user's country and different famous landmarks
 
       $.ajax({
         //4
@@ -98,10 +92,23 @@ $(document).ready(function () {
                 //console.log(JSON.stringify(result));
 
                 if (resultCountry.status.name == "ok") {
+                  // Sort the countries alphabetically
+                  resultCountry.data.sort((a, b) => {
+                    if(a.properties.name > b.properties.name) return 1;
+                    else if(a.properties.name < b.properties.name) return -1;
+                    else return 0;
+                  });
                   //9
 
                   for (let i = 0; i < resultCountry.data.length; i++) {
                     // 10
+
+                    // Add the sorted countries to the select dropdown
+                    $("#selectCountry").append(
+                      `<option value="${resultCountry.data[i].properties.iso_a2}">${resultCountry.data[i].properties.name}</option>`
+                    );
+
+                    // Create the border for the user's country and different famous landmarks
                     if (
                       resultCountry.data[i].properties.iso_a2 ===
                       resultCage[
@@ -227,7 +234,6 @@ $(document).ready(function () {
                         .openOn(map);
 
                       // Create the fa-globe easy button
-
                       function addEasyPopup() {
                         let userCountryPopup = L.popup()
                           .setLatLng([userLat, userLng])
@@ -315,14 +321,8 @@ $(document).ready(function () {
                       }
                       addEasyPopup();
 
-                      // Populate the select dropdown with countries
                       for (let i = 0; i < resultCountry.data.length; i++) {
                         //12
-                        $("#selectCountry").append(
-                          `<option value = "${resultCountry.data[i].properties.iso_a2}">` +
-                            resultCountry.data[i].properties.name +
-                            "</option>"
-                        );
 
                         //Select the country from the dropdown and add the border and country stats information
                         $("#selectCountryInfo").click(function () {
@@ -450,7 +450,6 @@ $(document).ready(function () {
                                 lat: coordinates.lat,
                               },
                               success: function (result) {
-
                                 //console.log(JSON.stringify(result));
 
                                 if (result.status.name == "ok") {
@@ -553,7 +552,6 @@ $(document).ready(function () {
                                 lng: coordinates.lng,
                               },
                               success: function (result) {
-
                                 //console.log(JSON.stringify(result));
 
                                 if (result.status.name == "ok") {
@@ -842,9 +840,9 @@ $(document).ready(function () {
                                           .cases_per_million_population
                                     )
                                     .openOn(map);
-                                } 
-                              }, 
-                            }); 
+                                }
+                              },
+                            });
                           }
                         });
                       } // 12

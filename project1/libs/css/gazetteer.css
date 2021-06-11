@@ -58,15 +58,17 @@ body {
   width: 100%;
 }
 
- #selectCountry {
-   margin-left: 230px;
- }
+#select {
+  margin-left: 180px;
+  background-color: #f7a42f;
+  color: white;
+}
 
- .leaflet-popup-content-wrapper {
+.leaflet-popup-content-wrapper {
   opacity: 0.9;
   background-color: rgb(253, 251, 251);
   border: 3px solid rgb(236, 47, 57);
- }
+}
 
 .leaflet-popup-tip  {
   opacity: 0.9;
