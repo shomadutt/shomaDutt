@@ -323,7 +323,7 @@ $(document).ready(function () {
                 let firstLetter = lengthOfWord[0].toUpperCase();
                 let restOfWord = lengthOfWord.substring(
                   1,
-                  lengthOfWord.length - 1
+                  lengthOfWord.length 
                 );
 
                 $("#txtDescription").html(firstLetter + restOfWord);
