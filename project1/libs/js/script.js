@@ -9,851 +9,453 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
-  //1
+  // Populate the select
+  $.ajax({
+    type: "POST",
+    url: "libs/php/names.php",
+    dataType: "json",
 
-  // Create a map with the user's location
-  if ("geolocation" in navigator) {
-    //2
+    success: function (resultName) {
+      //console.log(JSON.stringify(resultName));
 
-    navigator.geolocation.getCurrentPosition(function (position) {
-      //3
+      $("#selectCountry").html("");
 
-      let userLat;
-      let userLng;
-
-      if (
-        position.coords.latitude !== null &&
-        position.coords.longitude !== null
-      ) {
-        userLat = position.coords.latitude;
-        userLng = position.coords.longitude;
-      } else {
-        // Default UK coordinates
-        userLat = 51.509865;
-        userLng = -0.118092;
-      }
-
-      // console.log(userLat);
-      // console.log(userLng);
-
-      let map = L.map("map").setView([userLat, userLng], 13);
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      // Add an icon for the user location
-      let globeIcon = L.icon({
-        iconUrl: "https://shomadutt.com/project1/libs/Leaflet/images/globe.png",
-        shadowUrl:
-          "https://shomadutt.com/project1/libs/Leaflet/images/globeShadow.png",
-
-        iconSize: [60, 95], // size of the icon
-        shadowSize: [50, 64], // size of the shadow
-        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62], // the same for the shadow
-        popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+      $.each(resultName.data, function (index) {
+        $("#selectCountry").append(
+          $("<option>", {
+            value: resultName.data[index].code,
+            text: resultName.data[index].name,
+          })
+        );
       });
+    },
+  });
 
-      let userMarker = L.marker([userLat, userLng], { icon: globeIcon })
-        .bindPopup("Your location")
-        .addTo(map);
+  let map = L.map("map");
 
-      let geojsonLayer;
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      userLat = position.coords.latitude;
+      userLng = position.coords.longitude;
 
       $.ajax({
-        //4
-        url: "libs/php/getOpenCage.php",
+        url: "libs/php/openCage.php",
         type: "POST",
         dataType: "json",
         data: {
           q: String(userLat) + "," + String(userLng),
         },
-        success: function (resultCage) {
-          //5
 
-          //console.log(JSON.stringify(result));
+        success: function (resultCage) {
+          //console.log(JSON.stringify(resultCage));
 
           if (resultCage.status.name == "ok") {
-            //6
-
-            $.ajax({
-              //7
-
-              url: "libs/php/getCountryBorders.php",
-              type: "POST",
-              dataType: "json",
-              data: "{}",
-
-              success: function (resultCountry) {
-                //8
-
-                //console.log(JSON.stringify(result));
-
-                if (resultCountry.status.name == "ok") {
-                  // Sort the countries alphabetically
-                  resultCountry.data.sort((a, b) => {
-                    if(a.properties.name > b.properties.name) return 1;
-                    else if(a.properties.name < b.properties.name) return -1;
-                    else return 0;
-                  });
-                  //9
-
-                  for (let i = 0; i < resultCountry.data.length; i++) {
-                    // 10
-
-                    // Add the sorted countries to the select dropdown
-                    $("#selectCountry").append(
-                      `<option value="${resultCountry.data[i].properties.iso_a2}">${resultCountry.data[i].properties.name}</option>`
-                    );
-
-                    // Create the border for the user's country and different famous landmarks
-                    if (
-                      resultCountry.data[i].properties.iso_a2 ===
-                      resultCage[
-                        "data"
-                      ].results[0].components.country_code.toUpperCase()
-                    ) {
-                      //11
-                      geojsonLayer = L.geoJson(resultCountry.data[i].geometry);
-
-                      geojsonLayer.addTo(map);
-
-                      let markers = L.markerClusterGroup();
-
-                      markers.addLayer(
-                        L.marker([51.510357, -0.116773], {
-                          icon: globeIcon,
-                        }).bindPopup("Big Ben")
-                      );
-                      markers.addLayer(
-                        L.marker([51.503399, -0.119519], {
-                          icon: globeIcon,
-                        }).bindPopup("London Eye")
-                      );
-                      markers.addLayer(
-                        L.marker([51.502777, -0.15125], {
-                          icon: globeIcon,
-                        }).bindPopup("Hyde Park Corner")
-                      );
-                      markers.addLayer(
-                        L.marker([51.501476, -0.140634], {
-                          icon: globeIcon,
-                        }).bindPopup("Buckingham Palace")
-                      );
-                      markers.addLayer(
-                        L.marker([51.4967, -0.1764], {
-                          icon: globeIcon,
-                        }).bindPopup("Natural History Museum")
-                      );
-                      markers.addLayer(
-                        L.marker([51.49829, -0.13153], {
-                          icon: globeIcon,
-                        }).bindPopup("Westminster Abbey")
-                      );
-                      markers.addLayer(
-                        L.marker([51.51218, -0.09199], {
-                          icon: globeIcon,
-                        }).bindPopup("Tower Of London")
-                      );
-                      markers.addLayer(
-                        L.marker([51.496639, -0.17218], {
-                          icon: globeIcon,
-                        }).bindPopup("Victoria And Albert Museum")
-                      );
-                      markers.addLayer(
-                        L.marker([51.508972, -0.128794], {
-                          icon: globeIcon,
-                        }).bindPopup("National Gallery")
-                      );
-                      markers.addLayer(
-                        L.marker([51.518757, -0.126168], {
-                          icon: globeIcon,
-                        }).bindPopup("British Museum")
-                      );
-
-                      map.addLayer(markers);
-
-                      let userAddressPopup = L.popup()
-                        .setLatLng([userLat, userLng])
-                        .setContent(
-                          "House number:" +
-                            " " +
-                            resultCage["data"].results[0].components
-                              .house_number +
-                            "<br>" +
-                            "Post code:" +
-                            " " +
-                            resultCage["data"].results[0].components.postcode +
-                            "<br>" +
-                            "Road:" +
-                            " " +
-                            resultCage["data"].results[0].components.road +
-                            "<br>" +
-                            "State:" +
-                            " " +
-                            resultCage["data"].results[0].components.state +
-                            "<br>" +
-                            "State code:" +
-                            " " +
-                            resultCage["data"].results[0].components
-                              .state_code +
-                            "<br>" +
-                            "State district:" +
-                            " " +
-                            resultCage["data"].results[0].components
-                              .state_district +
-                            "<br>" +
-                            "Suburb:" +
-                            " " +
-                            resultCage["data"].results[0].components.suburb +
-                            "<br>" +
-                            "Capital:" +
-                            " " +
-                            resultCage["data"].results[0].components.city +
-                            "<br>" +
-                            "City district:" +
-                            " " +
-                            resultCage["data"].results[0].components
-                              .city_district +
-                            "<br>" +
-                            "Continent:" +
-                            " " +
-                            resultCage["data"].results[0].components.continent +
-                            "<br>" +
-                            "Country:" +
-                            " " +
-                            resultCage["data"].results[0].components.country +
-                            "<br>" +
-                            "Country code:" +
-                            " " +
-                            resultCage["data"].results[0].components
-                              .country_code
-                        )
-                        .openOn(map);
-
-                      // Create the fa-globe easy button
-                      function addEasyPopup() {
-                        let userCountryPopup = L.popup()
-                          .setLatLng([userLat, userLng])
-                          .setContent(
-                            "House number:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .house_number +
-                              "<br>" +
-                              "Post code:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .postcode +
-                              "<br>" +
-                              "Road:" +
-                              " " +
-                              resultCage["data"].results[0].components.road +
-                              "<br>" +
-                              "State:" +
-                              " " +
-                              resultCage["data"].results[0].components.state +
-                              "<br>" +
-                              "State code:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .state_code +
-                              "<br>" +
-                              "State district:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .state_district +
-                              "<br>" +
-                              "Suburb:" +
-                              " " +
-                              resultCage["data"].results[0].components.suburb +
-                              "<br>" +
-                              "Capital:" +
-                              " " +
-                              resultCage["data"].results[0].components.city +
-                              "<br>" +
-                              "City district:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .city_district +
-                              "<br>" +
-                              "Continent:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .continent +
-                              "<br>" +
-                              "Country:" +
-                              " " +
-                              resultCage["data"].results[0].components.country +
-                              "<br>" +
-                              "Country code:" +
-                              " " +
-                              resultCage["data"].results[0].components
-                                .country_code
-                          );
-
-                        let selectButton;
-
-                        L.easyButton("fa-globe", function (btn, map) {
-                          map.removeLayer(geojsonLayer);
-
-                          geojsonLayer = L.geoJson(
-                            resultCountry.data[i].geometry
-                          );
-
-                          geojsonLayer.addTo(map);
-
-                          map.fitBounds(geojsonLayer.getBounds());
-
-                          // Ensure the user's location marker is on the map
-                          if (map.removeLayer(userMarker)) {
-                            map.addLayer(userMarker);
-                          }
-
-                          selectButton = btn;
-                          selectButton.button.style.backgroundColor = "#007bff";
-                          userCountryPopup
-                            .setLatLng([userLat, userLng])
-                            .openOn(map);
-                        }).addTo(map);
-                      }
-                      addEasyPopup();
-
-                      for (let i = 0; i < resultCountry.data.length; i++) {
-                        //12
-
-                        //Select the country from the dropdown and add the border and country stats information
-                        $("#selectCountryInfo").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            $.ajax({
-                              //15
-                              url: "libs/php/getCountryInfo.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                countryCode: $("#selectCountry").val(),
-                              },
-
-                              success: function (result) {
-                                //10
-
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  //11
-
-                                  let coordinates = geojsonLayer
-                                    .getBounds()
-                                    .getCenter();
-
-                                  let selectCountryPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(
-                                      "Capital:" +
-                                        " " +
-                                        result["data"][0].capital +
-                                        "<br>" +
-                                        "Continent:" +
-                                        " " +
-                                        result["data"][0].continent +
-                                        "<br>" +
-                                        "Continent name:" +
-                                        " " +
-                                        result["data"][0].continentName +
-                                        "<br>" +
-                                        "Country name:" +
-                                        " " +
-                                        result["data"][0].countryName +
-                                        "<br>" +
-                                        "Currency code:" +
-                                        " " +
-                                        result["data"][0].currencyCode +
-                                        "<br>" +
-                                        "Languages:" +
-                                        " " +
-                                        result["data"][0].languages +
-                                        "<br>" +
-                                        "North:" +
-                                        " " +
-                                        result["data"][0].north +
-                                        "<br>" +
-                                        "East:" +
-                                        " " +
-                                        result["data"][0].east +
-                                        "<br>" +
-                                        "South:" +
-                                        " " +
-                                        result["data"][0].south +
-                                        "<br>" +
-                                        "West:" +
-                                        " " +
-                                        result["data"][0].west +
-                                        "<br>" +
-                                        "Population:" +
-                                        " " +
-                                        result["data"][0].population
-                                    )
-                                    .openOn(map);
-                                }
-                              },
-                            });
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and country weather
-                        $("#selectCountryWeather").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            let coordinates = geojsonLayer
-                              .getBounds()
-                              .getCenter();
-
-                            console.log(coordinates);
-
-                            $.ajax({
-                              url: "libs/php/getOpenWeather.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                lon: coordinates.lng,
-                                lat: coordinates.lat,
-                              },
-                              success: function (result) {
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  let userWeatherPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(
-                                      "Weather description:" +
-                                        " " +
-                                        result["data"].weather[0].description +
-                                        "<br>" +
-                                        "Temperature:" +
-                                        " " +
-                                        result["data"].main.temp +
-                                        "<br>" +
-                                        "Feels like:" +
-                                        " " +
-                                        result["data"].main.feels_like +
-                                        "<br>" +
-                                        "Minimum temperature:" +
-                                        " " +
-                                        result["data"].main.temp_min +
-                                        "<br>" +
-                                        "Maximum temperature:" +
-                                        " " +
-                                        result["data"].main.temp_max +
-                                        "<br>" +
-                                        "Pressure:" +
-                                        " " +
-                                        result["data"].main.pressure +
-                                        "<br>" +
-                                        "Humidity:" +
-                                        " " +
-                                        result["data"].main.humidity +
-                                        "<br>" +
-                                        "Visibility:" +
-                                        " " +
-                                        result["data"].visibility +
-                                        "<br>" +
-                                        "Wind speed:" +
-                                        " " +
-                                        result["data"].wind.speed +
-                                        "<br>" +
-                                        "Wind temperature:" +
-                                        " " +
-                                        result["data"].wind.deg +
-                                        "<br>" +
-                                        "Clouds:" +
-                                        " " +
-                                        result["data"].clouds.all +
-                                        "<br>" +
-                                        "Sunrise:" +
-                                        " " +
-                                        result["data"].sys.sunrise +
-                                        "<br>" +
-                                        "Sunset:" +
-                                        " " +
-                                        result["data"].sys.sunset +
-                                        "<br>" +
-                                        "Timezone:" +
-                                        " " +
-                                        result["data"].timezone
-                                    )
-                                    .openOn(map);
-                                }
-                              },
-                            });
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and country wiki links
-                        $("#selectCountryWiki").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            let coordinates = geojsonLayer
-                              .getBounds()
-                              .getCenter();
-
-                            console.log(coordinates);
-
-                            $.ajax({
-                              url: "libs/php/getGeonamesWiki.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                lat: coordinates.lat,
-                                lng: coordinates.lng,
-                              },
-                              success: function (result) {
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  let userWikiPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(
-                                      "Wikipedia summary:" +
-                                        " " +
-                                        result["data"][0].summary +
-                                        "<br>" +
-                                        "Wikipedia URL:" +
-                                        " " +
-                                        result["data"][0].wikipediaUrl +
-                                        "<br>" +
-                                        "Distance:" +
-                                        " " +
-                                        result["data"][0].distance
-                                    )
-                                    .openOn(map);
-                                }
-                              },
-                            });
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and country holiday information
-                        $("#selectHolidayInfo").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            $.ajax({
-                              //9
-                              url: "libs/php/getHolidayInfo.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                countryCode: $("#selectCountry").val(),
-                              },
-
-                              success: function (result) {
-                                //10
-
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  //11
-
-                                  function getInfoFrom() {
-                                    let holidayPopup = [];
-
-                                    for (
-                                      let j = 0;
-                                      j < result["data"].length;
-                                      j++
-                                    ) {
-                                      let stringLine =
-                                        result["data"][j].date +
-                                        " " +
-                                        result["data"][j].localName;
-
-                                      holidayPopup.push(stringLine);
-                                    }
-                                    return holidayPopup;
-                                  }
-
-                                  let holidayData = getInfoFrom().join(" <br>");
-
-                                  let coordinates = geojsonLayer
-                                    .getBounds()
-                                    .getCenter();
-
-                                  let selectHolidayPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(holidayData)
-                                    .openOn(map);
-                                } //11
-                              }, //10
-                            }); //9
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and country income information
-                        $("#selectIncomeInfo").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            $.ajax({
-                              //9
-                              url: "libs/php/getIncomeInfo.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                countryCode: $("#selectCountry").val(),
-                              },
-
-                              success: function (result) {
-                                //10
-
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  //11
-
-                                  let coordinates = geojsonLayer
-                                    .getBounds()
-                                    .getCenter();
-
-                                  let selectIncomePopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(
-                                      "Income level:" +
-                                        " " +
-                                        result["data"][1][0].incomeLevel.value
-                                    )
-                                    .openOn(map);
-                                } //11
-                              }, //10
-                            }); //9
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and the country flag
-                        $("#selectFlag").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            $.ajax({
-                              //9
-                              url: "libs/php/getCountryFlag.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                countryCode: $("#selectCountry").val(),
-                              },
-
-                              success: function (result) {
-                                //10
-
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  //11
-
-                                  let coordinates = geojsonLayer
-                                    .getBounds()
-                                    .getCenter();
-
-                                  let flag = `<img class="flag" src=${result["data"].flag} />`;
-
-                                  let selectFlagPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(flag)
-                                    .openOn(map);
-                                } //11
-                              }, //10
-                            }); //9
-                          }
-                        });
-
-                        // Select the country from the dropdown and add the border and coronavirus information
-                        $("#selectCoronaInfo").click(function () {
-                          if (
-                            $("#selectCountry").val() ===
-                            resultCountry.data[i].properties.iso_a2
-                          ) {
-                            map.removeLayer(geojsonLayer);
-
-                            map.removeLayer(userMarker);
-
-                            geojsonLayer = L.geoJson(
-                              resultCountry.data[i].geometry
-                            );
-
-                            geojsonLayer.addTo(map);
-
-                            map.fitBounds(geojsonLayer.getBounds());
-
-                            $.ajax({
-                              //9
-                              url: "libs/php/getCoronaInfo.php",
-                              type: "POST",
-                              dataType: "json",
-                              data: {
-                                countryCode: $("#selectCountry").val(),
-                              },
-
-                              success: function (result) {
-                                //10
-
-                                //console.log(JSON.stringify(result));
-
-                                if (result.status.name == "ok") {
-                                  //11
-
-                                  let coordinates = geojsonLayer
-                                    .getBounds()
-                                    .getCenter();
-
-                                  let selectCoronaPopup = L.popup()
-                                    .setLatLng(coordinates)
-                                    .setContent(
-                                      "Updated at:" +
-                                        " " +
-                                        result["data"].data.updated_at +
-                                        "<br>" +
-                                        "Deaths today:" +
-                                        " " +
-                                        result["data"].data.today.deaths +
-                                        "<br>" +
-                                        "Confirmed today:" +
-                                        " " +
-                                        result["data"].data.today.confirmed +
-                                        "<br>" +
-                                        "Deaths:" +
-                                        " " +
-                                        result["data"].data.latest_data.deaths +
-                                        "<br>" +
-                                        "Confirmed deaths:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .confirmed +
-                                        "<br>" +
-                                        "Recovered:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .recovered +
-                                        "<br>" +
-                                        "Critical:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .critical +
-                                        "<br>" +
-                                        "Calculated death rate:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .calculated.death_rate +
-                                        "<br>" +
-                                        "Calculated recovery rate:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .calculated.death_rate +
-                                        "<br>" +
-                                        "Calculated cases per million population:" +
-                                        " " +
-                                        result["data"].data.latest_data
-                                          .calculated
-                                          .cases_per_million_population
-                                    )
-                                    .openOn(map);
-                                }
-                              },
-                            });
-                          }
-                        });
-                      } // 12
-                    } // 11
-                  } //10
-                } //9
-              }, //8
-            }); //7
-          } //6
-        }, //5
-      }); //4
-    }); //3
-  } //2
-}); //1
+            $("#selectCountry")
+              .val(
+                resultCage.data.results[0].components.country_code.toUpperCase()
+              )
+              .trigger("change");
+          }
+        },
+      });
+    });
+  }
+
+  $("#selectCountry").change(function () {
+    $.ajax({
+      type: "POST",
+      url: "libs/php/borders.php",
+      dataType: "json",
+
+      success: function (resultBorder) {
+        //console.log(JSON.stringify(resultBorder));
+
+        $.each(resultBorder.data, function (index) {
+          if ($("#selectCountry").val() === resultBorder.data[index].code) {
+            let countryStyle = {
+              color: "#ff9966",
+              weight: 3,
+              opacity: 0.9,
+              fillOpacity: 0.5,
+            };
+
+            let geojsonLayer = L.geoJSON(resultBorder.data[index].border, {
+              style: countryStyle,
+            }).addTo(map);
+
+            map.fitBounds(geojsonLayer.getBounds());
+          }
+        });
+      },
+    });
+
+    // Country information modal
+    $.ajax({
+      url: "libs/php/countryInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        //console.log(JSON.stringify(result));
+
+        if (result.status.name == "ok") {
+          $("#countryDataHeading").empty();
+          $("#countryDataHeading").append(
+            $("#selectCountry option:selected").text() + " " + "Data"
+          );
+
+          $("#txtCapital").html(result.data[0].capital);
+          $("#txtContinent").html(result.data[0].continent);
+          $("#txtContinentName").html(result.data[0].continentName);
+          $("#txtCountryName").html(result.data[0].countryName);
+          $("#txtCurrencyCode").html(result.data[0].currencyCode);
+          $("#txtLanguages").html(result.data[0].languages);
+          $("#txtNorth").html(result.data[0].north);
+          $("#txtEast").html(result.data[0].east);
+          $("#txtSouth").html(result.data[0].south);
+          $("#txtWest").html(result.data[0].west);
+          $("#txtPopulation").html(result.data[0].population);
+        }
+      },
+    });
+
+    // Country income information modal
+    $.ajax({
+      url: "libs/php/incomeInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        //console.log(JSON.stringify(result));
+
+        if (result.status.name == "ok") {
+          $("#countryIncomeHeading").empty();
+          $("#countryIncomeHeading").append(
+            $("#selectCountry option:selected").text() + " " + "Income"
+          );
+
+          let income = result.data[1][0].incomeLevel.value;
+          $("#txtIncome").html(income);
+        }
+      },
+    });
+
+    // Country flag modal
+    $.ajax({
+      url: "libs/php/countryFlag.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        //console.log(JSON.stringify(result));
+
+        if (result.status.name == "ok") {
+          $("#countryFlagHeading").empty();
+          $("#countryFlagHeading").append(
+            $("#selectCountry option:selected").text() + " " + "Flag"
+          );
+
+          $("#txtFlag").html(`<img class="flag" src=${result["data"].flag} />`);
+        }
+      },
+    });
+
+    // Country currency exchange rate information modal
+    $.ajax({
+      url: "libs/php/countryInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (resultCountry) {
+        //console.log(JSON.stringify(result));
+
+        if (resultCountry.status.name == "ok") {
+          $.ajax({
+            url: "libs/php/rateInfo.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+              currencyCode: resultCountry.data[0].currencyCode,
+            },
+
+            success: function (resultRate) {
+              //console.log(JSON.stringify(resultRate));
+
+              if (resultRate.status.name == "ok") {
+                $("#countryRateHeading").empty();
+                $("#countryRateHeading").append(
+                  $("#selectCountry option:selected").text() +
+                    " " +
+                    "Exchange Rates"
+                );
+
+                $("#txtUSD").html(resultRate.data.conversion_rates.USD);
+                $("#txtEUR").html(resultRate.data.conversion_rates.EUR);
+                $("#txtYEN").html(resultRate.data.conversion_rates.JPY);
+                $("#txtGBP").html(resultRate.data.conversion_rates.GBP);
+                $("#txtAUD").html(resultRate.data.conversion_rates.AUD);
+                $("#txtCAD").html(resultRate.data.conversion_rates.CAD);
+                $("#txtCHF").html(resultRate.data.conversion_rates.CHF);
+                $("#txtCNY").html(resultRate.data.conversion_rates.CNY);
+                $("#txtSEK").html(resultRate.data.conversion_rates.SEK);
+                $("#txtNZD").html(resultRate.data.conversion_rates.NZD);
+              }
+            },
+          });
+        }
+      },
+    });
+
+    // Country holiday information modal
+    $.ajax({
+      url: "libs/php/holidayInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        //console.log(JSON.stringify(result));
+
+        if (result.status.name == "ok") {
+          $("#countryHolidayHeading").empty();
+          $("#countryHolidayHeading").append(
+            "First 10 Holidays of" +
+              " " +
+              $("#selectCountry option:selected").text()
+          );
+
+          $("#date0").html(
+            result.data.response.holidays[0].date.iso.slice(0, 10)
+          );
+          $("#name0").html(result.data.response.holidays[0].name);
+          $("#date1").html(
+            result.data.response.holidays[1].date.iso.slice(0, 10)
+          );
+          $("#name1").html(result.data.response.holidays[1].name);
+          $("#date2").html(
+            result.data.response.holidays[2].date.iso.slice(0, 10)
+          );
+          $("#name2").html(result.data.response.holidays[2].name);
+          $("#date3").html(
+            result.data.response.holidays[3].date.iso.slice(0, 10)
+          );
+          $("#name3").html(result.data.response.holidays[3].name);
+          $("#date4").html(
+            result.data.response.holidays[4].date.iso.slice(0, 10)
+          );
+          $("#name4").html(result.data.response.holidays[4].name);
+          $("#date5").html(
+            result.data.response.holidays[5].date.iso.slice(0, 10)
+          );
+          $("#name5").html(result.data.response.holidays[5].name);
+          $("#date6").html(
+            result.data.response.holidays[6].date.iso.slice(0, 10)
+          );
+          $("#name6").html(result.data.response.holidays[6].name);
+          $("#date7").html(
+            result.data.response.holidays[7].date.iso.slice(0, 10)
+          );
+          $("#name7").html(result.data.response.holidays[7].name);
+          $("#date8").html(
+            result.data.response.holidays[8].date.iso.slice(0, 10)
+          );
+          $("#name8").html(result.data.response.holidays[8].name);
+          $("#date9").html(
+            result.data.response.holidays[9].date.iso.slice(0, 10)
+          );
+          $("#name9").html(result.data.response.holidays[9].name);
+        }
+      },
+    });
+
+    // Country city weather information modal
+    $.ajax({
+      url: "libs/php/countryInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (resultCountry) {
+        //console.log(JSON.stringify(result));
+
+        if (resultCountry.status.name == "ok") {
+          $.ajax({
+            url: "libs/php/weatherInfo.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+              q: resultCountry.data[0].capital,
+            },
+
+            success: function (resultWeather) {
+              //console.log(JSON.stringify(resultWeather));
+
+              if (resultWeather.status.name == "ok") {
+                $("#countryWeatherHeading").empty();
+                $("#countryWeatherHeading").append(
+                  $("#selectCountry option:selected").text() +
+                    " " +
+                    "Capital Weather"
+                );
+
+                let lengthOfWord = resultWeather.data.weather[0].description;
+                let firstLetter = lengthOfWord[0].toUpperCase();
+                let restOfWord = lengthOfWord.substring(
+                  1,
+                  lengthOfWord.length - 1
+                );
+
+                $("#txtDescription").html(firstLetter + restOfWord);
+
+                $("#txtFeelsLike").html(resultWeather.data.main.feels_like);
+                $("#txtHumidity").html(resultWeather.data.main.humidity);
+                $("#txtPressure").html(resultWeather.data.main.pressure);
+                $("#txtTemp").html(resultWeather.data.main.temp);
+                $("#txtTempMax").html(resultWeather.data.main.temp_max);
+                $("#txtTempMin").html(resultWeather.data.main.temp_min);
+                $("#txtWindDeg").html(resultWeather.data.wind.deg);
+                $("#txtWindSpeed").html(resultWeather.data.wind.speed);
+              }
+            },
+          });
+        }
+      },
+    });
+
+    // Country coronavirus information modal
+    $.ajax({
+      url: "libs/php/coronaInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        //console.log(JSON.stringify(result));
+
+        if (result.status.name == "ok") {
+          $("#countryCoronaHeading").empty();
+          $("#countryCoronaHeading").append(
+            $("#selectCountry option:selected").text() +
+              " " +
+              "Coronavirus Data"
+          );
+
+          $("#txtUpdatedOn").html(result.data.data.updated_at.slice(0, 10));
+          $("#txtDeathsToday").html(result.data.data.today.deaths);
+          $("#txtConfirmedToday").html(result.data.data.today.confirmed);
+          $("#txtDeaths").html(result.data.data.latest_data.deaths);
+          $("#txtConfirmedDeaths").html(result.data.data.latest_data.confirmed);
+          $("#txtRecovered").html(result.data.data.latest_data.recovered);
+          $("#txtCritical").html(result.data.data.latest_data.critical);
+          $("#txtDeathRate").html(
+            result.data.data.latest_data.calculated.death_rate
+              .toString()
+              .slice(0, 4)
+          );
+          $("#txtRecovRate").html(
+            result.data.data.latest_data.calculated.recovery_rate
+              .toString()
+              .slice(0, 5)
+          );
+          $("#txtPerMil").html(
+            result["data"].data.latest_data.calculated
+              .cases_per_million_population
+          );
+        }
+      },
+    });
+
+    // Country cities cluster markers
+    $.ajax({
+      url: "libs/php/cityInfo.php",
+      type: "POST",
+      dataType: "json",
+      data: {
+        countryCode: $("#selectCountry").val(),
+      },
+
+      success: function (result) {
+        let cityMarker = L.ExtraMarkers.icon({
+          icon: "fa-map-marker",
+          iconColor: "#00b386",
+          markerColor: "#00b386",
+          svg: true,
+          shape: "circle",
+          prefix: "fa",
+        });
+
+        $.each(result.cities, function (index) {
+          let markers = L.markerClusterGroup();
+          markers.addLayer(
+            L.marker(
+              new L.LatLng(
+                result.cities[index].latitude,
+                result.cities[index].longitude
+              ),
+              { icon: cityMarker }
+            )
+          );
+          map.addLayer(markers);
+        });
+      },
+    });
+  });
+
+  // Country stats easy button
+  L.easyButton("fa-landmark", function (btn, map) {
+    $("#countryInfoModal").modal("show");
+  }).addTo(map);
+
+  // Country income easy button
+  L.easyButton("fa-coins", function (btn, map) {
+    $("#countryIncomeModal").modal("show");
+  }).addTo(map);
+
+  // Country flag easy button
+  L.easyButton("fa-flag", function (btn, map) {
+    $("#countryFlagModal").modal("show");
+  }).addTo(map);
+
+  // Country exchange rate easy button
+  L.easyButton("fa-dice-d20", function (btn, map) {
+    $("#countryRateModal").modal("show");
+  }).addTo(map);
+
+  // Country holiday easy button
+  L.easyButton("fa-candy-cane", function (btn, map) {
+    $("#countryHolidayModal").modal("show");
+  }).addTo(map);
+
+  // Country city weather easy button
+  L.easyButton("fa-cloud-moon-rain", function (btn, map) {
+    $("#countryWeatherModal").modal("show");
+  }).addTo(map);
+
+  // Country coronavirus easy button
+  L.easyButton("fa-head-side-mask", function (btn, map) {
+    $("#countryCoronaModal").modal("show");
+  }).addTo(map);
+});

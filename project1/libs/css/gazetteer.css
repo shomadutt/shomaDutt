@@ -5,6 +5,8 @@ body {
 
 #map { 
   height: 100vh; 
+  width: 100vw;
+  position: relative;
 }
 
 #preloader {
@@ -54,33 +56,14 @@ body {
   }
 }
 
-#map {
-  width: 100%;
-}
-
-#select {
-  margin-left: 180px;
-  background-color: #f7a42f;
-  color: white;
-}
-
-.leaflet-popup-content-wrapper {
-  opacity: 0.9;
-  background-color: rgb(253, 251, 251);
-  border: 3px solid rgb(236, 47, 57);
-}
-
-.leaflet-popup-tip  {
-  opacity: 0.9;
-  background-color: rgb(236, 47, 57);
-}
-
-.leaflet-popup-content {
-  font-weight: bold;
-  color: #191900;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  padding: 4px;
+#selectCountry {
+  position: absolute;
+  top: 7%;
+  left: 90%;
+  z-index: 500;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 15%;
 }
 
 .flag {
@@ -88,33 +71,68 @@ body {
   width: 160px;
 }
 
-.loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  overflow: hidden;
-  background: #fff;
+.leaflet-bar button { 
+  height: 50px !important; 
+  width: 50px !important; 
+  padding: 8px; 
+  background-color: white;
+  border-color: transparent;
+  font-size: xx-large;
 }
 
-.loading {
-  border: 2px solid #ccc;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border-top-color: #1ecd97;
-  border-left-color: #1ecd97;
-  animation: spin 1s infinite ease-in;
+.leaflet-bar button:hover {
+  background-color: white;
+  border-color: transparent;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
+table td {
+  font-size: medium;
+  color: #737373;
+}
 
-  100% {
-    transform: rotate(360deg);
+.modal-content {
+  background-color: #ebfaeb;
+  font-family: Tahoma, Verdana, sans-serif;
+  border-radius: 10px !important;
+}
+
+.modal-header {
+  background-color: #0099ff;
+  color: #fff;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+@media screen and (min-width: 676px) {
+  .modal-dialog {
+    max-width: 400px; /* New width for default modal */
   }
+}
+
+.fa-landmark {
+  color: blue;
+}
+
+.fa-coins {
+  color: red;
+}
+
+.fa-flag {
+  color: green;
+}
+
+.fa-dice-d20 {
+  color: purple;
+}
+
+.fa-candy-cane {
+  color: #009999
+}
+
+.fa-cloud-moon-rain {
+  color: rgb(240, 88, 164);
+}
+
+.fa-head-side-mask {
+  color: orange;
 }

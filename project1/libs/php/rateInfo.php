@@ -7,7 +7,9 @@
 
 	$executionStartTime = microtime(true);
 
-   $url='https://date.nager.at/api/v2/publicholidays/2021/' . $_REQUEST['countryCode'];
+    $api = 'c9139ae015d715f9348bc526';
+
+    $url='https://v6.exchangerate-api.com/v6/' . $api . '/latest/' . $_REQUEST['currencyCode'];
 
 	$ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

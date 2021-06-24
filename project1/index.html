@@ -7,48 +7,429 @@
     <meta name="author" content="Shoma Dutt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="icon" type="image/png" href="atlas.png" />
-    <link rel="stylesheet" href="libs/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="libs/fontawesome-free-5.15.3-web/css/all.min.css"/>
+    <link
+      rel="stylesheet"
+      href="libs/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="libs/fontawesome-free-5.15.3-web/css/all.min.css"
+    />
     <link rel="stylesheet" href="libs/Leaflet/leaflet.css" />
     <link rel="stylesheet" href="libs/easyButton/easy-button.css" />
-    <link rel="stylesheet" href="libs/css/gazetteer.min.css"/>
-    <link rel="stylesheet" href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="libs/css/gazetteer.min.css" />
+    <link
+      rel="stylesheet"
+      href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="libs/Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css"
+    />
+    <link
+      rel="stylesheet"
+      href="libs/Leaflet.ExtraMarkers/css/leaflet.extra-markers.min.css"
+    />
   </head>
 
   <body>
+    <div class="container-fluid" id="map">
+      <select
+        id="selectCountry"
+        class="form-select form-select-sm"
+        aria-label=".form-select-sm example"
+      ></select>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-     
-      <!-- Brand -->
-      <a class="navbar-brand" href="index.html">
-        <img id="logo" src="atlas.png" class="image-responsive" height="60px" alt="world" />Gazetteer
-      </a>
+      <!-- Country information modal -->
+      <div
+        class="modal fade"
+        id="countryInfoModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="countryDataHeading"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
 
-      <!-- Links -->
-      <ul class="navbar-nav">
-
-        <!-- Dropdown -->
-    
-        <div class="btn-sm btn-light" id="select">Select a country</div>
-
-        <select class="btn-sm btn-light" id="selectCountry"></select>
-
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary btn-sm" id="selectCountryInfo">Stats</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectCountryWeather">Weather</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectCountryWiki">Wiki links</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectHolidayInfo">Holidays</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectIncomeInfo">Income</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectFlag">Flag</button>
-          <button type="button" class="btn btn-primary btn-sm" id="selectCoronaInfo">Coronavirus</button>
+            <table class="table table-striped">
+              <tr>
+                <td>Capital</td>
+                <td id="txtCapital"></td>
+              </tr>
+              <tr>
+                <td>Continent</td>
+                <td id="txtContinent"></td>
+              </tr>
+              <tr>
+                <td>Continent name</td>
+                <td id="txtContinentName"></td>
+              </tr>
+              <tr>
+                <td>Country name</td>
+                <td id="txtCountryName"></td>
+              </tr>
+              <tr>
+                <td>Currency code</td>
+                <td id="txtCurrencyCode"></td>
+              </tr>
+              <tr>
+                <td>Languages</td>
+                <td id="txtLanguages"></td>
+              </tr>
+              <tr>
+                <td>North</td>
+                <td id="txtNorth"></td>
+              </tr>
+              <tr>
+                <td>East</td>
+                <td id="txtEast"></td>
+              </tr>
+              <tr>
+                <td>South</td>
+                <td id="txtSouth"></td>
+              </tr>
+              <tr>
+                <td>West</td>
+                <td id="txtWest"></td>
+              </tr>
+              <tr>
+                <td>Population</td>
+                <td id="txtPopulation"></td>
+              </tr>
+            </table>
+          </div>
         </div>
+      </div>
+    </div>
 
-      </ul>
-    </nav>
+    <!-- Country income modal -->
+    <div
+      class="modal fade"
+      id="countryIncomeModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryIncomeHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
-    <div class="container-fluid" id="map"></div>
+          <table class="table">
+            <tr>
+              <td>Level</td>
+              <td id="txtIncome"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country flag modal -->
+    <div
+      class="modal fade"
+      id="countryFlagModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryFlagHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table">
+            <tr>
+              <td></td>
+              <td id="txtFlag"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country exchange rate modal -->
+    <div
+      class="modal fade"
+      id="countryRateModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryRateHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped">
+            <tr>
+              <td>US Dollar</td>
+              <td id="txtUSD"></td>
+            </tr>
+            <tr>
+              <td>Euro</td>
+              <td id="txtEUR"></td>
+            </tr>
+            <tr>
+              <td>Japanese Yen</td>
+              <td id="txtYEN"></td>
+            </tr>
+            <tr>
+              <td>Pound Sterling</td>
+              <td id="txtGBP"></td>
+            </tr>
+            <tr>
+              <td>Australian Dollar</td>
+              <td id="txtAUD"></td>
+            </tr>
+            <tr>
+              <td>Canadian Dollar</td>
+              <td id="txtCAD"></td>
+            </tr>
+            <tr>
+              <td>Swiss Franc</td>
+              <td id="txtCHF"></td>
+            </tr>
+            <tr>
+              <td>Chinese Renminbi</td>
+              <td id="txtCNY"></td>
+            </tr>
+            <tr>
+              <td>Swedish Krona</td>
+              <td id="txtSEK"></td>
+            </tr>
+            <tr>
+              <td>New Zealand Dollar</td>
+              <td id="txtNZD"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country holiday rate modal -->
+    <div
+      class="modal fade"
+      id="countryHolidayModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryHolidayHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped">
+            <tr>
+              <td id="date0"></td>
+              <td id="name0"></td>
+            </tr>
+            <tr>
+              <td id="date1"></td>
+              <td id="name1"></td>
+            </tr>
+            <tr>
+              <td id="date2"></td>
+              <td id="name2"></td>
+            </tr>
+            <tr>
+              <td id="date3"></td>
+              <td id="name3"></td>
+            </tr>
+            <tr>
+              <td id="date4"></td>
+              <td id="name4"></td>
+            </tr>
+            <tr>
+              <td id="date5"></td>
+              <td id="name5"></td>
+            </tr>
+            <tr>
+              <td id="date6"></td>
+              <td id="name6"></td>
+            </tr>
+            <tr>
+              <td id="date7"></td>
+              <td id="name7"></td>
+            </tr>
+            <tr>
+              <td id="date8"></td>
+              <td id="name8"></td>
+            </tr>
+            <tr>
+              <td id="date9"></td>
+              <td id="name9"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country city weather modal -->
+    <div
+      class="modal fade"
+      id="countryWeatherModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryWeatherHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped">
+            <tr>
+              <td>Description</td>
+              <td id="txtDescription"></td>
+            </tr>
+            <tr>
+              <td>Feels Like</td>
+              <td id="txtFeelsLike"></td>
+            </tr>
+            <tr>
+              <td>Humidity</td>
+              <td id="txtHumidity"></td>
+            </tr>
+            <tr>
+              <td>Pressure</td>
+              <td id="txtPressure"></td>
+            </tr>
+            <tr>
+              <td>Temperature</td>
+              <td id="txtTemp"></td>
+            </tr>
+            <tr>
+              <td>Maximum Temperature</td>
+              <td id="txtTempMax"></td>
+            </tr>
+            <tr>
+              <td>Minimum Temperature</td>
+              <td id="txtTempMin"></td>
+            </tr>
+            <tr>
+              <td>Wind Temperature</td>
+              <td id="txtWindDeg"></td>
+            </tr>
+            <tr>
+              <td>Wind Speed</td>
+              <td id="txtWindSpeed"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country Coronavirus modal -->
+    <div
+      class="modal fade"
+      id="countryCoronaModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="countryCoronaHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped">
+            <tr>
+              <td>Updated on</td>
+              <td id="txtUpdatedOn"></td>
+            </tr>
+            <tr>
+              <td>Deaths today</td>
+              <td id="txtDeathsToday"></td>
+            </tr>
+            <tr>
+              <td>Deaths confirmed today</td>
+              <td id="txtConfirmedToday"></td>
+            </tr>
+            <tr>
+              <td>Deaths</td>
+              <td id="txtDeaths"></td>
+            </tr>
+            <tr>
+              <td>Confirmed deaths</td>
+              <td id="txtConfirmedDeaths"></td>
+            </tr>
+            <tr>
+              <td>Recovered</td>
+              <td id="txtRecovered"></td>
+            </tr>
+            <tr>
+              <td>Critical</td>
+              <td id="txtCritical"></td>
+            </tr>
+            <tr>
+              <td>Calculated death rate</td>
+              <td id="txtDeathRate"></td>
+            </tr>
+            <tr>
+              <td>Calculated recovery rate</td>
+              <td id="txtRecovRate"></td>
+            </tr>
+            <tr>
+              <td>Cases per million</td>
+              <td id="txtPerMil"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <div id="preloader"></div>
 
@@ -59,7 +440,7 @@
     <script src="libs/easyButton/easy-button.js"></script>
     <script src="libs/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster-src.js"></script>
     <script src="libs/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js"></script>
-   
+    <script src="libs/Leaflet.ExtraMarkers/js/leaflet.extra-markers.min.js"></script>
     <script
       type="application/javascript"
       src="libs/js/jquery-2.2.3.min.js"
