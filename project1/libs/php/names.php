@@ -19,7 +19,6 @@
         return $item1['name'] <=> $item2['name'];
     });
 
-
     $output['status']['code'] = "200";
     $output['status']['name'] = "ok";
     $output['status']['description'] = "success";
