@@ -1,15 +1,13 @@
 <?php
 
-	ini_set('display_errors', 'On');
-	error_reporting(E_ALL);
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL);
 
-	$executionStartTime = microtime(true);
+    $executionStartTime = microtime(true);
 
-    $api = '98656d2fa9e4faeaab5bf485faabcff9';
+    $url='http://universities.hipolabs.com/search?country=' . $_REQUEST['country'];
 
-    $url='https://api.openweathermap.org/data/2.5/weather?q=' . $_REQUEST['q'] . '&appid=' . $api;
-
-	$ch = curl_init();
+    $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -29,5 +27,4 @@
     header('Content-Type: application/json; charset=UTF-8');
 
     echo json_encode($output); 
-
 ?>

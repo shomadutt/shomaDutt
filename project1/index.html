@@ -43,7 +43,7 @@
       <!-- Country information modal -->
       <div
         class="modal fade"
-        id="countryInfoModal"
+        id="infoModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -51,7 +51,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="countryDataHeading"></h5>
+              <h5 class="modal-title" id="infoHeading"></h5>
               <button
                 type="button"
                 class="btn-close"
@@ -60,7 +60,7 @@
               ></button>
             </div>
 
-            <table class="table table-striped">
+            <table class="table table-striped modalTable">
               <tr>
                 <td>Capital</td>
                 <td id="txtCapital"></td>
@@ -78,28 +78,16 @@
                 <td id="txtCountryName"></td>
               </tr>
               <tr>
+                <td>Flag</td>
+                <td id="txtFlag"></td>
+              </tr>
+              <tr>
                 <td>Currency code</td>
                 <td id="txtCurrencyCode"></td>
               </tr>
               <tr>
-                <td>Languages</td>
-                <td id="txtLanguages"></td>
-              </tr>
-              <tr>
-                <td>North</td>
-                <td id="txtNorth"></td>
-              </tr>
-              <tr>
-                <td>East</td>
-                <td id="txtEast"></td>
-              </tr>
-              <tr>
-                <td>South</td>
-                <td id="txtSouth"></td>
-              </tr>
-              <tr>
-                <td>West</td>
-                <td id="txtWest"></td>
+                <td>Income level</td>
+                <td id="txtIncome"></td>
               </tr>
               <tr>
                 <td>Population</td>
@@ -111,10 +99,10 @@
       </div>
     </div>
 
-    <!-- Country income modal -->
+    <!-- Exchange rate modal -->
     <div
       class="modal fade"
-      id="countryIncomeModal"
+      id="rateModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -122,7 +110,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="countryIncomeHeading"></h5>
+            <h5 class="modal-title" id="rateHeading"></h5>
             <button
               type="button"
               class="btn-close"
@@ -131,67 +119,7 @@
             ></button>
           </div>
 
-          <table class="table">
-            <tr>
-              <td>Level</td>
-              <td id="txtIncome"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Country flag modal -->
-    <div
-      class="modal fade"
-      id="countryFlagModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="countryFlagHeading"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <table class="table">
-            <tr>
-              <td></td>
-              <td id="txtFlag"></td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- Country exchange rate modal -->
-    <div
-      class="modal fade"
-      id="countryRateModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="countryRateHeading"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-
-          <table class="table table-striped">
+          <table class="table table-striped modalTable">
             <tr>
               <td>US Dollar</td>
               <td id="txtUSD"></td>
@@ -237,18 +165,18 @@
       </div>
     </div>
 
-    <!-- Country holiday rate modal -->
+    <!-- University modal -->
     <div
       class="modal fade"
-      id="countryHolidayModal"
+      id="uniModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog" id="uniModalDialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="countryHolidayHeading"></h5>
+            <h5 class="modal-title" id="uniHeading"></h5>
             <button
               type="button"
               class="btn-close"
@@ -257,64 +185,23 @@
             ></button>
           </div>
 
-          <table class="table table-striped">
-            <tr>
-              <td id="date0"></td>
-              <td id="name0"></td>
-            </tr>
-            <tr>
-              <td id="date1"></td>
-              <td id="name1"></td>
-            </tr>
-            <tr>
-              <td id="date2"></td>
-              <td id="name2"></td>
-            </tr>
-            <tr>
-              <td id="date3"></td>
-              <td id="name3"></td>
-            </tr>
-            <tr>
-              <td id="date4"></td>
-              <td id="name4"></td>
-            </tr>
-            <tr>
-              <td id="date5"></td>
-              <td id="name5"></td>
-            </tr>
-            <tr>
-              <td id="date6"></td>
-              <td id="name6"></td>
-            </tr>
-            <tr>
-              <td id="date7"></td>
-              <td id="name7"></td>
-            </tr>
-            <tr>
-              <td id="date8"></td>
-              <td id="name8"></td>
-            </tr>
-            <tr>
-              <td id="date9"></td>
-              <td id="name9"></td>
-            </tr>
-          </table>
+          <table class="table table-striped" id="uniTable"></table>
         </div>
       </div>
     </div>
 
-    <!-- Country city weather modal -->
+    <!-- Weather modal -->
     <div
       class="modal fade"
-      id="countryWeatherModal"
+      id="weatherModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="countryWeatherHeading"></h5>
+      <div class="modal-dialog" id="weatherModalDialog">
+        <div class="modal-content" id="weatherModalContent">
+          <div class="modal-header" id="weathermodalHeader">
+            <h5 class="modal-title" id="location"></h5>
             <button
               type="button"
               class="btn-close"
@@ -323,52 +210,84 @@
             ></button>
           </div>
 
-          <table class="table table-striped">
-            <tr>
-              <td>Description</td>
-              <td id="txtDescription"></td>
-            </tr>
-            <tr>
-              <td>Feels Like</td>
-              <td id="txtFeelsLike"></td>
-            </tr>
-            <tr>
-              <td>Humidity</td>
-              <td id="txtHumidity"></td>
-            </tr>
-            <tr>
-              <td>Pressure</td>
-              <td id="txtPressure"></td>
-            </tr>
-            <tr>
-              <td>Temperature</td>
-              <td id="txtTemp"></td>
-            </tr>
-            <tr>
-              <td>Maximum Temperature</td>
-              <td id="txtTempMax"></td>
-            </tr>
-            <tr>
-              <td>Minimum Temperature</td>
-              <td id="txtTempMin"></td>
-            </tr>
-            <tr>
-              <td>Wind Temperature</td>
-              <td id="txtWindDeg"></td>
-            </tr>
-            <tr>
-              <td>Wind Speed</td>
-              <td id="txtWindSpeed"></td>
-            </tr>
-          </table>
+          <div class="container" id="weatherContainer">
+            <div class="col-7" id="todayFont">Today</div>
+
+            <div class="row" id="today">
+              <div class="row" id="todayRow">
+                <div class="col-3" id="iconToday"></div>
+                <div class="col-3 todayTemp" id="maxTempToday"></div>
+                <div class="col-4" id="descriptionToday"></div>
+              </div>
+              <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3 todayTemp" id="minTempToday"></div>
+                <div class="col-4"></div>
+              </div>
+            </div>
+
+            <div class="row" id="forecast">
+
+              <div class="col-3 forecastBorder">
+                <div class="col-9 weatherSize" id="dateDay1"></div>
+
+                <div class="row forecastRow">
+                  <div class="col-8" id="iconDay1"></div>
+                    <div class="col-3">
+                      <div class="col-1 weatherSize maxTemp" id="maxTempDay1"></div>
+                      <div class="col-1 weatherSize" id="minTempDay1"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-3 forecastBorder">
+                <div class="col-9 weatherSize" id="dateDay2"></div>
+
+                <div class="row forecastRow">
+                  <div class="col-8" id="iconDay2"></div>
+                  <div class="col-3">
+                  <div class="col-1 weatherSize maxTemp" id="maxTempDay2"></div>
+                  <div class="col-1 weatherSize" id="minTempDay2"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-3 forecastBorder">
+                <div class="col-9 weatherSize" id="dateDay3"></div>
+
+                <div class="row forecastRow">
+                  <div class="col-8" id="iconDay3"></div>
+                  <div class="col-3">
+                  <div class="col-1 weatherSize maxTemp" id="maxTempDay3"></div>
+                  <div class="col-1 weatherSize" id="minTempDay3"></div>
+                </div>
+                </div>
+              </div>
+
+              <div class="col-3 forecastBorder">
+                <div class="col-9 weatherSize" id="dateDay4"></div>
+
+                <div class="row forecastRow">
+                  <div class="col-8" id="iconDay4"></div>
+                  <div class="col-3">
+                  <div class="col-1 weatherSize maxTemp" id="maxTempDay4"></div>
+                  <div class="col-1 weatherSize" id="minTempDay4"></div>
+                </div>
+                </div>
+                </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Country Coronavirus modal -->
+    <!-- Holiday modal -->
     <div
       class="modal fade"
-      id="countryCoronaModal"
+      id="holidayModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -376,7 +295,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="countryCoronaHeading"></h5>
+            <h5 class="modal-title" id="holidayHeading"></h5>
             <button
               type="button"
               class="btn-close"
@@ -385,7 +304,57 @@
             ></button>
           </div>
 
-          <table class="table table-striped">
+          <table class="table table-striped" id="holidayTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Earthquake modal -->
+    <div
+      class="modal fade"
+      id="earthquakeModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="earthquakeHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped" id="earthquakeTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coronavirus modal -->
+    <div
+      class="modal fade"
+      id="coronaModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="coronaHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <table class="table table-striped modalTable">
             <tr>
               <td>Updated on</td>
               <td id="txtUpdatedOn"></td>
@@ -395,16 +364,8 @@
               <td id="txtDeathsToday"></td>
             </tr>
             <tr>
-              <td>Deaths confirmed today</td>
-              <td id="txtConfirmedToday"></td>
-            </tr>
-            <tr>
-              <td>Deaths</td>
+              <td>Total deaths</td>
               <td id="txtDeaths"></td>
-            </tr>
-            <tr>
-              <td>Confirmed deaths</td>
-              <td id="txtConfirmedDeaths"></td>
             </tr>
             <tr>
               <td>Recovered</td>

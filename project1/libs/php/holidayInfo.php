@@ -1,32 +1,31 @@
 <?php
 
-    ini_set('display_errors', 'On');
-	error_reporting(E_ALL);
+    $curl = curl_init();
 
-	$executionStartTime = microtime(true);
+    curl_setopt_array($curl, [
+        CURLOPT_URL => "https://public-holiday.p.rapidapi.com/" . $_REQUEST['year'] . "/" . $_REQUEST['countryCode'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+            "x-rapidapi-host: public-holiday.p.rapidapi.com",
+            "x-rapidapi-key: 62073203f6mshc17cf518a0f6c98p17b860jsn20cbb3b20225"
+        ],
+    ]);
 
-    $api = 'b601b8264141e308ccb7e5d14713b07de85c2b65';
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
 
-    $url='https://calendarific.com/api/v2/holidays?&api_key=' . $api . '&country=' .  $_REQUEST['countryCode'] . '&year=2021';
+    curl_close($curl);
 
-	$ch = curl_init();
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, $url);
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    } else {
+        echo $response;
+    }
 
-    $result=curl_exec($ch);
-
-    curl_close($ch);
-
-    $decode = json_decode($result, true);
-
-    $output['status']['code'] = "200";
-    $output['status']['name'] = "ok";
-    $output['status']['description'] = "success";
-    $output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . "ms";
-    $output['data'] = $decode;
-
-    header('Content-Type: application/json; charset=UTF-8');
-
-    echo json_encode($output); 
 ?>

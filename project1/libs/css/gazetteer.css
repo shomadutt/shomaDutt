@@ -90,6 +90,22 @@ table td {
   color: #737373;
 }
 
+.modalTable td:nth-child(1) {
+  padding-left: 70px;
+}
+
+#holidayTable td:nth-child(1)  {
+  text-align: right;
+}
+
+#earthquakeTable td:nth-child(1) {
+  padding-left: 100px;
+}
+
+#earthquakeTable td:nth-child(2)  {
+  padding-right: 60px;
+}
+
 .modal-content {
   background-color: #ebfaeb;
   font-family: Tahoma, Verdana, sans-serif;
@@ -103,36 +119,104 @@ table td {
   border-top-right-radius: 10px !important;
 }
 
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
 @media screen and (min-width: 676px) {
   .modal-dialog {
-    max-width: 400px; /* New width for default modal */
+    max-width: 490px; /* New width for default modal */
   }
+  #weatherModalDialog {
+    max-width: 500px;
+  }
+  #uniModalDialog {
+    max-width: 550px;
+  }
+
 }
 
 .fa-landmark {
   color: blue;
 }
 
-.fa-coins {
+.fa-dice-d20 {
   color: red;
 }
 
-.fa-flag {
-  color: green;
-}
-
-.fa-dice-d20 {
-  color: purple;
-}
-
-.fa-candy-cane {
-  color: #009999
+.fa-graduation-cap {
+  color: rgb(56, 155, 56);
 }
 
 .fa-cloud-moon-rain {
   color: rgb(240, 88, 164);
 }
 
+.fa-candy-cane {
+  color: #b35900;
+}
+
+.fa-exclamation-triangle {
+  color: #0099ff;
+}
+
 .fa-head-side-mask {
   color: orange;
 }
+
+#weatherModalContent, #weathermodalHeader {
+  background-color: #0099ff;
+}
+
+#location {
+  color: white;
+  font-size: 32px;
+}
+
+#todayFont {
+  font-size: 25px;
+}
+
+#today {
+  padding-bottom: 20px;
+}
+
+.todayTemp {
+  border-right: 1px solid white;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#todayRow {
+  height: 65px;
+}
+
+.forecastRow {
+  height: 80px;
+}
+
+.forecastBorder {
+  border: 1px solid #4db8ff;
+}
+
+#weatherContainer {
+  color: white;
+}
+
+#forecast {
+  padding-bottom: 20px;
+}
+
+#descriptionToday {
+  font-size: 25px;
+}
+
+.weatherSize {
+  font-size: 15px;
+}
+
+.maxTemp {
+  font-weight: bold;
+}
+
