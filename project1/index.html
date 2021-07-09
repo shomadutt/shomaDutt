@@ -59,41 +59,42 @@
                 aria-label="Close"
               ></button>
             </div>
-
-            <table class="table table-striped modalTable">
-              <tr>
-                <td>Capital</td>
-                <td id="txtCapital"></td>
-              </tr>
-              <tr>
-                <td>Continent</td>
-                <td id="txtContinent"></td>
-              </tr>
-              <tr>
-                <td>Continent name</td>
-                <td id="txtContinentName"></td>
-              </tr>
-              <tr>
-                <td>Country name</td>
-                <td id="txtCountryName"></td>
-              </tr>
-              <tr>
-                <td>Flag</td>
-                <td id="txtFlag"></td>
-              </tr>
-              <tr>
-                <td>Currency code</td>
-                <td id="txtCurrencyCode"></td>
-              </tr>
-              <tr>
-                <td>Income level</td>
-                <td id="txtIncome"></td>
-              </tr>
-              <tr>
-                <td>Population</td>
-                <td id="txtPopulation"></td>
-              </tr>
-            </table>
+            <div class="modal-body">
+              <table class="table table-striped modalTable">
+                <tr>
+                  <td>Capital</td>
+                  <td id="txtCapital"></td>
+                </tr>
+                <tr>
+                  <td>Continent</td>
+                  <td id="txtContinent"></td>
+                </tr>
+                <tr>
+                  <td>Continent name</td>
+                  <td id="txtContinentName"></td>
+                </tr>
+                <tr>
+                  <td>Country name</td>
+                  <td id="txtCountryName"></td>
+                </tr>
+                <tr>
+                  <td>Flag</td>
+                  <td id="txtFlag"></td>
+                </tr>
+                <tr>
+                  <td>Currency code</td>
+                  <td id="txtCurrencyCode"></td>
+                </tr>
+                <tr>
+                  <td>Income level</td>
+                  <td id="txtIncome"></td>
+                </tr>
+                <tr>
+                  <td>Population</td>
+                  <td id="txtPopulation"></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -118,49 +119,50 @@
               aria-label="Close"
             ></button>
           </div>
-
-          <table class="table table-striped modalTable">
-            <tr>
-              <td>US Dollar</td>
-              <td id="txtUSD"></td>
-            </tr>
-            <tr>
-              <td>Euro</td>
-              <td id="txtEUR"></td>
-            </tr>
-            <tr>
-              <td>Japanese Yen</td>
-              <td id="txtYEN"></td>
-            </tr>
-            <tr>
-              <td>Pound Sterling</td>
-              <td id="txtGBP"></td>
-            </tr>
-            <tr>
-              <td>Australian Dollar</td>
-              <td id="txtAUD"></td>
-            </tr>
-            <tr>
-              <td>Canadian Dollar</td>
-              <td id="txtCAD"></td>
-            </tr>
-            <tr>
-              <td>Swiss Franc</td>
-              <td id="txtCHF"></td>
-            </tr>
-            <tr>
-              <td>Chinese Renminbi</td>
-              <td id="txtCNY"></td>
-            </tr>
-            <tr>
-              <td>Swedish Krona</td>
-              <td id="txtSEK"></td>
-            </tr>
-            <tr>
-              <td>New Zealand Dollar</td>
-              <td id="txtNZD"></td>
-            </tr>
-          </table>
+          <div class="modal-body">
+            <table class="table table-striped modalTable">
+              <tr>
+                <td>US Dollar</td>
+                <td id="txtUSD"></td>
+              </tr>
+              <tr>
+                <td>Euro</td>
+                <td id="txtEUR"></td>
+              </tr>
+              <tr>
+                <td>Japanese Yen</td>
+                <td id="txtYEN"></td>
+              </tr>
+              <tr>
+                <td>Pound Sterling</td>
+                <td id="txtGBP"></td>
+              </tr>
+              <tr>
+                <td>Australian Dollar</td>
+                <td id="txtAUD"></td>
+              </tr>
+              <tr>
+                <td>Canadian Dollar</td>
+                <td id="txtCAD"></td>
+              </tr>
+              <tr>
+                <td>Swiss Franc</td>
+                <td id="txtCHF"></td>
+              </tr>
+              <tr>
+                <td>Chinese Renminbi</td>
+                <td id="txtCNY"></td>
+              </tr>
+              <tr>
+                <td>Swedish Krona</td>
+                <td id="txtSEK"></td>
+              </tr>
+              <tr>
+                <td>New Zealand Dollar</td>
+                <td id="txtNZD"></td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -184,8 +186,9 @@
               aria-label="Close"
             ></button>
           </div>
-
-          <table class="table table-striped" id="uniTable"></table>
+          <div class="modal-body">
+            <table class="table table-striped" id="uniTable"></table>
+          </div>
         </div>
       </div>
     </div>
@@ -209,75 +212,84 @@
               aria-label="Close"
             ></button>
           </div>
+          <div class="modal-body">
+            <div class="container" id="weatherContainer">
+              <div class="col-7" id="todayFont">Today</div>
 
-          <div class="container" id="weatherContainer">
-            <div class="col-7" id="todayFont">Today</div>
-
-            <div class="row" id="today">
-              <div class="row" id="todayRow">
-                <div class="col-3" id="iconToday"></div>
-                <div class="col-3 todayTemp" id="maxTempToday"></div>
-                <div class="col-4" id="descriptionToday"></div>
+              <div class="row" id="today">
+                <div class="row" id="todayRow">
+                  <div class="col-3" id="iconToday"></div>
+                  <div class="col-3 todayTemp" id="maxTempToday"></div>
+                  <div class="col-4" id="descriptionToday"></div>
+                </div>
+                <div class="row">
+                  <div class="col-3"></div>
+                  <div class="col-3 todayTemp" id="minTempToday"></div>
+                  <div class="col-4"></div>
+                </div>
               </div>
-              <div class="row">
-                <div class="col-3"></div>
-                <div class="col-3 todayTemp" id="minTempToday"></div>
-                <div class="col-4"></div>
-              </div>
-            </div>
 
-            <div class="row" id="forecast">
+              <div class="row" id="forecast">
+                <div class="col-3 forecastBorder">
+                  <div class="col-9 weatherSize" id="dateDay1"></div>
 
-              <div class="col-3 forecastBorder">
-                <div class="col-9 weatherSize" id="dateDay1"></div>
-
-                <div class="row forecastRow">
-                  <div class="col-8" id="iconDay1"></div>
+                  <div class="row forecastRow">
+                    <div class="col-8" id="iconDay1"></div>
                     <div class="col-3">
-                      <div class="col-1 weatherSize maxTemp" id="maxTempDay1"></div>
+                      <div
+                        class="col-1 weatherSize maxTemp"
+                        id="maxTempDay1"
+                      ></div>
                       <div class="col-1 weatherSize" id="minTempDay1"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-3 forecastBorder">
+                  <div class="col-9 weatherSize" id="dateDay2"></div>
+
+                  <div class="row forecastRow">
+                    <div class="col-8" id="iconDay2"></div>
+                    <div class="col-3">
+                      <div
+                        class="col-1 weatherSize maxTemp"
+                        id="maxTempDay2"
+                      ></div>
+                      <div class="col-1 weatherSize" id="minTempDay2"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-3 forecastBorder">
+                  <div class="col-9 weatherSize" id="dateDay3"></div>
+
+                  <div class="row forecastRow">
+                    <div class="col-8" id="iconDay3"></div>
+                    <div class="col-3">
+                      <div
+                        class="col-1 weatherSize maxTemp"
+                        id="maxTempDay3"
+                      ></div>
+                      <div class="col-1 weatherSize" id="minTempDay3"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-3 forecastBorder">
+                  <div class="col-9 weatherSize" id="dateDay4"></div>
+
+                  <div class="row forecastRow">
+                    <div class="col-8" id="iconDay4"></div>
+                    <div class="col-3">
+                      <div
+                        class="col-1 weatherSize maxTemp"
+                        id="maxTempDay4"
+                      ></div>
+                      <div class="col-1 weatherSize" id="minTempDay4"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div class="col-3 forecastBorder">
-                <div class="col-9 weatherSize" id="dateDay2"></div>
-
-                <div class="row forecastRow">
-                  <div class="col-8" id="iconDay2"></div>
-                  <div class="col-3">
-                  <div class="col-1 weatherSize maxTemp" id="maxTempDay2"></div>
-                  <div class="col-1 weatherSize" id="minTempDay2"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-3 forecastBorder">
-                <div class="col-9 weatherSize" id="dateDay3"></div>
-
-                <div class="row forecastRow">
-                  <div class="col-8" id="iconDay3"></div>
-                  <div class="col-3">
-                  <div class="col-1 weatherSize maxTemp" id="maxTempDay3"></div>
-                  <div class="col-1 weatherSize" id="minTempDay3"></div>
-                </div>
-                </div>
-              </div>
-
-              <div class="col-3 forecastBorder">
-                <div class="col-9 weatherSize" id="dateDay4"></div>
-
-                <div class="row forecastRow">
-                  <div class="col-8" id="iconDay4"></div>
-                  <div class="col-3">
-                  <div class="col-1 weatherSize maxTemp" id="maxTempDay4"></div>
-                  <div class="col-1 weatherSize" id="minTempDay4"></div>
-                </div>
-                </div>
-                </div>
-              </div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -303,8 +315,9 @@
               aria-label="Close"
             ></button>
           </div>
-
-          <table class="table table-striped" id="holidayTable"></table>
+          <div class="modal-body">
+            <table class="table table-striped" id="holidayTable"></table>
+          </div>
         </div>
       </div>
     </div>
@@ -328,8 +341,9 @@
               aria-label="Close"
             ></button>
           </div>
-
-          <table class="table table-striped" id="earthquakeTable"></table>
+          <div class="modal-body">
+            <table class="table table-striped" id="earthquakeTable"></table>
+          </div>
         </div>
       </div>
     </div>
@@ -353,41 +367,42 @@
               aria-label="Close"
             ></button>
           </div>
-
-          <table class="table table-striped modalTable">
-            <tr>
-              <td>Updated on</td>
-              <td id="txtUpdatedOn"></td>
-            </tr>
-            <tr>
-              <td>Deaths today</td>
-              <td id="txtDeathsToday"></td>
-            </tr>
-            <tr>
-              <td>Total deaths</td>
-              <td id="txtDeaths"></td>
-            </tr>
-            <tr>
-              <td>Recovered</td>
-              <td id="txtRecovered"></td>
-            </tr>
-            <tr>
-              <td>Critical</td>
-              <td id="txtCritical"></td>
-            </tr>
-            <tr>
-              <td>Calculated death rate</td>
-              <td id="txtDeathRate"></td>
-            </tr>
-            <tr>
-              <td>Calculated recovery rate</td>
-              <td id="txtRecovRate"></td>
-            </tr>
-            <tr>
-              <td>Cases per million</td>
-              <td id="txtPerMil"></td>
-            </tr>
-          </table>
+          <div class="modal-body">
+            <table class="table table-striped modalTable">
+              <tr>
+                <td>Updated on</td>
+                <td id="txtUpdatedOn"></td>
+              </tr>
+              <tr>
+                <td>Deaths today</td>
+                <td id="txtDeathsToday"></td>
+              </tr>
+              <tr>
+                <td>Total deaths</td>
+                <td id="txtDeaths"></td>
+              </tr>
+              <tr>
+                <td>Recovered</td>
+                <td id="txtRecovered"></td>
+              </tr>
+              <tr>
+                <td>Critical</td>
+                <td id="txtCritical"></td>
+              </tr>
+              <tr>
+                <td>Calculated death rate</td>
+                <td id="txtDeathRate"></td>
+              </tr>
+              <tr>
+                <td>Calculated recovery rate</td>
+                <td id="txtRecovRate"></td>
+              </tr>
+              <tr>
+                <td>Cases per million</td>
+                <td id="txtPerMil"></td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>

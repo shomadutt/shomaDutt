@@ -111,9 +111,7 @@ $(document).ready(function () {
 
         if (result.status.name == "ok") {
           $("#infoHeading").empty();
-          $("#infoHeading").append(
-            $("#selectCountry option:selected").text()
-          );
+          $("#infoHeading").append($("#selectCountry option:selected").text());
 
           $("#txtCapital").html(result.data[0].capital);
           $("#txtContinent").html(result.data[0].continent);
@@ -155,7 +153,6 @@ $(document).ready(function () {
               //console.log(JSON.stringify(result));
 
               if (result.status.name == "ok") {
-
                 let income = result.data[1][0].incomeLevel.value;
                 $("#txtIncome").html(income);
               }
@@ -226,39 +223,40 @@ $(document).ready(function () {
 
     // University modal
 
-    let multipleWordedCountry = $("#selectCountry option:selected").text().replace(' ', '%20');
+    let multipleWordedCountry = $("#selectCountry option:selected")
+      .text()
+      .replace(" ", "%20");
 
     $.ajax({
       url: "libs/php/uniInfo.php",
       type: "POST",
       dataType: "json",
       data: {
-        country:  multipleWordedCountry,
+        country: multipleWordedCountry,
       },
 
       success: function (result) {
-
         //console.log(JSON.stringify(result));
 
-          $("#uniHeading").empty();
-          $("#uniHeading").append(
-            "Universities in" + " " + $("#selectCountry option:selected").text()
-          );
+        console.log(result);
 
-          $("#uniTable").html("");
+        $("#uniHeading").empty();
+        $("#uniHeading").append(
+          "Universities in" + " " + $("#selectCountry option:selected").text()
+        );
 
-          $.each(result.data, function (index) {
+        $("#uniTable").html("");
 
-            let uniMarkup =
-              "<tr><td>" +
-              result.data[index].name +
-              "</td><td>" +
-              result.data[index].web_pages +
-              "</td></tr>";
+        $.each(result.data, function (index) {
+          let uniMarkup =
+            "<tr><td>" +
+            result.data[index].name +
+            "</td><td>" +
+            `<a id="website" href="${result.data[index].web_pages[0]}">${result.data[index].web_pages[0]}</a>` +
+            "</td></tr>";
 
-            $("#uniTable").append(uniMarkup);
-          });
-
+          $("#uniTable").append(uniMarkup);
+        });
       },
     });
 
@@ -299,7 +297,6 @@ $(document).ready(function () {
                   //console.log(JSON.stringify(resultWeatherForecast));
 
                   if (resultWeatherForecast.status.name == "ok") {
-
                     $("#location").html(resultCountry.data[0].capital);
 
                     $("#maxTempToday").html(
@@ -526,8 +523,6 @@ $(document).ready(function () {
 
         $.each(result, function (index) {
           let date = result[index].date;
-
-          console.log(date);
 
           let months = {
             "01": "January",
