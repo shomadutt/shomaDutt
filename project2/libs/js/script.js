@@ -89,11 +89,11 @@ $(document).ready(function () {
               if (index % 4 === 0) {
                 square.css('background-color', colourArray[0]);
               } else if (index % 4 === 1) {
-                $(".square").css("background-color", colourArray[1]);
+                square.css("background-color", colourArray[1]);
               } else if (index % 4 === 2) {
-                $(".square").css("background-color", colourArray[2]);
+                square.css("background-color", colourArray[2]);
               } else if (index % 4 === 3) {
-                $(".square").css("background-color", colourArray[3]);
+                square.css("background-color", colourArray[3]);
               }
             }
 
