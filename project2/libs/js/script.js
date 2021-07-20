@@ -85,16 +85,14 @@ $(document).ready(function () {
 
             let square = $(".square");
 
-            for(let i = 0; i < square.length; i++) {
-              if (index % 4 === 0) {
-                square.css('background-color', colourArray[0]);
-              } else if (index % 4 === 1) {
-                square.css("background-color", colourArray[1]);
-              } else if (index % 4 === 2) {
-                square.css("background-color", colourArray[2]);
-              } else if (index % 4 === 3) {
-                square.css("background-color", colourArray[3]);
-              }
+            if (index % 4 === 0) {
+              square.css("background-color", colourArray[0]);
+            } else if (index % 4 === 1) {
+              square.css("background-color", colourArray[1]);
+            } else if (index % 4 === 2) {
+              square.css("background-color", colourArray[2]);
+            } else if (index % 4 === 3) {
+              square.css("background-color", colourArray[3]);
             }
 
             $(letter).append(employeeMarkup);
