@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Company Directory</title>
+    <meta name="description" content="Directory of personnel" />
+    <meta name="author" content="Shoma Dutt" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="libs/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="libs/css/directory.min.css" />
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-1 alignmentRight pad">
+          <button class="directoryButton">Edit</button>
+        </div>
+        <div class="col-sm-1 alignmentRight pad">
+          <button class="directoryButton">Search</button>
+        </div>
+        <div class="col-sm-4">
+          <h1 id="directoryTitle">Company Directory</h1>
+        </div>
+        <div class="col-sm-3" id="alignmentLeft">
+          <button class="directoryButton" id="plus">+</button>
+        </div>
+      </div>
+
+      <div class="row" id="searchRow">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2">
+          <div class="form-outline">
+            <input
+              type="search"
+              id="form1"
+              class="form-control"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="dropdown">
+            <button
+              class="btn btn-info dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Department or Location
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Department</a>
+              <a class="dropdown-item" href="#">Location</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col" id="directoryData"></div>
+
+        <div class="col" id="verticalAlphabet"></div> 
+      </div> 
+
+      <div
+      class="modal fade"
+      id="employeeModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="employeeHeading"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped modalTable">
+              <tr>
+                <td>First name</td>
+                <td id="txtFirstName"></td>
+              </tr>
+              <tr>
+                <td>Last name</td>
+                <td id="txtLastName"></td>
+              </tr>
+              <tr>
+                <td>Job title</td>
+                <td id="txtJobTitle"></td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td id="txtEmail"></td>
+              </tr>
+              <tr>
+                <td>Department</td>
+                <td id="txtDept"></td>
+              </tr>
+              <tr>
+                <td>Location</td>
+                <td id="txtLocation"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+      
+
+      <!-- <div id="preloader"></div> -->
+      <script src="libs/bootstrap-5.0.0-beta3-dist/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+      <script
+        type="application/javascript"
+        src="libs/js/jquery-2.2.3.min.js"
+      ></script>
+      <script src="libs/js/script.min.js"></script>
+    </div>
+  </body>
+</html>
