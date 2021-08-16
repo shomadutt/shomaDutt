@@ -1,6 +1,4 @@
 <?php
-
-	// remove next two lines for production
 	
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
@@ -29,7 +27,38 @@
 
 	}	
 
-	$query = 'SELECT id, name, locationID FROM department ORDER BY name, id, locationID';
+	$firstName = $_POST['firstName']; 
+	$lastName = $_POST['lastName']; 
+	// $jobTitle = $_POST['jobTitle']; 
+	$email = $_POST['email']; 
+	$dId = $_POST['department']; 
+	$lId = $_POST['location']; 
+
+	// escaping content
+	$firstName = strip_tags($_POST['firstName']);
+	$lastName = strip_tags($_POST['lastName']);
+	$email = strip_tags($_POST['email']);
+	// $jobTitle = strip_tags($_POST['jobTitle']);
+	$email = strip_tags($_POST['email']);
+	
+    // filter the form input
+  	$firstName = mysqli_real_escape_string($conn, $firstName);
+	$lastName = mysqli_real_escape_string($conn, $lastName);
+	$email = mysqli_real_escape_string($conn, $email);
+	// $jobTitle = mysqli_real_escape_string($conn, $jobTitle);
+	$email = mysqli_real_escape_string($conn, $email);
+
+	$query = 
+	"SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
+	FROM personnel p 
+	LEFT JOIN department d 
+	ON (d.id = p.departmentID) 
+	LEFT JOIN location l ON (l.id = d.locationID) 
+	WHERE p.lastName = '".$lastName."'
+	OR p.lastName = '".$lastName."' and p.firstName = '".$firstName."' 
+	OR p.lastName = '".$lastName."' and p.email = '".$email."'
+	OR p.lastName = '".$lastName."' AND d.id = '".$dId."' 
+	OR p.lastName = '".$lastName."' AND l.id = '".$lId."'";
 
 	$result = $conn->query($query);
 	

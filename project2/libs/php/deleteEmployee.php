@@ -27,24 +27,19 @@
 
 	}	
 
-	$deleteDept = $_POST['deleteDept']; 
+	if(!mysqli_select_db($conn, 'companydirectory')) {
+        echo 'Database Not Selected';
+    }
+		
+	$lastName = $_POST['lastName']; 
 
-	$query = mysqli_query($conn,"SELECT * FROM personnel WHERE departmentID ='$deleteDept'");
-
-	$sql = "DELETE FROM department WHERE id = '$deleteDept'";
-
-	//Response
-	//Checking to see if there are employees in the department
-	if (mysqli_num_rows($query) > 0) {
-        echo "Deletion not allowed.";
-    } 
 	
-	else if (!mysqli_query($conn, $sql)) {
-        echo 'Could not delete department.';
-	} 
-	
-	else {
-		echo "Department deleted!";
+	$sql = "DELETE FROM personnel WHERE lastName = '$lastName'";
+    $result = mysqli_query ($conn, $sql);
+
+	if ($result) {
+        echo "Deleted!";
+    }else{
+        echo 'Could not delete.';	
 	}
-
 ?>

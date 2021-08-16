@@ -27,24 +27,24 @@
 
 	}	
 
-	$deleteDept = $_POST['deleteDept']; 
+	$deleteLoc = $_POST['deleteLoc']; 
 
-	$query = mysqli_query($conn,"SELECT * FROM personnel WHERE departmentID ='$deleteDept'");
+	$query = mysqli_query($conn,"SELECT * FROM department WHERE locationID ='$deleteLoc'");
 
-	$sql = "DELETE FROM department WHERE id = '$deleteDept'";
+	$sql = "DELETE FROM location WHERE id = '$deleteLoc'";
 
 	//Response
-	//Checking to see if there are employees in the department
+	//Checking to see if there are departments in the department
 	if (mysqli_num_rows($query) > 0) {
         echo "Deletion not allowed.";
     } 
 	
 	else if (!mysqli_query($conn, $sql)) {
-        echo 'Could not delete department.';
+        echo 'Could not delete location.';
 	} 
 	
 	else {
-		echo "Department deleted!";
+		echo "Location deleted!";
 	}
 
 ?>

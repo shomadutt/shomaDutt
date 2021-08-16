@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Company Directory</title>
-    <meta name="description" content="Directory of personnel" />
+    <meta name="description" content="Company directory" />
     <meta name="author" content="Shoma Dutt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -19,15 +19,15 @@
       <div class="row">
         <div class="col-sm-2"></div>
         <div class="col-sm-1 alignmentRight pad">
-          <button class="directoryButton">Edit</button>
+          <button class="directoryButton" id="editButton">Edit</button>
         </div>
         <div class="col-sm-1 alignmentRight pad">
-          <button class="directoryButton">Search</button>
+          <button class="directoryButton" id="search">Search</button>
         </div>
         <div class="col-sm-4">
           <h1 id="directoryTitle">Company Directory</h1>
         </div>
-        <div class="col-sm-3" id="alignmentLeft">
+        <div class="col-sm-3" id="alignmentRight">
           <button class="directoryButton" id="plus">+</button>
         </div>
       </div>
@@ -37,8 +37,9 @@
         <div class="col-sm-2">
           <div class="form-outline">
             <input
+              name="searchBar"
               type="search"
-              id="form1"
+              id="searchBar"
               class="form-control"
               placeholder="Search"
               aria-label="Search"
@@ -52,16 +53,19 @@
               class="btn btn-info dropdown-toggle"
               type="button"
               id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
+              data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Department or Location
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Department</a>
-              <a class="dropdown-item" href="#">Location</a>
-            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a class="dropdown-item" href="#" id="department">Department</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" id="location">Location</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -69,70 +73,1656 @@
       <div class="row">
         <div class="col" id="directoryData"></div>
 
-        <div class="col" id="verticalAlphabet"></div> 
-      </div> 
+        <div class="col" id="verticalAlphabet"></div>
+      </div>
 
+      <!-- Employee modal -->
       <div
-      class="modal fade"
-      id="employeeModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="employeeHeading"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <table class="table table-striped modalTable">
-              <tr>
-                <td>First name</td>
-                <td id="txtFirstName"></td>
-              </tr>
-              <tr>
-                <td>Last name</td>
-                <td id="txtLastName"></td>
-              </tr>
-              <tr>
-                <td>Job title</td>
-                <td id="txtJobTitle"></td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td id="txtEmail"></td>
-              </tr>
-              <tr>
-                <td>Department</td>
-                <td id="txtDept"></td>
-              </tr>
-              <tr>
-                <td>Location</td>
-                <td id="txtLocation"></td>
-              </tr>
-            </table>
+        class="modal fade"
+        id="employeeModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="employeeHeading"></h5>
+
+              <div class="dropdown">
+                <a
+                  href="#"
+                  id="dropdownMenuLink"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img src="libs/img/dots.png" alt="Three dots" id="menuDots" />
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li><a class="dropdown-item" href="#" id="edit">Edit</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#" id="delete">Delete</a>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table class="table table-striped modalTable">
+                <tr>
+                  <td>First name</td>
+                  <td id="txtFirstName"></td>
+                </tr>
+                <tr>
+                  <td>Last name</td>
+                  <td id="txtLastName"></td>
+                </tr>
+                <tr>
+                  <td>Job title</td>
+                  <td id="txtJobTitle"></td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td id="txtEmail"></td>
+                </tr>
+                <tr>
+                  <td>Department</td>
+                  <td id="txtDept"></td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td id="txtLocation"></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-  </div>
+      <!-- Edit employee modal -->
+      <div
+        class="modal fade"
+        id="editEmployeeModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="editForm"
+              name="editForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="editCancel">Reset</button>
+                  </div>
+                  <div class="col-sm-9">
+                    <h5 class="modal-title" id="editHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="modalButton" id="editSubmit">Submit</button>
+                  </div>
+                </div>
 
-      
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>First name</td>
+                    <td id="txtEditFirstName"></td>
+                  </tr>
+                  <tr>
+                    <td>Last name</td>
+                    <td id="txtEditLastName"></td>
+                  </tr>
+                  <tr>
+                    <td>Job title</td>
+                    <td>
+                      <input
+                        id="editJobTitle"
+                        name="editJobTitle"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Job title"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>
+                      <input
+                        id="editEmail"
+                        name="editEmail"
+                        class="form-control form-control-sm"
+                        type="email"
+                        placeholder="Email address"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Department</td>
+                    <td>
+                      <select
+                        id="editDept"
+                        name="editDept"
+                        class="form-select form-select-sm deptSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        name="searchLoc"
+                        id="searchLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-      <!-- <div id="preloader"></div> -->
+      <!-- Edit confirmation modal -->
+      <div
+        class="modal fade"
+        id="editConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="editConfirmForm"
+              name="editConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="editConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="editConfirmSubmit"
+                      id="editConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit employee success modal -->
+      <div
+        class="modal fade"
+        id="editSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="editMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit employee delete button confirmation modal -->
+      <div
+        class="modal fade"
+        id="deleteButtonConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteButtonConfirmForm"
+              name="deleteButtonConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteButtonConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteButtonConfirmSubmit"
+                      id="deleteButtonConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit employee delete button success modal -->
+      <div
+        class="modal fade"
+        id="deleteButtonSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="deleteButtonMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search modal -->
+      <div
+        class="modal fade"
+        id="searchModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="searchForm"
+              name="searchForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="searchCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-9">
+                    <h5 class="modal-title" id="searchHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="modalButton" id="searchSubmit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>First name</td>
+                    <td>
+                      <input
+                        id="searchFirstName"
+                        name="searchFirstName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="First name"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Last name</td>
+                    <td>
+                      <input
+                        id="searchLastName"
+                        name="searchLastName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Last name"
+                        required
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Job title</td>
+                    <td>
+                      <input
+                        id="searchJobTitle"
+                        name="searchJobTitle"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Job title"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>
+                      <input
+                        id="searchEmail"
+                        name="searchEmail"
+                        class="form-control form-control-sm"
+                        type="email"
+                        placeholder="Email address"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Department</td>
+                    <td>
+                      <select
+                        name="searchDept"
+                        id="searchDept"
+                        class="form-select form-select-sm deptSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        name="searchLoc"
+                        id="searchLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search confirmation modal -->
+      <div
+        class="modal fade"
+        id="searchConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="searchConfirmForm"
+              name="searchConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="searchConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="searchConfirmSubmit"
+                      id="searchConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search results modal -->
+
+      <div
+        class="modal fade"
+        id="searchResultsModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="searchResultsHeading"></h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <div id="searchResultsData"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create modal -->
+      <div
+        class="modal fade"
+        id="createModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="createForm"
+              name="createForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-1">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="createCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-9">
+                    <h5 class="modal-title" id="createHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="modalButton" id="createSubmit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>First name</td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="First name"
+                        aria-label=".form-control-sm example"
+                        id="createFirstName"
+                        name="createFirstName"
+                        required
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Last name</td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Last name"
+                        aria-label=".form-control-sm example"
+                        id="createLastName"
+                        name="createLastName"
+                        required
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Job title</td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Job title"
+                        aria-label=".form-control-sm example"
+                        id="createJobTitle"
+                        name="createJobTitle"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>
+                      <input
+                        class="form-control form-control-sm"
+                        type="email"
+                        placeholder="Email address"
+                        aria-label=".form-control-sm example"
+                        id="createEmail"
+                        name="createEmail"
+                        required
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Department</td>
+                    <td>
+                      <select
+                        id="createDept"
+                        class="form-select form-select-sm deptSelectList"
+                        aria-label=".form-select-sm example"
+                        required
+                      ></select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        name="searchLoc"
+                        id="searchLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create confirmation modal -->
+      <div
+        class="modal fade"
+        id="createConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="createConfirmForm"
+              name="createConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="createConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="createConfirmSubmit"
+                      id="createConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create employee success modal -->
+      <div
+        class="modal fade"
+        id="createSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="createMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete modal -->
+      <div
+        class="modal fade"
+        id="deleteModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog deleteButtonPos" id="delete-dialog">
+          <div class="modal-content" id="deleteButtonPosition">
+            <div class="modal-header" id="deleteModalHeader">
+              <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-6">
+                  <div>
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteCancel">
+                      Reset
+                    </button>
+                  </div>
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-1">
+                  <button type="button" class="modalButton" id="selectAll">
+                    Select all
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont" id="deleteModalBody">
+              <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3" id="selected">0 selected</div>
+              </div>
+
+              <div class="row">
+                <div class="form-outline" id="deleteSearch">
+                  <input
+                    name="deleteSearchBar"
+                    type="search"
+                    id="deleteSearchBar"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-10" id="deleteData"></div>
+                <div class="col-sm-2" id="deleteAlphabet"></div>
+              </div>
+              <form
+                class="form-horizontal"
+                method="post"
+                action=""
+                id="deleteForm"
+                name="deleteForm"
+                role="form"
+              >
+                <div id="moveButton">
+                  <button type="submit" id="deleteButton">Delete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete confirmation modal -->
+      <div
+        class="modal fade"
+        id="deleteConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteConfirmForm"
+              name="deleteConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteConfirmSubmit"
+                      id="deleteConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete employee success modal -->
+      <div
+        class="modal fade"
+        id="deleteSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="deleteMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Department modal -->
+      <div
+        class="modal fade"
+        id="deptModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" id="delete-dialog">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+              <div class="col">
+                <button type="reset" name="reset" value="reset" class="modalButton" id="deptCancel">Reset</button>
+              </div>
+              <div class="col">
+                <button class="modalButton" id="addDept">Add department</button>
+              </div>
+              <div class="col">
+                <button class="modalButton" id="deleteDept">
+                  Delete department
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="row">
+                <div class="col-sm-10" id="deptData"></div>
+                <div class="col-sm-2" id="deptMenu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add department modal -->
+
+      <div
+        class="modal fade"
+        id="addDeptModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="addDeptForm"
+              name="addDeptForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="addDeptCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-7">
+                    <h5 class="modal-title" id="addDeptHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="addDeptSubmit"
+                      id="addDeptSubmit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>Department</td>
+                    <td>
+                      <input
+                        name="addDeptName"
+                        id="addDeptName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Department name"
+                        required
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        name="addDeptLoc"
+                        id="addDeptLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                        required
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add department confirmation modal -->
+      <div
+        class="modal fade"
+        id="addDeptConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="addDeptConfirmForm"
+              name="addDeptConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="addDeptConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="addDeptConfirmSubmit"
+                      id="addDeptConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add department success modal -->
+      <div
+        class="modal fade"
+        id="deptAddSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="addDeptMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete department modal -->
+
+      <div
+        class="modal fade"
+        id="deleteDeptModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteDeptForm"
+              name="deleteDeptForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteDeptCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-7">
+                    <h5 class="modal-title" id="deleteDeptHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteDeptSubmit"
+                      id="deleteDeptSubmit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>Department</td>
+                    <td>
+                      <select
+                        id="deleteSelectDept"
+                        class="form-select form-select-sm deptSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        name="addDeptLoc"
+                        id="addDeptLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                        required
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete department confirmation modal -->
+      <div
+        class="modal fade"
+        id="deleteDeptConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteDeptConfirmForm"
+              name="deleteDeptConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteDeptConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteDeptConfirmSubmit"
+                      id="deleteDeptConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete department success modal -->
+      <div
+        class="modal fade"
+        id="deptDeleteSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="deleteDeptMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location modal -->
+      <div
+        class="modal fade"
+        id="locationModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" id="delete-dialog">
+          <div class="modal-content">
+            <div class="modal-header" id="deleteModalHeader">
+              <div class="col">
+                <button type="reset" name="reset" value="reset" class="modalButton" id="locCancel">Reset</button>
+              </div>
+              <div class="col">
+                <button class="modalButton" id="addLoc">Add location</button>
+              </div>
+              <div class="col">
+                <button class="modalButton" id="deleteLoc">
+                  Delete location
+                </button>
+              </div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <div class="row">
+                <div class="col-sm-10" id="locationData"></div>
+                <div class="col-sm-2" id="locationMenu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add location modal -->
+
+      <div
+        class="modal fade"
+        id="addLocModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="addLocForm"
+              name="addLocForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="addLocCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-6">
+                    <h5 class="modal-title" id="addLocHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="addLocSubmit"
+                      id="addLocSubmit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <input
+                        name="addLocName"
+                        id="addLocName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        placeholder="Location name"
+                        required
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add location confirmation modal -->
+      <div
+        class="modal fade"
+        id="addLocConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="addLocConfirmForm"
+              name="addLocConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="addLocConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="addLocConfirmSubmit"
+                      id="addLocConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add location success modal -->
+      <div
+        class="modal fade"
+        id="locAddSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="addLocMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete location modal -->
+
+      <div
+        class="modal fade"
+        id="deleteLocModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteLocForm"
+              name="deleteLocForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteLocCancel">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-7">
+                    <h5 class="modal-title" id="deleteLocHeading"></h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteLocSubmit"
+                      id="deleteLocSubmit"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <table class="table table-striped modalTable">
+                  <tr>
+                    <td>Location</td>
+                    <td>
+                      <select
+                        id="deleteSelectLoc"
+                        class="form-select form-select-sm locSelectList"
+                        aria-label=".form-select-sm example"
+                      ></select>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete location confirmation modal -->
+      <div
+        class="modal fade"
+        id="deleteLocConfirmModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form
+              class="form-horizontal"
+              method="post"
+              action=""
+              id="deleteLocConfirmForm"
+              name="deleteLocConfirmForm"
+              role="form"
+            >
+              <div class="modal-header">
+                <div class="row">
+                  <div class="col-sm-9">
+                    <button type="reset" name="reset" value="reset" class="modalButton" id="deleteLocConfirmCancel">
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1">
+                    <button
+                      type="submit"
+                      class="modalButton"
+                      name="deleteLocConfirmSubmit"
+                      id="deleteLocConfirmSubmit"
+                    >
+                      Yes
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body modalBodyFont">
+                <div class="modal-body">
+                  <div id="confirmMessage">Are you sure?</div>
+                </div>
+                <div class="modal-footer"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delete location success modal -->
+      <div
+        class="modal fade"
+        id="locDeleteSuccessModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="deleteLocMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="preloader"></div>
+      <script src="libs/js/jquery-3.51.min.js"></script>
+      <script src="//unpkg.com/@popperjs/core@2"></script>
       <script src="libs/bootstrap-5.0.0-beta3-dist/js/bootstrap.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-      <script
-        type="application/javascript"
-        src="libs/js/jquery-2.2.3.min.js"
-      ></script>
       <script src="libs/js/script.min.js"></script>
     </div>
   </body>
