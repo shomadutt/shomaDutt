@@ -63,7 +63,7 @@
     }
 	
     else {
-        echo "Department added!";
+        echo "Added!";
     }
 	
 ?>

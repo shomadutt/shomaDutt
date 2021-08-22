@@ -10,6 +10,7 @@ $(window).on("load", function () {
 
 $(document).ready(function () {
   //1
+
   const colourArray = ["#00cc00", "#6600ff", "#e600e6", "#ff0000"];
 
   //console.log(colourArray);
@@ -126,7 +127,9 @@ $(document).ready(function () {
               $("#txtDept").html(result.data[index].department);
               $("#txtLocation").html(result.data[index].location);
 
-              $("#employeeModal").modal("show");
+              setTimeout(function () {
+                $("#employeeModal").modal("show");
+              }, 1000);
 
               //Edit employee modal
 
@@ -163,10 +166,10 @@ $(document).ready(function () {
                   type: "POST",
                   url: "libs/php/getAllLocations.php",
                   dataType: "json",
-            
+
                   success: function (result) {
                     $(".locSelectList").html("");
-            
+
                     $.each(result.data, function (index) {
                       $(".locSelectList").append(
                         $("<option>", {
@@ -177,18 +180,27 @@ $(document).ready(function () {
                     });
                   },
                 });
-              
-                $(".deptSelectList").change(function(){
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                });
-                
-                $(".locSelectList").change(function(){
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                $(".deptSelectList").change(function () {
+                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
                 });
 
-                $("#editEmployeeModal").modal("show");
+                $(".locSelectList").change(function () {
+                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
+                });
+
+                setTimeout(function () {
+                  $("#editEmployeeModal").modal("show");
+                }, 1000);
 
                 $("#editCancel").on("click", function () {
+                  location.reload();
                   $("#editEmployeeModal").modal("hide");
                 });
               });
@@ -198,10 +210,13 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                $("#editConfirmModal").modal("show");
+                setTimeout(function () {
+                  $("#editConfirmModal").modal("show");
+                }, 1000);
               });
 
               $("#editConfirmCancel").on("click", function () {
+                location.reload();
                 $("#editConfirmModal").modal("hide");
               });
 
@@ -231,10 +246,18 @@ $(document).ready(function () {
                     email: $("#editEmail").val(),
                     dept: $("#editDept").val(),
                   },
+
                   success: function (result) {
                     $("#editMessage").html("");
                     $("#editMessage").append(result);
-                    $("#editSuccessModal").modal("show");
+
+                    setTimeout(function () {
+                      $("#editSuccessModal").modal("show");
+                    }, 1000);
+
+                    setTimeout(function () {
+                      location.reload();
+                    }, 3000);
                   },
                 });
               });
@@ -243,7 +266,9 @@ $(document).ready(function () {
               $("#delete").on("click", function () {
                 $("#employeeModal").modal("hide");
 
-                $("#deleteButtonConfirmModal").modal("show");
+                setTimeout(function () {
+                  $("#deleteButtonConfirmModal").modal("show");
+                }, 1000);
               });
 
               $("#deleteButtonConfirmForm").submit(function (event) {
@@ -266,12 +291,20 @@ $(document).ready(function () {
                     $("#deleteButtonMessage").html("");
                     $("#deleteButtonMessage").append(result);
                     //console.log(result);
-                    $("#deleteButtonSuccessModal").modal("show");
+
+                    setTimeout(function () {
+                      $("#deleteButtonSuccessModal").modal("show");
+                    }, 1000);
+
+                    setTimeout(function () {
+                      location.reload();
+                    }, 3000);
                   },
                 });
               });
 
               $("#deleteButtonConfirmCancel").on("click", function () {
+                location.reload();
                 $("#deleteButtonConfirmModal").modal("hide");
               });
             });
@@ -325,17 +358,26 @@ $(document).ready(function () {
       },
     });
 
-    $(".deptSelectList").change(function(){
-      $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-    });
-    
-    $(".locSelectList").change(function(){
-      $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+    $(".deptSelectList").change(function () {
+      $(".locSelectList option[value=" + $(this).val() + "]").prop(
+        "selected",
+        "selected"
+      );
     });
 
-    $("#createModal").modal("show");
+    $(".locSelectList").change(function () {
+      $(".deptSelectList option[value=" + $(this).val() + "]").prop(
+        "selected",
+        "selected"
+      );
+    });
+
+    setTimeout(function () {
+      $("#createModal").modal("show");
+    }, 1000);
   });
   $("#createCancel").on("click", function () {
+    location.reload();
     $("#createModal").modal("hide");
   });
 
@@ -344,7 +386,9 @@ $(document).ready(function () {
 
     $("#createModal").modal("hide");
 
-    $("#createConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#createConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#createConfirmForm").submit(function (event) {
@@ -388,17 +432,25 @@ $(document).ready(function () {
         $("#createMessage").html("");
         $("#createMessage").append(result);
         //console.log(result);
+
+        setTimeout(function () {
+          $("#createSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
-
-    $("#createSuccessModal").modal("show");
   });
 
   $("#createCancel").on("click", function () {
+    location.reload();
     $("#createModal").modal("hide");
   });
 
   $("#createConfirmCancel").on("click", function () {
+    location.reload();
     $("#createConfirmModal").modal("hide");
   });
 
@@ -540,12 +592,15 @@ $(document).ready(function () {
           });
         });
 
-        $("#deleteModal").modal("show");
+        setTimeout(function () {
+          $("#deleteModal").modal("show");
+        }, 1000);
       },
     });
   });
 
   $("#deleteCancel").on("click", function () {
+    location.reload();
     $("#deleteModal").modal("hide");
   });
 
@@ -554,7 +609,9 @@ $(document).ready(function () {
 
     $("#deleteModal").modal("hide");
 
-    $("#deleteConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#deleteConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#deleteConfirmForm").submit(function (event) {
@@ -586,13 +643,21 @@ $(document).ready(function () {
         $("#deleteMessage").html("");
         $("#deleteMessage").append(result);
         console.log(result);
-        $("#deleteSuccessModal").modal("show");
+
+        setTimeout(function () {
+          $("#deleteSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
     $("#selected").html("");
   });
 
   $("#deleteConfirmCancel").on("click", function () {
+    location.reload();
     $("#deleteConfirmModal").modal("hide");
   });
 
@@ -681,9 +746,12 @@ $(document).ready(function () {
               }
             });
 
-            $("#deleteModal").modal("show");
+            setTimeout(function () {
+              $("#deleteModal").modal("show");
+            }, 1000);
 
             $("#deleteCancel").on("click", function () {
+              location.reload();
               $("#deleteModal").modal("hide");
             });
           } else {
@@ -818,21 +886,22 @@ $(document).ready(function () {
                   });
                 });
                 $("#deleteAlphabet").show();
-                $("#deleteModal").modal("show");
+
+                setTimeout(function () {
+                  $("#deleteModal").modal("show");
+                }, 1000);
               },
             });
           }
-
-          $("#deleteCancel").on("click", function () {
-            $("#deleteModal").modal("hide");
-          });
 
           $("#deleteForm").submit(function (event) {
             event.preventDefault();
 
             $("#deleteModal").modal("hide");
 
-            $("#deleteConfirmModal").modal("show");
+            setTimeout(function () {
+              $("#deleteConfirmModal").modal("show");
+            }, 1000);
           });
 
           $("#deleteConfirmForm").submit(function (event) {
@@ -863,12 +932,20 @@ $(document).ready(function () {
                 $("#deleteMessage").html("");
                 $("#deleteMessage").append(result);
                 //console.log(result);
-                $("#deleteSuccessModal").modal("show");
+
+                setTimeout(function () {
+                  $("#deleteSuccessModal").modal("show");
+                }, 1000);
+
+                setTimeout(function () {
+                  location.reload();
+                }, 3000);
               },
             });
             $("#selected").html("");
           });
           $("#deleteConfirmCancel").on("click", function () {
+            location.reload();
             $("#deleteConfirmModal").modal("hide");
           });
         });
@@ -935,7 +1012,9 @@ $(document).ready(function () {
               $("#txtDept").html(result.data[index].department);
               $("#txtLocation").html(result.data[index].location);
 
-              $("#employeeModal").modal("show");
+              setTimeout(function () {
+                $("#employeeModal").modal("show");
+              }, 1000);
 
               //Edit employee modal
 
@@ -972,10 +1051,10 @@ $(document).ready(function () {
                   type: "POST",
                   url: "libs/php/getAllLocations.php",
                   dataType: "json",
-            
+
                   success: function (result) {
                     $(".locSelectList").html("");
-            
+
                     $.each(result.data, function (index) {
                       $(".locSelectList").append(
                         $("<option>", {
@@ -986,16 +1065,24 @@ $(document).ready(function () {
                     });
                   },
                 });
-              
-                $(".deptSelectList").change(function(){
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                });
-                
-                $(".locSelectList").change(function(){
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                $(".deptSelectList").change(function () {
+                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
                 });
 
-                $("#editEmployeeModal").modal("show");
+                $(".locSelectList").change(function () {
+                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
+                });
+
+                setTimeout(function () {
+                  $("#editEmployeeModal").modal("show");
+                }, 1000);
               });
 
               $("#editForm").submit(function (event) {
@@ -1003,7 +1090,9 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                $("#editConfirmModal").modal("show");
+                setTimeout(function () {
+                  $("#editConfirmModal").modal("show");
+                }, 1000);
               });
 
               $("#editConfirmForm").submit(function (event) {
@@ -1033,15 +1122,24 @@ $(document).ready(function () {
                   success: function (result) {
                     $("#editMessage").html("");
                     $("#editMessage").append(result);
-                    $("#editSuccessModal").modal("show");
+
+                    setTimeout(function () {
+                      $("#editSuccessModal").modal("show");
+                    }, 1000);
+
+                    setTimeout(function () {
+                      location.reload();
+                    }, 3000);
                   },
                 });
               });
 
               $("#editCancel").on("click", function () {
+                location.reload();
                 $("#editEmployeeModal").modal("hide");
               });
               $("#editConfirmCancel").on("click", function () {
+                location.reload();
                 $("#editConfirmModal").modal("hide");
               });
 
@@ -1049,7 +1147,9 @@ $(document).ready(function () {
               $("#delete").on("click", function () {
                 $("#employeeModal").modal("hide");
 
-                $("#deleteButtonConfirmModal").modal("show");
+                setTimeout(function () {
+                  $("#deleteButtonConfirmModal").modal("show");
+                }, 1000);
               });
 
               $("#deleteButtonConfirmForm").submit(function (event) {
@@ -1072,11 +1172,19 @@ $(document).ready(function () {
                     $("#deleteButtonMessage").html("");
                     $("#deleteButtonMessage").append(result);
                     //console.log(result);
-                    $("#deleteButtonSuccessModal").modal("show");
+
+                    setTimeout(function () {
+                      $("#deleteButtonSuccessModal").modal("show");
+                    }, 1000);
+
+                    setTimeout(function () {
+                      location.reload();
+                    }, 3000);
                   },
                 });
               });
               $("#deleteButtonConfirmCancel").on("click", function () {
+                location.reload();
                 $("#deleteButtonConfirmModal").modal("hide");
               });
             });
@@ -1182,7 +1290,9 @@ $(document).ready(function () {
                         $("#txtDept").html(result.data[index].department);
                         $("#txtLocation").html(result.data[index].location);
 
-                        $("#employeeModal").modal("show");
+                        setTimeout(function () {
+                          $("#employeeModal").modal("show");
+                        }, 1000);
 
                         //Edit employee modal
 
@@ -1225,10 +1335,10 @@ $(document).ready(function () {
                             type: "POST",
                             url: "libs/php/getAllLocations.php",
                             dataType: "json",
-                      
+
                             success: function (result) {
                               $(".locSelectList").html("");
-                      
+
                               $.each(result.data, function (index) {
                                 $(".locSelectList").append(
                                   $("<option>", {
@@ -1239,18 +1349,29 @@ $(document).ready(function () {
                               });
                             },
                           });
-                        
-                          $(".deptSelectList").change(function(){
-                            $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                          });
-                          
-                          $(".locSelectList").change(function(){
-                            $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                          $(".deptSelectList").change(function () {
+                            $(
+                              ".locSelectList option[value=" +
+                                $(this).val() +
+                                "]"
+                            ).prop("selected", "selected");
                           });
 
-                          $("#editEmployeeModal").modal("show");
+                          $(".locSelectList").change(function () {
+                            $(
+                              ".deptSelectList option[value=" +
+                                $(this).val() +
+                                "]"
+                            ).prop("selected", "selected");
+                          });
+
+                          setTimeout(function () {
+                            $("#editEmployeeModal").modal("show");
+                          }, 1000);
                         });
                         $("#editCancel").on("click", function () {
+                          location.reload();
                           $("#editModal").modal("hide");
                         });
 
@@ -1259,7 +1380,9 @@ $(document).ready(function () {
 
                           $("#editEmployeeModal").modal("hide");
 
-                          $("#editConfirmModal").modal("show");
+                          setTimeout(function () {
+                            $("#editConfirmModal").modal("show");
+                          }, 1000);
 
                           $("#editConfirmForm").submit(function (event) {
                             event.preventDefault();
@@ -1288,15 +1411,24 @@ $(document).ready(function () {
                               success: function (result) {
                                 $("#editMessage").html("");
                                 $("#editMessage").append(result);
-                                $("#editSuccessModal").modal("show");
+
+                                setTimeout(function () {
+                                  $("#editSuccessModal").modal("show");
+                                }, 1000);
+
+                                setTimeout(function () {
+                                  location.reload();
+                                }, 3000);
                               },
                             });
 
                             $("#editCancel").on("click", function () {
+                              location.reload();
                               $("#editModal").modal("hide");
                             });
                           });
                           $("#editConfirmCancel").on("click", function () {
+                            location.reload();
                             $("#editConfirmModal").modal("hide");
                           });
                         });
@@ -1306,7 +1438,9 @@ $(document).ready(function () {
                     $("#delete").on("click", function () {
                       $("#employeeModal").modal("hide");
 
-                      $("#deleteButtonConfirmModal").modal("show");
+                      setTimeout(function () {
+                        $("#deleteButtonConfirmModal").modal("show");
+                      }, 1000);
                     });
 
                     $("#deleteButtonConfirmForm").submit(function (event) {
@@ -1329,11 +1463,19 @@ $(document).ready(function () {
                           $("#deleteButtonConfirmMessage").html("");
                           $("#deleteButtonConfirmMessage").append(result);
                           //console.log(result);
-                          $("#deleteButtonSuccessModal").modal("show");
+
+                          setTimeout(function () {
+                            $("#deleteButtonSuccessModal").modal("show");
+                          }, 1000);
+
+                          setTimeout(function () {
+                            location.reload();
+                          }, 3000);
                         },
                       });
                     });
                     $("#deleteButtonConfirmCancel").on("click", function () {
+                      location.reload();
                       $("#deleteButtonConfirmModal").modal("hide");
                     });
                   }); //5
@@ -1422,9 +1564,12 @@ $(document).ready(function () {
                 deptSquare.css("background-color", colourArray[3]);
               }
 
-              $("#deptModal").modal("show");
+              setTimeout(function () {
+                $("#deptModal").modal("show");
+              }, 1000);
 
               $("#deptCancel").on("click", function () {
+                location.reload();
                 $("#deptModal").modal("hide");
               });
 
@@ -1443,7 +1588,9 @@ $(document).ready(function () {
                 $("#txtDept").html(result.data[index].department);
                 $("#txtLocation").html(result.data[index].location);
 
-                $("#employeeModal").modal("show");
+                setTimeout(function () {
+                  $("#employeeModal").modal("show");
+                }, 1000);
 
                 //Edit employee modal
 
@@ -1481,10 +1628,10 @@ $(document).ready(function () {
                     type: "POST",
                     url: "libs/php/getAllLocations.php",
                     dataType: "json",
-              
+
                     success: function (result) {
                       $(".locSelectList").html("");
-              
+
                       $.each(result.data, function (index) {
                         $(".locSelectList").append(
                           $("<option>", {
@@ -1495,19 +1642,26 @@ $(document).ready(function () {
                       });
                     },
                   });
-                
-                  $(".deptSelectList").change(function(){
-                    $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                  });
-                  
-                  $(".locSelectList").change(function(){
-                    $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                  $(".deptSelectList").change(function () {
+                    $(
+                      ".locSelectList option[value=" + $(this).val() + "]"
+                    ).prop("selected", "selected");
                   });
 
-                  $("#editEmployeeModal").modal("show");
+                  $(".locSelectList").change(function () {
+                    $(
+                      ".deptSelectList option[value=" + $(this).val() + "]"
+                    ).prop("selected", "selected");
+                  });
+
+                  setTimeout(function () {
+                    $("#editEmployeeModal").modal("show");
+                  }, 1000);
                 });
 
                 $("#editCancel").on("click", function () {
+                  location.reload();
                   $("#editEmployeeModal").modal("hide");
                 });
 
@@ -1516,7 +1670,9 @@ $(document).ready(function () {
 
                   $("#editEmployeeModal").modal("hide");
 
-                  $("#editConfirmModal").modal("show");
+                  setTimeout(function () {
+                    $("#editConfirmModal").modal("show");
+                  }, 1000);
 
                   $("#editConfirmForm").submit(function (event) {
                     event.preventDefault();
@@ -1545,15 +1701,24 @@ $(document).ready(function () {
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
-                        $("#editSuccessModal").modal("show");
+
+                        setTimeout(function () {
+                          $("#editSuccessModal").modal("show");
+                        }, 1000);
+
+                        setTimeout(function () {
+                          location.reload();
+                        }, 3000);
                       },
                     });
 
                     $("#editCancel").on("click", function () {
+                      location.reload();
                       $("#editModal").modal("hide");
                     });
                   });
                   $("#editConfirmCancel").on("click", function () {
+                    location.reload();
                     $("#editConfirmModal").modal("hide");
                   });
                 });
@@ -1562,7 +1727,9 @@ $(document).ready(function () {
                 $("#delete").on("click", function () {
                   $("#employeeModal").modal("hide");
 
-                  $("#deleteButtonConfirmModal").modal("show");
+                  setTimeout(function () {
+                    $("#deleteButtonConfirmModal").modal("show");
+                  }, 1000);
                 });
 
                 $("#deleteButtonConfirmForm").submit(function (event) {
@@ -1585,11 +1752,19 @@ $(document).ready(function () {
                       $("#deleteButtonMessage").html("");
                       $("#deleteButtonMessage").append(result);
                       //console.log(result);
-                      $("#deleteButtonSuccessModal").modal("show");
+
+                      setTimeout(function () {
+                        $("#deleteButtonSuccessModal").modal("show");
+                      }, 1000);
+
+                      setTimeout(function () {
+                        location.reload();
+                      }, 3000);
                     },
                   });
                 });
                 $("#deleteButtonConfirmCancel").on("click", function () {
+                  location.reload();
                   $("#deleteButtonConfirmModal").modal("hide");
                 });
               });
@@ -1627,7 +1802,9 @@ $(document).ready(function () {
       },
     });
 
-    $("#addDeptModal").modal("show");
+    setTimeout(function () {
+      $("#addDeptModal").modal("show");
+    }, 1000);
   });
 
   $("#addDeptForm").submit(function (event) {
@@ -1635,7 +1812,9 @@ $(document).ready(function () {
 
     $("#addDeptModal").modal("hide");
 
-    $("#addDeptConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#addDeptConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#addDeptConfirmForm").submit(function (event) {
@@ -1662,17 +1841,25 @@ $(document).ready(function () {
       success: function (result) {
         $("#addDeptMessage").html("");
         $("#addDeptMessage").append(result);
+
+        setTimeout(function () {
+          $("#deptAddSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
-
-    $("#deptAddSuccessModal").modal("show");
   });
 
   $("#addDeptCancel").on("click", function () {
+    location.reload();
     $("#addDeptModal").modal("hide");
   });
 
   $("#addDeptConfirmCancel").on("click", function () {
+    location.reload();
     $("#addDeptConfirmModal").modal("hide");
   });
 
@@ -1721,16 +1908,24 @@ $(document).ready(function () {
         });
       },
     });
-  
-    $(".deptSelectList").change(function(){
-      $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-    });
-    
-    $(".locSelectList").change(function(){
-      $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+    $(".deptSelectList").change(function () {
+      $(".locSelectList option[value=" + $(this).val() + "]").prop(
+        "selected",
+        "selected"
+      );
     });
 
-    $("#deleteDeptModal").modal("show");
+    $(".locSelectList").change(function () {
+      $(".deptSelectList option[value=" + $(this).val() + "]").prop(
+        "selected",
+        "selected"
+      );
+    });
+
+    setTimeout(function () {
+      $("#deleteDeptModal").modal("show");
+    }, 1000);
   });
 
   $("#deleteDeptForm").submit(function (event) {
@@ -1738,7 +1933,9 @@ $(document).ready(function () {
 
     $("#deleteDeptModal").modal("hide");
 
-    $("#deleteDeptConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#deleteDeptConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#deleteDeptConfirmForm").submit(function (event) {
@@ -1757,17 +1954,25 @@ $(document).ready(function () {
         $("#deleteDeptMessage").html("");
         $("#deleteDeptMessage").append(result);
         //console.log(result);
+
+        setTimeout(function () {
+          $("#deptDeleteSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
-
-    $("#deptDeleteSuccessModal").modal("show");
   });
 
   $("#deleteDeptCancel").on("click", function () {
+    location.reload();
     $("#deleteDeptModal").modal("hide");
   });
 
   $("#deleteDeptConfirmCancel").on("click", function () {
+    location.reload();
     $("#deleteDeptConfirmModal").modal("hide");
   });
 
@@ -1849,9 +2054,12 @@ $(document).ready(function () {
                 locSquare.css("background-color", colourArray[3]);
               }
 
-              $("#locationModal").modal("show");
+              setTimeout(function () {
+                $("#locationModal").modal("show");
+              }, 1000);
 
               $("#locCancel").on("click", function () {
+                location.reload();
                 $("#locationModal").modal("hide");
               });
 
@@ -1870,7 +2078,9 @@ $(document).ready(function () {
                 $("#txtDept").html(result.data[index].department);
                 $("#txtLocation").html(result.data[index].location);
 
-                $("#employeeModal").modal("show");
+                setTimeout(function () {
+                  $("#employeeModal").modal("show");
+                }, 1000);
 
                 //Edit employee modal
 
@@ -1908,10 +2118,10 @@ $(document).ready(function () {
                     type: "POST",
                     url: "libs/php/getAllLocations.php",
                     dataType: "json",
-              
+
                     success: function (result) {
                       $(".locSelectList").html("");
-              
+
                       $.each(result.data, function (index) {
                         $(".locSelectList").append(
                           $("<option>", {
@@ -1922,19 +2132,26 @@ $(document).ready(function () {
                       });
                     },
                   });
-                
-                  $(".deptSelectList").change(function(){
-                    $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                  });
-                  
-                  $(".locSelectList").change(function(){
-                    $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                  $(".deptSelectList").change(function () {
+                    $(
+                      ".locSelectList option[value=" + $(this).val() + "]"
+                    ).prop("selected", "selected");
                   });
 
-                  $("#editEmployeeModal").modal("show");
+                  $(".locSelectList").change(function () {
+                    $(
+                      ".deptSelectList option[value=" + $(this).val() + "]"
+                    ).prop("selected", "selected");
+                  });
+
+                  setTimeout(function () {
+                    $("#editEmployeeModal").modal("show");
+                  }, 1000);
                 });
 
                 $("#editCancel").on("click", function () {
+                  location.reload();
                   $("#editEmployeeModal").modal("hide");
                 });
 
@@ -1943,7 +2160,9 @@ $(document).ready(function () {
 
                   $("#editEmployeeModal").modal("hide");
 
-                  $("#editConfirmModal").modal("show");
+                  setTimeout(function () {
+                    $("#editConfirmModal").modal("show");
+                  }, 1000);
 
                   $("#editConfirmForm").submit(function (event) {
                     event.preventDefault();
@@ -1972,15 +2191,24 @@ $(document).ready(function () {
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
-                        $("#editSuccessModal").modal("show");
+
+                        setTimeout(function () {
+                          $("#editSuccessModal").modal("show");
+                        }, 1000);
+
+                        setTimeout(function () {
+                          location.reload();
+                        }, 3000);
                       },
                     });
 
                     $("#editCancel").on("click", function () {
+                      location.reload();
                       $("#editModal").modal("hide");
                     });
                   });
                   $("#editConfirmCancel").on("click", function () {
+                    location.reload();
                     $("#editConfirmModal").modal("hide");
                   });
                 });
@@ -1989,7 +2217,9 @@ $(document).ready(function () {
                 $("#delete").on("click", function () {
                   $("#employeeModal").modal("hide");
 
-                  $("#deleteButtonConfirmModal").modal("show");
+                  setTimeout(function () {
+                    $("#deleteButtonConfirmModal").modal("show");
+                  }, 1000);
                 });
 
                 $("#deleteButtonConfirmForm").submit(function (event) {
@@ -2012,11 +2242,19 @@ $(document).ready(function () {
                       $("#deleteButtonMessage").html("");
                       $("#deleteButtonMessage").append(result);
                       //console.log(result);
-                      $("#deleteButtonSuccessModal").modal("show");
+
+                      setTimeout(function () {
+                        $("#deleteButtonSuccessModal").modal("show");
+                      }, 1000);
+
+                      setTimeout(function () {
+                        location.reload();
+                      }, 3000);
                     },
                   });
                 });
                 $("#deleteButtonConfirmCancel").on("click", function () {
+                  location.reload();
                   $("#deleteButtonConfirmModal").modal("hide");
                 });
               });
@@ -2034,7 +2272,9 @@ $(document).ready(function () {
     $("#addLocHeading").html("");
     $("#addLocHeading").append("Add location");
 
-    $("#addLocModal").modal("show");
+    setTimeout(function () {
+      $("#addLocModal").modal("show");
+    }, 1000);
   });
 
   $("#addLocForm").submit(function (event) {
@@ -2042,7 +2282,9 @@ $(document).ready(function () {
 
     $("#addLocModal").modal("hide");
 
-    $("#addLocConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#addLocConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#addLocConfirmForm").submit(function (event) {
@@ -2068,17 +2310,25 @@ $(document).ready(function () {
       success: function (result) {
         $("#addLocMessage").html("");
         $("#addLocMessage").append(result);
+
+        setTimeout(function () {
+          $("#locAddSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
-
-    $("#locAddSuccessModal").modal("show");
   });
 
   $("#addLocCancel").on("click", function () {
+    location.reload();
     $("#addLocModal").modal("hide");
   });
 
   $("#addLocConfirmCancel").on("click", function () {
+    location.reload();
     $("#addLocConfirmModal").modal("hide");
   });
 
@@ -2109,7 +2359,9 @@ $(document).ready(function () {
       },
     });
 
-    $("#deleteLocModal").modal("show");
+    setTimeout(function () {
+      $("#deleteLocModal").modal("show");
+    }, 1000);
   });
 
   $("#deleteLocForm").submit(function (event) {
@@ -2117,7 +2369,9 @@ $(document).ready(function () {
 
     $("#deleteLocModal").modal("hide");
 
-    $("#deleteLocConfirmModal").modal("show");
+    setTimeout(function () {
+      $("#deleteLocConfirmModal").modal("show");
+    }, 1000);
   });
 
   $("#deleteLocConfirmForm").submit(function (event) {
@@ -2136,17 +2390,25 @@ $(document).ready(function () {
         $("#deleteLocMessage").html("");
         $("#deleteLocMessage").append(result);
         //console.log(result);
+
+        setTimeout(function () {
+          $("#locDeleteSuccessModal").modal("show");
+        }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 3000);
       },
     });
-
-    $("#locDeleteSuccessModal").modal("show");
   });
 
   $("#deleteLocCancel").on("click", function () {
+    location.reload();
     $("#deleteLocModal").modal("hide");
   });
 
   $("#deleteLocConfirmCancel").on("click", function () {
+    location.reload();
     $("#deleteLocConfirmModal").modal("hide");
   });
 
@@ -2155,10 +2417,11 @@ $(document).ready(function () {
   //Search modal
 
   $("#search").on("click", function () {
-    $(this).closest('form').find("input[type=text]").val("");
-    
+    $(this).closest("form").find("input[type=text]").val("");
+
     $("#searchHeading").empty();
     $("#searchHeading").append("Search");
+
     $.ajax({
       //2
       type: "POST",
@@ -2168,10 +2431,14 @@ $(document).ready(function () {
       success: function (result) {
         $(".deptSelectList").html("");
 
+        $(".deptSelectList").append(
+          '<option selected disabled>' + "Select department" + "</option>"
+        );
+
         $.each(result.data, function (index) {
           $(".deptSelectList").append(
             $("<option>", {
-              value: result.data[index].locationID,
+              value: result.data[index].name,
               text: result.data[index].name,
             })
           );
@@ -2188,29 +2455,28 @@ $(document).ready(function () {
       success: function (result) {
         $(".locSelectList").html("");
 
+        $(".locSelectList").append(
+          '<option selected disabled value="">' + "Select location" + "</option>"
+        );
+
         $.each(result.data, function (index) {
           $(".locSelectList").append(
             $("<option>", {
-              value: result.data[index].id,
+              value: result.data[index].name,
               text: result.data[index].name,
             })
           );
         });
       },
     });
-  
-    $(".deptSelectList").change(function(){
-      $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-    });
-    
-    $(".locSelectList").change(function(){
-      $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-    });
 
-    $("#searchModal").modal("show");
+    setTimeout(function () {
+      $("#searchModal").modal("show");
+    }, 1000);
   });
 
   $("#searchCancel").on("click", function () {
+    location.reload();
     $("#searchModal").modal("hide");
   });
 
@@ -2219,36 +2485,58 @@ $(document).ready(function () {
 
     $("#searchModal").modal("hide");
 
-    $("#searchConfirmModal").modal("show");
+    if (
+      $("#searchFirstName").val() === "" &&
+      $("#searchLastName").val() === "" &&
+      $("#searchJobTitle").val() === "" &&
+      $("#searchEmail").val() === ""
+    ) {
+      $("#searchErrorMessage").html("");
+      $("#searchErrorMessage").append("Please also type in another field.");
+      setTimeout(function () {
+        $("#searchErrorModal").modal("show");
+      }, 1000);
+    } else {
+      setTimeout(function () {
+        $("#searchConfirmModal").modal("show");
+      }, 1000);
+    }
   });
 
   $("#searchConfirmCancel").on("click", function () {
+    location.reload();
     $("#searchConfirmModal").modal("hide");
   });
 
   $("#searchConfirmForm").submit(function (event) {
+    $(this).closest('form').find("input[type=text]").val("");
     event.preventDefault();
 
     $("#searchConfirmModal").modal("hide");
 
-    let searchFirstName = $("#searchFirstName").val();
+    // let searchFirstName = $("#searchFirstName").val();
 
-    if (searchFirstName !== "") {
-      searchFirstName =
-        searchFirstName[0].toUpperCase() +
-        searchFirstName.substring(1, searchFirstName.length);
-    }
+    // if (searchFirstName !== "") {
+    //   searchFirstName =
+    //     searchFirstName[0].toUpperCase() +
+    //     searchFirstName.substring(1, searchFirstName.length);
+    // }
 
-    let searchLastName = $("#searchLastName").val();
+    // let searchLastName = $("#searchLastName").val();
 
-    if (searchLastName !== "") {
-      searchLastName =
-        searchLastName[0].toUpperCase() +
-        searchLastName.substring(1, searchLastName.length);
-    }
+    // if (searchLastName !== "") {
+    //   searchLastName =
+    //     searchLastName[0].toUpperCase() +
+    //     searchLastName.substring(1, searchLastName.length);
+    // }
 
     // let searchJobTitle = $("#searchJobTitle").val();
-    // searchJobTitle = searchJobTitle[0].toUpperCase() + searchJobTitle.substring(1, searchJobTitle.length);
+
+    // if (searchJobTitle !== "") {
+    //   searchJobTitle =
+    //     searchJobTitle[0].toUpperCase() +
+    //     searchJobTitle.substring(1, searchJobTitle.length);
+    // }
 
     $.ajax({
       type: "POST",
@@ -2256,15 +2544,16 @@ $(document).ready(function () {
       dataType: "json",
 
       data: {
-        firstName: searchFirstName,
-        lastName: searchLastName,
-        // jobTitle: $("#searchJobTitle").val(),
+        firstName: $("#searchFirstName").val(),
+        lastName: $("#searchLastName").val(),
+        jobTitle: $("#searchJobTitle").val(),
         email: $("#searchEmail").val(),
         department: $("#searchDept").val(),
         location: $("#searchLoc").val(),
       },
 
       success: function (result) {
+       
         console.log(result);
 
         $("#searchModal").modal("hide");
@@ -2305,11 +2594,14 @@ $(document).ready(function () {
               square.css("background-color", colourArray[3]);
             }
 
-            $("#searchResultsModal").modal("show");
+            setTimeout(function () {
+              $("#searchResultsModal").modal("show");
+            }, 1000);
 
             //Employee modal
             $(`#searchNameLink${index}`).on("click", function () {
               $("#searchResultsModal").modal("hide");
+
               $("#employeeHeading").empty();
 
               $("#employeeHeading").append($(`#searchNameLink${index}`).text());
@@ -2321,7 +2613,9 @@ $(document).ready(function () {
               $("#txtDept").html(result.data[index].department);
               $("#txtLocation").html(result.data[index].location);
 
-              $("#employeeModal").modal("show");
+              setTimeout(function () {
+                $("#employeeModal").modal("show");
+              }, 1000);
 
               //Edit employee modal
 
@@ -2359,10 +2653,10 @@ $(document).ready(function () {
                   type: "POST",
                   url: "libs/php/getAllLocations.php",
                   dataType: "json",
-            
+
                   success: function (result) {
                     $(".locSelectList").html("");
-            
+
                     $.each(result.data, function (index) {
                       $(".locSelectList").append(
                         $("<option>", {
@@ -2373,19 +2667,28 @@ $(document).ready(function () {
                     });
                   },
                 });
-              
-                $(".deptSelectList").change(function(){
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
-                });
-                
-                $(".locSelectList").change(function(){
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop("selected", "selected");
+
+                $(".deptSelectList").change(function () {
+                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
                 });
 
-                $("#editEmployeeModal").modal("show");
+                $(".locSelectList").change(function () {
+                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
+                    "selected",
+                    "selected"
+                  );
+                });
+
+                setTimeout(function () {
+                  $("#editEmployeeModal").modal("show");
+                }, 1000);
               });
 
               $("#editCancel").on("click", function () {
+                location.reload();
                 $("#editEmployeeModal").modal("hide");
               });
 
@@ -2394,7 +2697,9 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                $("#editConfirmModal").modal("show");
+                setTimeout(function () {
+                  $("#editConfirmModal").modal("show");
+                }, 1000);
 
                 $("#editConfirmForm").submit(function (event) {
                   event.preventDefault();
@@ -2423,12 +2728,20 @@ $(document).ready(function () {
                     success: function (result) {
                       $("#editMessage").html("");
                       $("#editMessage").append(result);
-                      $("#editSuccessModal").modal("show");
+
+                      setTimeout(function () {
+                        $("#editSuccessModal").modal("show");
+                      }, 1000);
+
+                      setTimeout(function () {
+                        location.reload();
+                      }, 3000);
                     },
                   });
                 });
 
                 $("#editConfirmCancel").on("click", function () {
+                  location.reload();
                   $("#editConfirmModal").modal("hide");
                 });
               });
@@ -2438,7 +2751,9 @@ $(document).ready(function () {
             $("#delete").on("click", function () {
               $("#employeeModal").modal("hide");
 
-              $("#deleteButtonConfirmModal").modal("show");
+              setTimeout(function () {
+                $("#deleteButtonConfirmModal").modal("show");
+              }, 1000);
             });
 
             $("#deleteButtonConfirmForm").submit(function (event) {
@@ -2461,21 +2776,30 @@ $(document).ready(function () {
                   $("#deleteButtonMessage").html("");
                   $("#deleteButtonMessage").append(result);
                   //console.log(result);
-                  $("#deleteButtonSuccessModal").modal("show");
+
+                  setTimeout(function () {
+                    $("#deleteButtonSuccessModal").modal("show");
+                  }, 1000);
+
+                  setTimeout(function () {
+                    location.reload();
+                  }, 3000);
                 },
               });
             });
             $("#deleteButtonConfirmCancel").on("click", function () {
+              location.reload();
               $("#deleteButtonConfirmModal").modal("hide");
             });
           });
         } else {
           $("#searchResultsHeading").append("No matches");
-          $("#searchResultsModal").modal("show");
+
+          setTimeout(function () {
+            $("#searchResultsModal").modal("show");
+          }, 1000);
         }
       },
-      
     });
-    
   });
 }); //1

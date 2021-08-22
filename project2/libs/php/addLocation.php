@@ -59,7 +59,7 @@
     }
 	
     else {
-        echo "Location added!";
+        echo "Added!";
     }
 	
 ?>

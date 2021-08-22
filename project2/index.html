@@ -6,12 +6,14 @@
     <meta name="description" content="Company directory" />
     <meta name="author" content="Shoma Dutt" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet"> 
     <link
       rel="stylesheet"
       href="libs/bootstrap-5.0.0-beta3-dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="libs/css/directory.min.css" />
+    <link rel="stylesheet" href="libs/css/directory.css" />
   </head>
 
   <body>
@@ -481,7 +483,6 @@
                         class="form-control form-control-sm"
                         type="text"
                         placeholder="Last name"
-                        required
                         aria-label=".form-control-sm example"
                       />
                     </td>
@@ -520,7 +521,8 @@
                         id="searchDept"
                         class="form-select form-select-sm deptSelectList"
                         aria-label=".form-select-sm example"
-                      ></select>
+                      >
+                    </select>
                     </td>
                   </tr>
                   <tr>
@@ -1713,11 +1715,38 @@
         </div>
       </div>
 
+       <!-- Search error modal -->
+       <div
+       class="modal fade"
+       id="searchErrorModal"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true"
+     >
+       <div class="modal-dialog">
+         <div class="modal-content">
+           <div class="modal-header">
+             <h5 class="modal-title"></h5>
+             <button
+               type="button"
+               class="btn-close"
+               data-bs-dismiss="modal"
+               aria-label="Close"
+             ></button>
+           </div>
+           <div class="modal-body">
+             <div id="searchErrorMessage"></div>
+           </div>
+           <div class="modal-footer"></div>
+         </div>
+       </div>
+     </div>
+
       <div id="preloader"></div>
       <script src="libs/js/jquery-3.51.min.js"></script>
       <script src="//unpkg.com/@popperjs/core@2"></script>
       <script src="libs/bootstrap-5.0.0-beta3-dist/js/bootstrap.min.js"></script>
-      <script src="libs/js/script.min.js"></script>
+      <script src="libs/js/script.js"></script>
     </div>
   </body>
 </html>

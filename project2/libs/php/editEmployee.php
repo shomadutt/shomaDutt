@@ -59,9 +59,9 @@
 
 	//Make sure job title is valid
 
-	// if(!preg_match("/^[a-zA-Z' ]+$/", $jobTitle)) { 
-    //     die ("Invalid job title.");
-    // }
+	if(!preg_match("/^[a-zA-Z' ]+$/", $jobTitle)) { 
+        die ("Invalid job title.");
+    }
 
 	//Response
     

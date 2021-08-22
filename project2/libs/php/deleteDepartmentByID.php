@@ -44,7 +44,7 @@
 	} 
 	
 	else {
-		echo "Department deleted!";
+		echo "Deleted!";
 	}
 
 ?>

@@ -63,9 +63,9 @@
         die ("Invalid last name.");
     }
 
-	// if(!preg_match("/^[a-zA-Z' ]+$/", $jobTitle)) { 
-    //     die ("Invalid job title.");
-    // }
+	if(!preg_match("/^[a-zA-Z' ]+$/", $jobTitle)) { 
+        die ("Invalid job title.");
+    }
 
 	//Response
     //Checking to see if email already exists
@@ -78,7 +78,7 @@
     }
 	
     else {
-        echo "Employee added!";
+        echo "Added!";
     }
 	
 ?>

@@ -44,7 +44,7 @@
 	} 
 	
 	else {
-		echo "Location deleted!";
+		echo "Deleted!";
 	}
 
 ?>
