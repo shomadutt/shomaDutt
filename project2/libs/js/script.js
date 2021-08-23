@@ -2514,30 +2514,6 @@ $(document).ready(function () {
 
     $("#searchConfirmModal").modal("hide");
 
-    // let searchFirstName = $("#searchFirstName").val();
-
-    // if (searchFirstName !== "") {
-    //   searchFirstName =
-    //     searchFirstName[0].toUpperCase() +
-    //     searchFirstName.substring(1, searchFirstName.length);
-    // }
-
-    // let searchLastName = $("#searchLastName").val();
-
-    // if (searchLastName !== "") {
-    //   searchLastName =
-    //     searchLastName[0].toUpperCase() +
-    //     searchLastName.substring(1, searchLastName.length);
-    // }
-
-    // let searchJobTitle = $("#searchJobTitle").val();
-
-    // if (searchJobTitle !== "") {
-    //   searchJobTitle =
-    //     searchJobTitle[0].toUpperCase() +
-    //     searchJobTitle.substring(1, searchJobTitle.length);
-    // }
-
     $.ajax({
       type: "POST",
       url: "libs/php/searchButton.php",
@@ -2800,6 +2776,11 @@ $(document).ready(function () {
           }, 1000);
         }
       },
+      error: function(jqXHR, textStatus, errorThrown) {
+				console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+			}
     });
   });
 }); //1

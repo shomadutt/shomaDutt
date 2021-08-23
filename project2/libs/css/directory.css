@@ -159,22 +159,30 @@ h1 {
   background-color: transparent;
   font-size: 15px;
 }
-
-#editHeading {
-  margin-left: 115px;
-}
-
-#searchHeading {
-  margin-left: 140px;
-}
-
-#createHeading {
-  margin-left: 120px;
-}
  
 #deleteCancel {
   margin-left: 40px;
 } 
+
+#searchSubmit {
+  margin-left: 16px;
+}
+
+#editSubmit {
+  margin-left: 19px;
+}
+
+#createSubmit {
+  margin-left: 12px;
+}
+
+#addDeptSubmit {
+  margin-left: 10px;
+}
+
+#addLocSubmit {
+  margin-left: 10px;
+}
 
 #selectAll {
   width: 80px;
@@ -260,11 +268,15 @@ h1 {
   text-align: center;
 }
 
-#editConfirmSubmit, #searchConfirmSubmit, #createConfirmSubmit, #deleteConfirmSubmit, 
+#searchConfirmSubmit, #createConfirmSubmit, #deleteConfirmSubmit, 
 #deleteButtonConfirmSubmit, #addDeptConfirmSubmit, #deleteDeptConfirmSubmit, 
 #addLocConfirmSubmit, #deleteLocConfirmSubmit{
   margin-left: 150px;
 }
+
+/* #editConfirmSubmit  */
+
+
 
 #overlay{	
   position: fixed;

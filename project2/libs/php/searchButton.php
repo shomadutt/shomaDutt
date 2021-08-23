@@ -34,13 +34,6 @@
 	$dName = $_POST['department']; 
 	$lName = $_POST['location']; 
 
-	print_r($firstName);
-	print_r($lastName);
-	print_r($jobTitle);
-	print_r($email);
-	print_r($dName);
-	print_r($lName);
-
 	// escaping content
 	$firstName = strip_tags($_POST['firstName']);
 	$lastName = strip_tags($_POST['lastName']);
@@ -67,21 +60,21 @@
 			$query .= "AND p.lastName LIKE '%$lastName%'";
 		}	
 
-		// if(isset($jobTitle)) {
-		// 	$query .= "AND p.jobTitle LIKE '%$jobTitle%'";
-		// }
+		if(isset($jobTitle)) {
+			$query .= "AND p.jobTitle LIKE '%$jobTitle%'";
+		}
 
-		// if(isset($email)) {
-		// 	$query .= "AND p.email LIKE '%$email%'";
-		// }	
+		if(isset($email)) {
+			$query .= "AND p.email LIKE '%$email%'";
+		}	
 
-		// if(isset($dName)) {
-		// 	$query .= "AND d.name = '$dName'";
-		// }	
+		if(isset($dName)) {
+			$query .= "AND d.name = '$dName'";
+		}	
 
-		// if(isset($lName)) {
-		// 	$query .= "AND l.name = '$lName'";
-		// }	
+		if(isset($lName)) {
+			$query .= "AND l.name = '$lName'";
+		}	
 	} 
 	
 	// else if(isset($lastName)) {
