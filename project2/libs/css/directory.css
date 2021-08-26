@@ -137,6 +137,34 @@ h1 {
   #delete-dialog {
     max-width: 800px;
   }
+
+  .confirmModal {
+    max-width: 460px;
+  }
+
+  #editEmployee {
+    max-width: 443px;
+  }
+
+  #searchEmployee {
+    max-width: 448px;
+  }
+
+  #addDeptWidth {
+    max-width: 474px;
+  }
+
+  #deleteDeptWidth {
+    max-width: 495px;
+  }
+
+  #addLocWidth {
+    max-width: 408px;
+  }
+
+  #deleteLocWidth {
+    max-width: 482px;
+  }
 }
 
 .nameLink {
@@ -160,33 +188,9 @@ h1 {
   font-size: 15px;
 }
  
-#deleteCancel {
-  margin-left: 40px;
-} 
-
-#searchSubmit {
-  margin-left: 16px;
-}
-
-#editSubmit {
-  margin-left: 19px;
-}
-
-#createSubmit {
-  margin-left: 12px;
-}
-
-#addDeptSubmit {
-  margin-left: 10px;
-}
-
-#addLocSubmit {
-  margin-left: 10px;
-}
-
 #selectAll {
   width: 80px;
-  margin-left: 132px;
+  margin-left: 159px;
 }  
 
 .deleteCheckbox {
@@ -212,7 +216,7 @@ h1 {
 }
 
 #addDeptMessage, #deleteDeptMessage, #addLocMessage, #deleteLocMessage, 
-#createMessage, #editMessage, #deleteMessage, #searchErrorMessage {
+#createMessage, #editMessage, #deleteMessage, #searchErrorMessage, #createErrorMessage, #editErrorMessage {
   text-align: center;
   margin-top: 5px;
 }
@@ -267,16 +271,6 @@ h1 {
 #deleteButtonMessage {
   text-align: center;
 }
-
-#searchConfirmSubmit, #createConfirmSubmit, #deleteConfirmSubmit, 
-#deleteButtonConfirmSubmit, #addDeptConfirmSubmit, #deleteDeptConfirmSubmit, 
-#addLocConfirmSubmit, #deleteLocConfirmSubmit{
-  margin-left: 150px;
-}
-
-/* #editConfirmSubmit  */
-
-
 
 #overlay{	
   position: fixed;

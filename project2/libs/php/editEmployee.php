@@ -32,36 +32,42 @@
     }
 		
 	$firstName = $_POST['firstName']; 
-	$lastName = $_POST['lastName'];
-	$jobTitle = $_POST['jobTitle'];
-	$email = $_POST['email'];
-	$dept = $_POST['dept'];
-
-	//print_r($lastName);
-	
-	// escaping content
-
-	$firstName = strip_tags($_POST['firstName']);
-	$lastName = strip_tags($_POST['lastName']);
-	$jobTitle = strip_tags($_POST['jobTitle']);
-	$email = strip_tags($_POST['email']);
-
-	// filter the form input
-	$firstName = mysqli_real_escape_string($conn, $firstName);
-	$lastName = mysqli_real_escape_string($conn, $lastName);
-	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
-	$email = mysqli_real_escape_string($conn, $email);
-
-	$sql = "UPDATE personnel 
-			SET email = '$email',  departmentID = '$dept'
-			WHERE firstName = '$firstName' 
-			AND lastName = '$lastName'";
+	$lastName = $_POST['lastName']; 
 
 	//Make sure job title is valid
-
-	if(!preg_match("/^[a-zA-Z' ]+$/", $jobTitle)) { 
+	if(strlen($_POST['jobTitle'] > 0)) {
+    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['jobTitle'])) { 
         die ("Invalid job title.");
+		}
     }
+	
+	$sql = "";
+
+	if (isset($_POST['jobTitle'])){
+		$jobTitle = strip_tags($_POST['jobTitle']);
+		$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
+		}else{
+			$jobTitle = NULL;
+	}
+			
+	if (isset($_POST['email'])){
+		$email = strip_tags($_POST['email']);
+		$email = mysqli_real_escape_string($conn, $email);
+		}else{
+			$email = NULL;
+	}
+
+	if (isset($_POST['dept'])){
+		$dept = strip_tags($_POST['dept']);
+		$dept = mysqli_real_escape_string($conn, $dept);
+		}else{
+			$dept = $_POST['dept'];
+	}
+
+	$sql = "UPDATE personnel 
+	SET jobTitle = '$jobTitle', email = '$email', departmentID = '$dept'
+	WHERE firstName = '$firstName' 
+	AND lastName = '$lastName'";
 
 	//Response
     

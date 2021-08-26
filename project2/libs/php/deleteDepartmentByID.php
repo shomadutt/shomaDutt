@@ -29,9 +29,10 @@
 
 	$deleteDept = $_POST['deleteDept']; 
 
-	$query = mysqli_query($conn,"SELECT * FROM personnel WHERE departmentID ='$deleteDept'");
-
-	$sql = "DELETE FROM department WHERE id = '$deleteDept'";
+	if(strlen($deleteDept) > 0) {
+		$query = mysqli_query($conn,"SELECT * FROM personnel WHERE departmentID ='$deleteDept'");
+		$sql = "DELETE FROM department WHERE id = '$deleteDept'";
+	}
 
 	//Response
 	//Checking to see if there are employees in the department

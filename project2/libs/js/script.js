@@ -11,6 +11,7 @@ $(window).on("load", function () {
 $(document).ready(function () {
   //1
 
+  // The home page
   const colourArray = ["#00cc00", "#6600ff", "#e600e6", "#ff0000"];
 
   //console.log(colourArray);
@@ -138,8 +139,12 @@ $(document).ready(function () {
                 $("#employeeModal").modal("hide");
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
-                $("#txtEditFirstName").html(result.data[index].firstName);
-                $("#txtEditLastName").html(result.data[index].lastName);
+
+                $("#txtEditFirstName").val(result.data[index].firstName);
+                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditJobTitle").val(result.data[index].jobTitle);
+                $("#txtEditEmail").val(result.data[index].email);
+                $("#txtEditDept").val(result.data[index].department);
 
                 $.ajax({
                   //2
@@ -147,17 +152,35 @@ $(document).ready(function () {
                   url: "libs/php/getAllDepartments.php",
                   dataType: "json",
 
-                  success: function (result) {
+                  success: function (resultDept) {
                     $(".deptSelectList").html("");
 
-                    $.each(result.data, function (index) {
+                    $.each(resultDept.data, function (index) {
+
                       $(".deptSelectList").append(
                         $("<option>", {
-                          value: result.data[index].locationID,
-                          text: result.data[index].name,
+                          text: resultDept.data[index].name,
+                          value: resultDept.data[index].locationID,
                         })
                       );
+
+                      $(".deptSelectList")
+                      .text(resultDept.data[index].name)
+                      .trigger("change");
+      
+                      $(".deptSelectList").change(function () {
+                        if (result.data[index].department === resultDept.data[index].name) {
+                          $(".deptSelectList").text(
+                            resultDept.data[index].name
+                          );
+                        }
+                      });
                     });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
 
@@ -167,17 +190,22 @@ $(document).ready(function () {
                   url: "libs/php/getAllLocations.php",
                   dataType: "json",
 
-                  success: function (result) {
+                  success: function (resultLoc) {
                     $(".locSelectList").html("");
 
-                    $.each(result.data, function (index) {
+                    $.each(resultLoc.data, function (index) {
                       $(".locSelectList").append(
                         $("<option>", {
-                          value: result.data[index].id,
-                          text: result.data[index].name,
+                          value: resultLoc.data[index].id,
+                          text: resultLoc.data[index].name,
                         })
                       );
                     });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
 
@@ -210,9 +238,17 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                setTimeout(function () {
-                  $("#editConfirmModal").modal("show");
-                }, 1000);
+                if ($("#editDept").val() === null) {
+                  $("#editErrorMessage").html("");
+                  $("#editErrorMessage").append("Please select a department.");
+                  setTimeout(function () {
+                    $("#editErrorModal").modal("show");
+                  }, 1000);
+                } else {
+                  setTimeout(function () {
+                    $("#editConfirmModal").modal("show");
+                  }, 1000);
+                }
               });
 
               $("#editConfirmCancel").on("click", function () {
@@ -232,8 +268,6 @@ $(document).ready(function () {
                     jobTitle[0].toUpperCase() +
                     jobTitle.substring(1, jobTitle.length);
                 }
-
-                //console.log($("#txtEditLastName").html());
 
                 $.ajax({
                   url: "libs/php/editEmployee.php",
@@ -258,6 +292,11 @@ $(document).ready(function () {
                     setTimeout(function () {
                       location.reload();
                     }, 3000);
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
               });
@@ -300,6 +339,11 @@ $(document).ready(function () {
                       location.reload();
                     }, 3000);
                   },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
+                  },
                 });
               });
 
@@ -312,6 +356,11 @@ $(document).ready(function () {
         }); //5
       }); //4
     }, //3
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("status code: " + jqXHR.status);
+      console.log("errorThrown: " + errorThrown);
+      console.log("jqXHR.responseText: " + jqXHR.responseText);
+    },
   }); //2
 
   //Create modal
@@ -327,6 +376,10 @@ $(document).ready(function () {
       success: function (result) {
         $(".deptSelectList").html("");
 
+        $(".deptSelectList").append(
+          "<option selected disabled>" + "Select department" + "</option>"
+        );
+
         $.each(result.data, function (index) {
           $(".deptSelectList").append(
             $("<option>", {
@@ -335,6 +388,11 @@ $(document).ready(function () {
             })
           );
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -347,6 +405,12 @@ $(document).ready(function () {
       success: function (result) {
         $(".locSelectList").html("");
 
+        $(".locSelectList").append(
+          '<option selected disabled value="">' +
+            "Select location" +
+            "</option>"
+        );
+
         $.each(result.data, function (index) {
           $(".locSelectList").append(
             $("<option>", {
@@ -355,6 +419,11 @@ $(document).ready(function () {
             })
           );
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -386,9 +455,17 @@ $(document).ready(function () {
 
     $("#createModal").modal("hide");
 
-    setTimeout(function () {
-      $("#createConfirmModal").modal("show");
-    }, 1000);
+    if ($("#createDept").val() === null) {
+      $("#createErrorMessage").html("");
+      $("#createErrorMessage").append("Please select a department.");
+      setTimeout(function () {
+        $("#createErrorModal").modal("show");
+      }, 1000);
+    } else {
+      setTimeout(function () {
+        $("#createConfirmModal").modal("show");
+      }, 1000);
+    }
   });
 
   $("#createConfirmForm").submit(function (event) {
@@ -440,6 +517,11 @@ $(document).ready(function () {
         setTimeout(function () {
           location.reload();
         }, 3000);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
   });
@@ -596,6 +678,11 @@ $(document).ready(function () {
           $("#deleteModal").modal("show");
         }, 1000);
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -651,6 +738,11 @@ $(document).ready(function () {
         setTimeout(function () {
           location.reload();
         }, 3000);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
     $("#selected").html("");
@@ -950,6 +1042,11 @@ $(document).ready(function () {
           });
         });
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -1035,6 +1132,12 @@ $(document).ready(function () {
                   success: function (result) {
                     $(".deptSelectList").html("");
 
+                    $(".deptSelectList").append(
+                      "<option selected disabled>" +
+                        "Select department" +
+                        "</option>"
+                    );
+
                     $.each(result.data, function (index) {
                       $(".deptSelectList").append(
                         $("<option>", {
@@ -1054,6 +1157,12 @@ $(document).ready(function () {
 
                   success: function (result) {
                     $(".locSelectList").html("");
+
+                    $(".locSelectList").append(
+                      '<option selected disabled value="">' +
+                        "Select location" +
+                        "</option>"
+                    );
 
                     $.each(result.data, function (index) {
                       $(".locSelectList").append(
@@ -1090,9 +1199,17 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                setTimeout(function () {
-                  $("#editConfirmModal").modal("show");
-                }, 1000);
+                if ($("#editDept").val() === null) {
+                  $("#editErrorMessage").html("");
+                  $("#editErrorMessage").append("Please select a department.");
+                  setTimeout(function () {
+                    $("#editErrorModal").modal("show");
+                  }, 1000);
+                } else {
+                  setTimeout(function () {
+                    $("#editConfirmModal").modal("show");
+                  }, 1000);
+                }
               });
 
               $("#editConfirmForm").submit(function (event) {
@@ -1319,6 +1436,12 @@ $(document).ready(function () {
                             success: function (result) {
                               $(".deptSelectList").html("");
 
+                              $(".deptSelectList").append(
+                                "<option selected disabled>" +
+                                  "Select department" +
+                                  "</option>"
+                              );
+
                               $.each(result.data, function (index) {
                                 $(".deptSelectList").append(
                                   $("<option>", {
@@ -1338,6 +1461,12 @@ $(document).ready(function () {
 
                             success: function (result) {
                               $(".locSelectList").html("");
+
+                              $(".locSelectList").append(
+                                '<option selected disabled value="">' +
+                                  "Select location" +
+                                  "</option>"
+                              );
 
                               $.each(result.data, function (index) {
                                 $(".locSelectList").append(
@@ -1380,9 +1509,19 @@ $(document).ready(function () {
 
                           $("#editEmployeeModal").modal("hide");
 
-                          setTimeout(function () {
-                            $("#editConfirmModal").modal("show");
-                          }, 1000);
+                          if ($("#editDept").val() === null) {
+                            $("#editErrorMessage").html("");
+                            $("#editErrorMessage").append(
+                              "Please select a department."
+                            );
+                            setTimeout(function () {
+                              $("#editErrorModal").modal("show");
+                            }, 1000);
+                          } else {
+                            setTimeout(function () {
+                              $("#editConfirmModal").modal("show");
+                            }, 1000);
+                          }
 
                           $("#editConfirmForm").submit(function (event) {
                             event.preventDefault();
@@ -1487,6 +1626,11 @@ $(document).ready(function () {
           }
         });
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -1504,6 +1648,11 @@ $(document).ready(function () {
         $.each(result.data, function (index) {
           departmentArray.push(result.data[index].name);
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -1612,6 +1761,12 @@ $(document).ready(function () {
                     success: function (result) {
                       $(".deptSelectList").html("");
 
+                      $(".deptSelectList").append(
+                        "<option selected disabled>" +
+                          "Select department" +
+                          "</option>"
+                      );
+
                       $.each(result.data, function (index) {
                         $(".deptSelectList").append(
                           $("<option>", {
@@ -1631,6 +1786,12 @@ $(document).ready(function () {
 
                     success: function (result) {
                       $(".locSelectList").html("");
+
+                      $(".locSelectList").append(
+                        '<option selected disabled value="">' +
+                          "Select location" +
+                          "</option>"
+                      );
 
                       $.each(result.data, function (index) {
                         $(".locSelectList").append(
@@ -1670,9 +1831,19 @@ $(document).ready(function () {
 
                   $("#editEmployeeModal").modal("hide");
 
-                  setTimeout(function () {
-                    $("#editConfirmModal").modal("show");
-                  }, 1000);
+                  if ($("#editDept").val() === null) {
+                    $("#editErrorMessage").html("");
+                    $("#editErrorMessage").append(
+                      "Please select a department."
+                    );
+                    setTimeout(function () {
+                      $("#editErrorModal").modal("show");
+                    }, 1000);
+                  } else {
+                    setTimeout(function () {
+                      $("#editConfirmModal").modal("show");
+                    }, 1000);
+                  }
 
                   $("#editConfirmForm").submit(function (event) {
                     event.preventDefault();
@@ -1772,6 +1943,11 @@ $(document).ready(function () {
           });
         });
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -1799,6 +1975,11 @@ $(document).ready(function () {
             })
           );
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -1850,6 +2031,11 @@ $(document).ready(function () {
           location.reload();
         }, 3000);
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -1881,46 +2067,17 @@ $(document).ready(function () {
         $.each(result.data, function (index) {
           $(".deptSelectList").append(
             $("<option>", {
-              value: result.data[index].locationID,
-              text: result.data[index].name,
-            })
-          );
-        });
-      },
-    });
-
-    $.ajax({
-      //2
-      type: "POST",
-      url: "libs/php/getAllLocations.php",
-      dataType: "json",
-
-      success: function (result) {
-        $(".locSelectList").html("");
-
-        $.each(result.data, function (index) {
-          $(".locSelectList").append(
-            $("<option>", {
               value: result.data[index].id,
               text: result.data[index].name,
             })
           );
         });
       },
-    });
-
-    $(".deptSelectList").change(function () {
-      $(".locSelectList option[value=" + $(this).val() + "]").prop(
-        "selected",
-        "selected"
-      );
-    });
-
-    $(".locSelectList").change(function () {
-      $(".deptSelectList option[value=" + $(this).val() + "]").prop(
-        "selected",
-        "selected"
-      );
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
 
     setTimeout(function () {
@@ -1943,6 +2100,8 @@ $(document).ready(function () {
 
     $("#deleteDeptConfirmModal").modal("hide");
 
+    console.log($("#deleteSelectDept").val());
+
     $.ajax({
       url: "libs/php/deleteDepartmentByID.php",
       method: "post",
@@ -1962,6 +2121,11 @@ $(document).ready(function () {
         setTimeout(function () {
           location.reload();
         }, 3000);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
   });
@@ -1993,6 +2157,11 @@ $(document).ready(function () {
         $.each(result.data, function (index) {
           locationArray.push(result.data[index].name);
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -2102,6 +2271,12 @@ $(document).ready(function () {
                     success: function (result) {
                       $(".deptSelectList").html("");
 
+                      $(".deptSelectList").append(
+                        "<option selected disabled>" +
+                          "Select department" +
+                          "</option>"
+                      );
+
                       $.each(result.data, function (index) {
                         $(".deptSelectList").append(
                           $("<option>", {
@@ -2121,6 +2296,12 @@ $(document).ready(function () {
 
                     success: function (result) {
                       $(".locSelectList").html("");
+
+                      $(".locSelectList").append(
+                        '<option selected disabled value="">' +
+                          "Select location" +
+                          "</option>"
+                      );
 
                       $.each(result.data, function (index) {
                         $(".locSelectList").append(
@@ -2160,9 +2341,19 @@ $(document).ready(function () {
 
                   $("#editEmployeeModal").modal("hide");
 
-                  setTimeout(function () {
-                    $("#editConfirmModal").modal("show");
-                  }, 1000);
+                  if ($("#editDept").val() === null) {
+                    $("#editErrorMessage").html("");
+                    $("#editErrorMessage").append(
+                      "Please select a department."
+                    );
+                    setTimeout(function () {
+                      $("#editErrorModal").modal("show");
+                    }, 1000);
+                  } else {
+                    setTimeout(function () {
+                      $("#editConfirmModal").modal("show");
+                    }, 1000);
+                  }
 
                   $("#editConfirmForm").submit(function (event) {
                     event.preventDefault();
@@ -2262,6 +2453,11 @@ $(document).ready(function () {
           }); //5
         }); //4
       }, //3
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     }); //2
   }); //1
 
@@ -2319,6 +2515,11 @@ $(document).ready(function () {
           location.reload();
         }, 3000);
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -2356,6 +2557,11 @@ $(document).ready(function () {
             })
           );
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -2399,6 +2605,11 @@ $(document).ready(function () {
           location.reload();
         }, 3000);
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
   });
 
@@ -2416,12 +2627,9 @@ $(document).ready(function () {
 
   //Search modal
 
-  $("#search").on("click", function () {
-    $(this).closest("form").find("input[type=text]").val("");
+  // Populating the search modal department and location dropdowns on page load
 
-    $("#searchHeading").empty();
-    $("#searchHeading").append("Search");
-
+  $(window).on("load", function () {
     $.ajax({
       //2
       type: "POST",
@@ -2432,7 +2640,7 @@ $(document).ready(function () {
         $(".deptSelectList").html("");
 
         $(".deptSelectList").append(
-          '<option selected disabled>' + "Select department" + "</option>"
+          "<option selected disabled>" + "Select department" + "</option>"
         );
 
         $.each(result.data, function (index) {
@@ -2443,6 +2651,11 @@ $(document).ready(function () {
             })
           );
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -2456,7 +2669,9 @@ $(document).ready(function () {
         $(".locSelectList").html("");
 
         $(".locSelectList").append(
-          '<option selected disabled value="">' + "Select location" + "</option>"
+          '<option selected disabled value="">' +
+            "Select location" +
+            "</option>"
         );
 
         $.each(result.data, function (index) {
@@ -2468,7 +2683,19 @@ $(document).ready(function () {
           );
         });
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
+  });
+
+  $("#search").on("click", function () {
+    $(this).closest("form").find("input[type=text]").val("");
+
+    $("#searchHeading").empty();
+    $("#searchHeading").append("Search");
 
     setTimeout(function () {
       $("#searchModal").modal("show");
@@ -2509,7 +2736,7 @@ $(document).ready(function () {
   });
 
   $("#searchConfirmForm").submit(function (event) {
-    $(this).closest('form').find("input[type=text]").val("");
+    $(this).closest("form").find("input[type=text]").val("");
     event.preventDefault();
 
     $("#searchConfirmModal").modal("hide");
@@ -2529,7 +2756,6 @@ $(document).ready(function () {
       },
 
       success: function (result) {
-       
         console.log(result);
 
         $("#searchModal").modal("hide");
@@ -2591,7 +2817,7 @@ $(document).ready(function () {
 
               setTimeout(function () {
                 $("#employeeModal").modal("show");
-              }, 1000);
+              }, 5000);
 
               //Edit employee modal
 
@@ -2613,6 +2839,12 @@ $(document).ready(function () {
                   success: function (result) {
                     $(".deptSelectList").html("");
 
+                    $(".deptSelectList").append(
+                      "<option selected disabled>" +
+                        "Select department" +
+                        "</option>"
+                    );
+
                     $.each(result.data, function (index) {
                       $(".deptSelectList").append(
                         $("<option>", {
@@ -2621,6 +2853,11 @@ $(document).ready(function () {
                         })
                       );
                     });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
 
@@ -2633,6 +2870,12 @@ $(document).ready(function () {
                   success: function (result) {
                     $(".locSelectList").html("");
 
+                    $(".locSelectList").append(
+                      '<option selected disabled value="">' +
+                        "Select location" +
+                        "</option>"
+                    );
+
                     $.each(result.data, function (index) {
                       $(".locSelectList").append(
                         $("<option>", {
@@ -2641,6 +2884,11 @@ $(document).ready(function () {
                         })
                       );
                     });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
 
@@ -2673,9 +2921,17 @@ $(document).ready(function () {
 
                 $("#editEmployeeModal").modal("hide");
 
-                setTimeout(function () {
-                  $("#editConfirmModal").modal("show");
-                }, 1000);
+                if ($("#editDept").val() === null) {
+                  $("#editErrorMessage").html("");
+                  $("#editErrorMessage").append("Please select a department.");
+                  setTimeout(function () {
+                    $("#editErrorModal").modal("show");
+                  }, 1000);
+                } else {
+                  setTimeout(function () {
+                    $("#editConfirmModal").modal("show");
+                  }, 1000);
+                }
 
                 $("#editConfirmForm").submit(function (event) {
                   event.preventDefault();
@@ -2712,6 +2968,11 @@ $(document).ready(function () {
                       setTimeout(function () {
                         location.reload();
                       }, 3000);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
                     },
                   });
                 });
@@ -2761,6 +3022,11 @@ $(document).ready(function () {
                     location.reload();
                   }, 3000);
                 },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("status code: " + jqXHR.status);
+                  console.log("errorThrown: " + errorThrown);
+                  console.log("jqXHR.responseText: " + jqXHR.responseText);
+                },
               });
             });
             $("#deleteButtonConfirmCancel").on("click", function () {
@@ -2776,11 +3042,11 @@ $(document).ready(function () {
           }, 1000);
         }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
-				console.log("status code: " + jqXHR.status);
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
         console.log("errorThrown: " + errorThrown);
         console.log("jqXHR.responseText: " + jqXHR.responseText);
-			}
+      },
     });
   });
 }); //1

@@ -159,7 +159,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="editEmployee">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -171,8 +171,7 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -183,42 +182,55 @@
                       Reset
                     </button>
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
+                  <div class="col-sm-5">
                     <h5 class="modal-title" id="editHeading"></h5>
                   </div>
+
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button class="modalButton" id="editSubmit">Submit</button>
                   </div>
                 </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
               </div>
+
               <div class="modal-body modalBodyFont">
                 <table class="table table-striped modalTable">
                   <tr>
                     <td>First name</td>
-                    <td id="txtEditFirstName"></td>
+                    <td>
+                      <input
+                        id="txtEditFirstName"
+                        name="txtEditFirstName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
                   </tr>
                   <tr>
                     <td>Last name</td>
-                    <td id="txtEditLastName"></td>
+                    <td>
+                      <input
+                        id="txtEditLastName"
+                        name="txtEditLastName"
+                        class="form-control form-control-sm"
+                        type="text"
+                        aria-label=".form-control-sm example"
+                      />
+                    </td>
                   </tr>
                   <tr>
                     <td>Job title</td>
                     <td>
                       <input
-                        id="editJobTitle"
-                        name="editJobTitle"
+                        id="txtEditJobTitle"
+                        name="txtEditJobTitle"
                         class="form-control form-control-sm"
                         type="text"
-                        placeholder="Job title"
                         aria-label=".form-control-sm example"
                       />
                     </td>
@@ -227,11 +239,10 @@
                     <td>Email</td>
                     <td>
                       <input
-                        id="editEmail"
-                        name="editEmail"
+                        id="txtEditEmail"
+                        name="txtEditEmail"
                         class="form-control form-control-sm"
                         type="email"
-                        placeholder="Email address"
                         aria-label=".form-control-sm example"
                       />
                     </td>
@@ -240,8 +251,8 @@
                     <td>Department</td>
                     <td>
                       <select
-                        id="editDept"
-                        name="editDept"
+                        id="txtEditDept"
+                        name="txtEditDept"
                         class="form-select form-select-sm deptSelectList"
                         aria-label=".form-select-sm example"
                       ></select>
@@ -251,6 +262,8 @@
                     <td>Location</td>
                     <td>
                       <select
+                        id="txtEditLoc"
+                        name="txtEditLoc"
                         class="form-select form-select-sm locSelectList"
                         aria-label=".form-select-sm example"
                       ></select>
@@ -271,7 +284,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -283,8 +296,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-2">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -295,11 +308,9 @@
                       Cancel
                     </button>
                   </div>
-                 
-                  <!-- <div class="col-sm-1"></div> -->
-                  <!-- <div class="col-sm-1"></div> -->
-                  <!-- <div class="col-sm-1"></div> -->
-                  <!-- <div class="col-sm-1"></div> -->
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-1"></div>
@@ -317,16 +328,6 @@
                       Yes
                     </button>
                   </div>
-
-                  <!-- <div class="col-sm-1"></div>
-                  <div class="col-sm-1">
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button> -->
-                  <!-- </div> -->
                 </div>
               </div>
 
@@ -376,7 +377,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -388,7 +389,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -400,6 +402,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -411,13 +422,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -466,7 +470,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="searchEmployee">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -478,8 +482,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-5">
+                  <!-- <div class="col-sm-1"></div> -->
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -490,23 +494,26 @@
                       Reset
                     </button>
                   </div>
-                  <div class="col-sm-5">
+
+                  <!-- <div class="col-sm-1"></div> -->
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
+                  <div class="col-sm-2">
                     <h5 class="modal-title" id="searchHeading"></h5>
                   </div>
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
                   <div class="col-sm-1">
                     <button class="modalButton" id="searchSubmit">
                       Submit
                     </button>
                   </div>
-                </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
                 </div>
               </div>
               <div class="modal-body modalBodyFont">
@@ -600,7 +607,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -612,7 +619,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -624,6 +632,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -635,13 +652,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -703,8 +713,7 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -715,23 +724,20 @@
                       Reset
                     </button>
                   </div>
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-6">
                     <h5 class="modal-title" id="createHeading"></h5>
                   </div>
+
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button class="modalButton" id="createSubmit">
                       Submit
                     </button>
                   </div>
-                </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
                 </div>
               </div>
 
@@ -775,6 +781,7 @@
                         aria-label=".form-control-sm example"
                         id="createJobTitle"
                         name="createJobTitle"
+                        required
                       />
                     </td>
                   </tr>
@@ -827,7 +834,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -839,7 +846,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -851,6 +859,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -862,13 +879,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -921,34 +931,27 @@
           <div class="modal-content" id="deleteButtonPosition">
             <div class="modal-header" id="deleteModalHeader">
               <div class="row">
+                <div class="col-sm-1"></div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-6">
-                  <div>
-                    <button
-                      type="reset"
-                      name="reset"
-                      value="reset"
-                      class="modalButton"
-                      id="deleteCancel"
-                    >
-                      Reset
-                    </button>
-                  </div>
+                  <button
+                    type="reset"
+                    name="reset"
+                    value="reset"
+                    class="modalButton"
+                    id="deleteCancel"
+                  >
+                    Reset
+                  </button>
                 </div>
-                <div class="col-sm-3"></div>
+
+                <div class="col-sm-1"></div>
                 <div class="col-sm-1">
                   <button type="button" class="modalButton" id="selectAll">
                     Select all
                   </button>
                 </div>
               </div>
-
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
             </div>
             <div class="modal-body modalBodyFont" id="deleteModalBody">
               <div class="row">
@@ -997,7 +1000,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1009,7 +1012,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1021,6 +1025,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1032,13 +1045,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1140,7 +1146,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="addDeptWidth">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1152,8 +1158,7 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1164,7 +1169,12 @@
                       Reset
                     </button>
                   </div>
-                  <div class="col-sm-6">
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
+                  <div class="col-sm-7">
                     <h5 class="modal-title" id="addDeptHeading"></h5>
                   </div>
                   <div class="col-sm-1">
@@ -1177,15 +1187,6 @@
                       Submit
                     </button>
                   </div>
-                </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
                 </div>
               </div>
 
@@ -1232,7 +1233,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1244,7 +1245,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1256,6 +1258,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1267,13 +1278,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1323,7 +1327,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="deleteDeptWidth">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1335,8 +1339,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
+                  <!-- <div class="col-sm-1"></div> -->
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1347,6 +1351,11 @@
                       Reset
                     </button>
                   </div>
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
                   <div class="col-sm-7">
                     <h5 class="modal-title" id="deleteDeptHeading"></h5>
                   </div>
@@ -1361,15 +1370,6 @@
                     </button>
                   </div>
                 </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1381,16 +1381,6 @@
                         id="deleteSelectDept"
                         class="form-select form-select-sm deptSelectList"
                         aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        class="form-select form-select-sm locSelectList"
-                        aria-label=".form-select-sm example"
-                        required
                       ></select>
                     </td>
                   </tr>
@@ -1409,7 +1399,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1421,7 +1411,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1433,6 +1424,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1444,13 +1444,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1551,7 +1544,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="addLocWidth">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1563,8 +1556,7 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1575,6 +1567,11 @@
                       Reset
                     </button>
                   </div>
+                  <!-- <div class="col-sm-1"></div> -->
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+
                   <div class="col-sm-6">
                     <h5 class="modal-title" id="addLocHeading"></h5>
                   </div>
@@ -1588,15 +1585,6 @@
                       Submit
                     </button>
                   </div>
-                </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
                 </div>
               </div>
 
@@ -1631,7 +1619,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1643,7 +1631,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1655,6 +1644,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1666,13 +1664,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1722,7 +1713,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog" id="deleteLocWidth">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1734,8 +1725,7 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1746,9 +1736,14 @@
                       Reset
                     </button>
                   </div>
+
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-6">
                     <h5 class="modal-title" id="deleteLocHeading"></h5>
                   </div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1759,15 +1754,6 @@
                       Submit
                     </button>
                   </div>
-                </div>
-
-                <div class="col-sm-1">
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
                 </div>
               </div>
 
@@ -1798,7 +1784,7 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog confirmModal">
           <div class="modal-content">
             <form
               class="form-horizontal"
@@ -1810,7 +1796,8 @@
             >
               <div class="modal-header">
                 <div class="row">
-                  <div class="col-sm-9">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1">
                     <button
                       type="reset"
                       name="reset"
@@ -1822,6 +1809,15 @@
                     </button>
                   </div>
 
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-1"></div>
                   <div class="col-sm-1">
                     <button
                       type="submit"
@@ -1833,13 +1829,6 @@
                     </button>
                   </div>
                 </div>
-
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
               </div>
 
               <div class="modal-body modalBodyFont">
@@ -1901,6 +1890,60 @@
             </div>
             <div class="modal-body">
               <div id="searchErrorMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create error modal -->
+      <div
+        class="modal fade"
+        id="createErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="createErrorMessage"></div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit error modal -->
+      <div
+        class="modal fade"
+        id="editErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="editErrorMessage"></div>
             </div>
             <div class="modal-footer"></div>
           </div>
