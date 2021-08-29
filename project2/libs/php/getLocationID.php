@@ -1,11 +1,6 @@
 <?php
 
-	// example use from browser
-	// http://localhost/companydirectory/libs/php/getAll.php
-
 	// remove next two lines for production
-
-	if (isset($_POST['query'])) {
 	
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
@@ -34,11 +29,9 @@
 
 	}	
 
-	$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, 
-	l.name as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) 
-	LEFT JOIN location l ON (l.id = d.locationID)
-	WHERE p.lastName LIKE '{$_POST['query']}%' || p.firstName LIKE '{$_POST['query']}%'
-	ORDER BY p.lastName, p.firstName, d.name, l.name, p.id";
+	$employeeDeptID = $_POST['employeeDeptID']; 
+
+	$query = "SELECT locationID FROM department WHERE id ='$employeeDeptID'";
 
 	$result = $conn->query($query);
 	
@@ -74,7 +67,5 @@
 	mysqli_close($conn);
 
 	echo json_encode($output); 
-
-	}
 
 ?>

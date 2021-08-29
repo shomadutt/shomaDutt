@@ -139,42 +139,112 @@ $(document).ready(function () {
                 $("#employeeModal").modal("hide");
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
-
                 $("#txtEditFirstName").val(result.data[index].firstName);
                 $("#txtEditLastName").val(result.data[index].lastName);
                 $("#txtEditJobTitle").val(result.data[index].jobTitle);
                 $("#txtEditEmail").val(result.data[index].email);
-                $("#txtEditDept").val(result.data[index].department);
+
+                // Get department id
+                let deptID;
+                let locID;
 
                 $.ajax({
                   //2
                   type: "POST",
-                  url: "libs/php/getAllDepartments.php",
+                  url: "libs/php/getDepartmentID.php",
                   dataType: "json",
+                  data: {
+                    employeeDept: result.data[index].department,
+                  },
 
-                  success: function (resultDept) {
-                    $(".deptSelectList").html("");
+                  success: function (resultDeptID) {
+                    deptID = resultDeptID.data[index].id;
 
-                    $.each(resultDept.data, function (index) {
+                    // Display the employee's department in the department dropdown
+                    $.ajax({
+                      //2
+                      type: "POST",
+                      url: "libs/php/getAllDepartments.php",
+                      dataType: "json",
 
-                      $(".deptSelectList").append(
-                        $("<option>", {
-                          text: resultDept.data[index].name,
-                          value: resultDept.data[index].locationID,
-                        })
-                      );
+                      success: function (resultDept) {
+                        $(".deptEditSelectList").html("");
 
-                      $(".deptSelectList")
-                      .text(resultDept.data[index].name)
-                      .trigger("change");
-      
-                      $(".deptSelectList").change(function () {
-                        if (result.data[index].department === resultDept.data[index].name) {
-                          $(".deptSelectList").text(
-                            resultDept.data[index].name
+                        $.each(resultDept.data, function (index) {
+                          $("#txtEditDept").val(deptID);
+
+                          $(".deptEditSelectList").append(
+                            $("<option>", {
+                              value: resultDept.data[index].id,
+                              text: resultDept.data[index].name,
+                            })
                           );
-                        }
-                      });
+                        });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("status code: " + jqXHR.status);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log(
+                          "jqXHR.responseText: " + jqXHR.responseText
+                        );
+                      },
+                    });
+
+                    $(".deptEditSelectList").on("change", function () {
+                      let departID = $(this).val();
+                      if (departID) {
+                        // Find the location id from the department id
+                        $.ajax({
+                          //2
+                          type: "POST",
+                          url: "libs/php/getLocationID.php",
+                          dataType: "json",
+                          data: {
+                            employeeDeptID: departID,
+                          },
+
+                          success: function (resultLocID) {
+                            locID = resultLocID.data[index].locationID;
+
+                            // Use location id to set location dropdown
+                            $.ajax({
+                              //2
+                              type: "POST",
+                              url: "libs/php/getAllLocations.php",
+                              dataType: "json",
+
+                              success: function (resultLoc) {
+                                $(".locEditSelectList").html("");
+
+                                $.each(resultLoc.data, function (index) {
+                                  $("#txtEditLoc").val(locID);
+
+                                  $(".locEditSelectList").append(
+                                    $("<option>", {
+                                      value: resultLoc.data[index].id,
+                                      text: resultLoc.data[index].name,
+                                    })
+                                  );
+                                });
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("status code: " + jqXHR.status);
+                                console.log("errorThrown: " + errorThrown);
+                                console.log(
+                                  "jqXHR.responseText: " + jqXHR.responseText
+                                );
+                              },
+                            });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("status code: " + jqXHR.status);
+                            console.log("errorThrown: " + errorThrown);
+                            console.log(
+                              "jqXHR.responseText: " + jqXHR.responseText
+                            );
+                          },
+                        });
+                      }
                     });
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
@@ -182,45 +252,6 @@ $(document).ready(function () {
                     console.log("errorThrown: " + errorThrown);
                     console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
-                });
-
-                $.ajax({
-                  //2
-                  type: "POST",
-                  url: "libs/php/getAllLocations.php",
-                  dataType: "json",
-
-                  success: function (resultLoc) {
-                    $(".locSelectList").html("");
-
-                    $.each(resultLoc.data, function (index) {
-                      $(".locSelectList").append(
-                        $("<option>", {
-                          value: resultLoc.data[index].id,
-                          text: resultLoc.data[index].name,
-                        })
-                      );
-                    });
-                  },
-                  error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("status code: " + jqXHR.status);
-                    console.log("errorThrown: " + errorThrown);
-                    console.log("jqXHR.responseText: " + jqXHR.responseText);
-                  },
-                });
-
-                $(".deptSelectList").change(function () {
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
-                });
-
-                $(".locSelectList").change(function () {
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
                 });
 
                 setTimeout(function () {
@@ -261,7 +292,23 @@ $(document).ready(function () {
 
                 $("#editConfirmModal").modal("hide");
 
-                let jobTitle = $("#editJobTitle").val();
+                let firstName = $("#txtEditFirstName").val();
+
+                if (firstName !== "") {
+                  firstName =
+                    firstName[0].toUpperCase() +
+                    firstName.substring(1, firstName.length);
+                }
+
+                let lastName = $("#txtEditLastName").val();
+
+                if (lastName !== "") {
+                  lastName =
+                    lastName[0].toUpperCase() +
+                    lastName.substring(1, lastName.length);
+                }
+
+                let jobTitle = $("#txtEditJobTitle").val();
 
                 if (jobTitle !== "") {
                   jobTitle =
@@ -274,11 +321,12 @@ $(document).ready(function () {
                   method: "post",
                   dataType: "text",
                   data: {
-                    firstName: $("#txtEditFirstName").html(),
-                    lastName: $("#txtEditLastName").html(),
+                    id: result.data[index].id,
+                    firstName: firstName,
+                    lastName: lastName,
                     jobTitle: jobTitle,
-                    email: $("#editEmail").val(),
-                    dept: $("#editDept").val(),
+                    email: $("#txtEditEmail").val(),
+                    dept: $("#txtEditDept").val(),
                   },
 
                   success: function (result) {
@@ -1120,73 +1168,119 @@ $(document).ready(function () {
                 $("#employeeModal").modal("hide");
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
-                $("#txtEditFirstName").html(result.data[index].firstName);
-                $("#txtEditLastName").html(result.data[index].lastName);
+                $("#txtEditFirstName").val(result.data[index].firstName);
+                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditJobTitle").val(result.data[index].jobTitle);
+                $("#txtEditEmail").val(result.data[index].email);
+
+                // Get department id
+                let deptID;
+                let locID;
 
                 $.ajax({
                   //2
                   type: "POST",
-                  url: "libs/php/getAllDepartments.php",
+                  url: "libs/php/getDepartmentID.php",
                   dataType: "json",
+                  data: {
+                    employeeDept: result.data[index].department,
+                  },
 
-                  success: function (result) {
-                    $(".deptSelectList").html("");
+                  success: function (resultDeptID) {
+                    deptID = resultDeptID.data[index].id;
 
-                    $(".deptSelectList").append(
-                      "<option selected disabled>" +
-                        "Select department" +
-                        "</option>"
-                    );
+                    // Display the employee's department in the department dropdown
+                    $.ajax({
+                      //2
+                      type: "POST",
+                      url: "libs/php/getAllDepartments.php",
+                      dataType: "json",
 
-                    $.each(result.data, function (index) {
-                      $(".deptSelectList").append(
-                        $("<option>", {
-                          value: result.data[index].locationID,
-                          text: result.data[index].name,
-                        })
-                      );
+                      success: function (resultDept) {
+                        $(".deptEditSelectList").html("");
+
+                        $.each(resultDept.data, function (index) {
+                          $("#txtEditDept").val(deptID);
+
+                          $(".deptEditSelectList").append(
+                            $("<option>", {
+                              value: resultDept.data[index].id,
+                              text: resultDept.data[index].name,
+                            })
+                          );
+                        });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("status code: " + jqXHR.status);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log(
+                          "jqXHR.responseText: " + jqXHR.responseText
+                        );
+                      },
+                    });
+
+                    $(".deptEditSelectList").on("change", function () {
+                      let departID = $(this).val();
+                      if (departID) {
+                        // Find the location id from the department id
+                        $.ajax({
+                          //2
+                          type: "POST",
+                          url: "libs/php/getLocationID.php",
+                          dataType: "json",
+                          data: {
+                            employeeDeptID: departID,
+                          },
+
+                          success: function (resultLocID) {
+                            locID = resultLocID.data[index].locationID;
+
+                            // Use location id to set location dropdown
+                            $.ajax({
+                              //2
+                              type: "POST",
+                              url: "libs/php/getAllLocations.php",
+                              dataType: "json",
+
+                              success: function (resultLoc) {
+                                $(".locEditSelectList").html("");
+
+                                $.each(resultLoc.data, function (index) {
+                                  $("#txtEditLoc").val(locID);
+
+                                  $(".locEditSelectList").append(
+                                    $("<option>", {
+                                      value: resultLoc.data[index].id,
+                                      text: resultLoc.data[index].name,
+                                    })
+                                  );
+                                });
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("status code: " + jqXHR.status);
+                                console.log("errorThrown: " + errorThrown);
+                                console.log(
+                                  "jqXHR.responseText: " + jqXHR.responseText
+                                );
+                              },
+                            });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("status code: " + jqXHR.status);
+                            console.log("errorThrown: " + errorThrown);
+                            console.log(
+                              "jqXHR.responseText: " + jqXHR.responseText
+                            );
+                          },
+                        });
+                      }
                     });
                   },
-                });
-
-                $.ajax({
-                  //2
-                  type: "POST",
-                  url: "libs/php/getAllLocations.php",
-                  dataType: "json",
-
-                  success: function (result) {
-                    $(".locSelectList").html("");
-
-                    $(".locSelectList").append(
-                      '<option selected disabled value="">' +
-                        "Select location" +
-                        "</option>"
-                    );
-
-                    $.each(result.data, function (index) {
-                      $(".locSelectList").append(
-                        $("<option>", {
-                          value: result.data[index].id,
-                          text: result.data[index].name,
-                        })
-                      );
-                    });
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
-                });
-
-                $(".deptSelectList").change(function () {
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
-                });
-
-                $(".locSelectList").change(function () {
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
                 });
 
                 setTimeout(function () {
@@ -1217,7 +1311,23 @@ $(document).ready(function () {
 
                 $("#editConfirmModal").modal("hide");
 
-                let jobTitle = $("#editJobTitle").val();
+                let firstName = $("#txtEditFirstName").val();
+
+                if (firstName !== "") {
+                  firstName =
+                    firstName[0].toUpperCase() +
+                    firstName.substring(1, firstName.length);
+                }
+
+                let lastName = $("#txtEditLastName").val();
+
+                if (lastName !== "") {
+                  lastName =
+                    lastName[0].toUpperCase() +
+                    lastName.substring(1, lastName.length);
+                }
+
+                let jobTitle = $("#txtEditJobTitle").val();
 
                 if (jobTitle !== "") {
                   jobTitle =
@@ -1230,12 +1340,14 @@ $(document).ready(function () {
                   method: "post",
                   dataType: "text",
                   data: {
-                    firstName: $("#txtEditFirstName").html(),
-                    lastName: $("#txtEditLastName").html(),
+                    id: result.data[index].id,
+                    firstName: firstName,
+                    lastName: lastName,
                     jobTitle: jobTitle,
-                    email: $("#editEmail").val(),
-                    dept: $("#editDept").val(),
+                    email: $("#txtEditEmail").val(),
+                    dept: $("#txtEditDept").val(),
                   },
+
                   success: function (result) {
                     $("#editMessage").html("");
                     $("#editMessage").append(result);
@@ -1416,83 +1528,160 @@ $(document).ready(function () {
                         // Edit button
                         $("#edit").on("click", function () {
                           $("#employeeModal").modal("hide");
-
                           $("#editHeading").empty();
                           $("#editHeading").append("Edit employee");
-
-                          $("#txtEditFirstName").html(
+                          $("#txtEditFirstName").val(
                             result.data[index].firstName
                           );
-                          $("#txtEditLastName").html(
+                          $("#txtEditLastName").val(
                             result.data[index].lastName
                           );
+                          $("#txtEditJobTitle").val(
+                            result.data[index].jobTitle
+                          );
+                          $("#txtEditEmail").val(result.data[index].email);
+
+                          // Get department id
+                          let deptID;
+                          let locID;
 
                           $.ajax({
                             //2
                             type: "POST",
-                            url: "libs/php/getAllDepartments.php",
+                            url: "libs/php/getDepartmentID.php",
                             dataType: "json",
-
-                            success: function (result) {
-                              $(".deptSelectList").html("");
-
-                              $(".deptSelectList").append(
-                                "<option selected disabled>" +
-                                  "Select department" +
-                                  "</option>"
-                              );
-
-                              $.each(result.data, function (index) {
-                                $(".deptSelectList").append(
-                                  $("<option>", {
-                                    value: result.data[index].locationID,
-                                    text: result.data[index].name,
-                                  })
-                                );
-                              });
+                            data: {
+                              employeeDept: result.data[index].department,
                             },
-                          });
 
-                          $.ajax({
-                            //2
-                            type: "POST",
-                            url: "libs/php/getAllLocations.php",
-                            dataType: "json",
+                            success: function (resultDeptID) {
+                              deptID = resultDeptID.data[index].id;
 
-                            success: function (result) {
-                              $(".locSelectList").html("");
+                              // Display the employee's department in the department dropdown
+                              $.ajax({
+                                //2
+                                type: "POST",
+                                url: "libs/php/getAllDepartments.php",
+                                dataType: "json",
 
-                              $(".locSelectList").append(
-                                '<option selected disabled value="">' +
-                                  "Select location" +
-                                  "</option>"
-                              );
+                                success: function (resultDept) {
+                                  $(".deptEditSelectList").html("");
 
-                              $.each(result.data, function (index) {
-                                $(".locSelectList").append(
-                                  $("<option>", {
-                                    value: result.data[index].id,
-                                    text: result.data[index].name,
-                                  })
-                                );
+                                  $.each(resultDept.data, function (index) {
+                                    $("#txtEditDept").val(deptID);
+
+                                    $(".deptEditSelectList").append(
+                                      $("<option>", {
+                                        value: resultDept.data[index].id,
+                                        text: resultDept.data[index].name,
+                                      })
+                                    );
+                                  });
+                                },
+                                error: function (
+                                  jqXHR,
+                                  textStatus,
+                                  errorThrown
+                                ) {
+                                  console.log("status code: " + jqXHR.status);
+                                  console.log("errorThrown: " + errorThrown);
+                                  console.log(
+                                    "jqXHR.responseText: " + jqXHR.responseText
+                                  );
+                                },
                               });
+
+                              $(".deptEditSelectList").on(
+                                "change",
+                                function () {
+                                  let departID = $(this).val();
+                                  if (departID) {
+                                    // Find the location id from the department id
+                                    $.ajax({
+                                      //2
+                                      type: "POST",
+                                      url: "libs/php/getLocationID.php",
+                                      dataType: "json",
+                                      data: {
+                                        employeeDeptID: departID,
+                                      },
+
+                                      success: function (resultLocID) {
+                                        locID =
+                                          resultLocID.data[index].locationID;
+
+                                        // Use location id to set location dropdown
+                                        $.ajax({
+                                          //2
+                                          type: "POST",
+                                          url: "libs/php/getAllLocations.php",
+                                          dataType: "json",
+
+                                          success: function (resultLoc) {
+                                            $(".locEditSelectList").html("");
+
+                                            $.each(
+                                              resultLoc.data,
+                                              function (index) {
+                                                $("#txtEditLoc").val(locID);
+
+                                                $(".locEditSelectList").append(
+                                                  $("<option>", {
+                                                    value:
+                                                      resultLoc.data[index].id,
+                                                    text: resultLoc.data[index]
+                                                      .name,
+                                                  })
+                                                );
+                                              }
+                                            );
+                                          },
+                                          error: function (
+                                            jqXHR,
+                                            textStatus,
+                                            errorThrown
+                                          ) {
+                                            console.log(
+                                              "status code: " + jqXHR.status
+                                            );
+                                            console.log(
+                                              "errorThrown: " + errorThrown
+                                            );
+                                            console.log(
+                                              "jqXHR.responseText: " +
+                                                jqXHR.responseText
+                                            );
+                                          },
+                                        });
+                                      },
+                                      error: function (
+                                        jqXHR,
+                                        textStatus,
+                                        errorThrown
+                                      ) {
+                                        console.log(
+                                          "status code: " + jqXHR.status
+                                        );
+                                        console.log(
+                                          "errorThrown: " + errorThrown
+                                        );
+                                        console.log(
+                                          "jqXHR.responseText: " +
+                                            jqXHR.responseText
+                                        );
+                                      },
+                                    });
+                                  }
+                                }
+                              );
                             },
-                          });
-
-                          $(".deptSelectList").change(function () {
-                            $(
-                              ".locSelectList option[value=" +
-                                $(this).val() +
-                                "]"
-                            ).prop("selected", "selected");
-                          });
-
-                          $(".locSelectList").change(function () {
-                            $(
-                              ".deptSelectList option[value=" +
-                                $(this).val() +
-                                "]"
-                            ).prop("selected", "selected");
+                            error: function (jqXHR, textStatus, errorThrown) {
+                              console.log("status code: " + jqXHR.status);
+                              console.log("errorThrown: " + errorThrown);
+                              console.log(
+                                "jqXHR.responseText: " + jqXHR.responseText
+                              );
+                            },
                           });
 
                           setTimeout(function () {
@@ -1528,25 +1717,43 @@ $(document).ready(function () {
 
                             $("#editConfirmModal").modal("hide");
 
-                            let jobTitle = $("#editJobTitle").val();
+                            let firstName = $("#txtEditFirstName").val();
 
+                            if (firstName !== "") {
+                              firstName =
+                                firstName[0].toUpperCase() +
+                                firstName.substring(1, firstName.length);
+                            }
+            
+                            let lastName = $("#txtEditLastName").val();
+            
+                            if (lastName !== "") {
+                              lastName =
+                                lastName[0].toUpperCase() +
+                                lastName.substring(1, lastName.length);
+                            }
+            
+                            let jobTitle = $("#txtEditJobTitle").val();
+            
                             if (jobTitle !== "") {
                               jobTitle =
                                 jobTitle[0].toUpperCase() +
                                 jobTitle.substring(1, jobTitle.length);
                             }
-
+            
                             $.ajax({
                               url: "libs/php/editEmployee.php",
                               method: "post",
                               dataType: "text",
                               data: {
-                                firstName: $("#txtEditFirstName").html(),
-                                lastName: $("#txtEditLastName").html(),
+                                id: result.data[index].id,
+                                firstName: firstName,
+                                lastName: lastName,
                                 jobTitle: jobTitle,
-                                email: $("#editEmail").val(),
-                                dept: $("#editDept").val(),
+                                email: $("#txtEditEmail").val(),
+                                dept: $("#txtEditDept").val(),
                               },
+            
                               success: function (result) {
                                 $("#editMessage").html("");
                                 $("#editMessage").append(result);
@@ -1748,72 +1955,124 @@ $(document).ready(function () {
                   $("#employeeModal").modal("hide");
                   $("#editHeading").empty();
                   $("#editHeading").append("Edit employee");
+                  $("#txtEditFirstName").val(result.data[index].firstName);
+                  $("#txtEditLastName").val(result.data[index].lastName);
+                  $("#txtEditJobTitle").val(result.data[index].jobTitle);
+                  $("#txtEditEmail").val(result.data[index].email);
 
-                  $("#txtEditFirstName").html(result.data[index].firstName);
-                  $("#txtEditLastName").html(result.data[index].lastName);
-
-                  $.ajax({
-                    //2
-                    type: "POST",
-                    url: "libs/php/getAllDepartments.php",
-                    dataType: "json",
-
-                    success: function (result) {
-                      $(".deptSelectList").html("");
-
-                      $(".deptSelectList").append(
-                        "<option selected disabled>" +
-                          "Select department" +
-                          "</option>"
-                      );
-
-                      $.each(result.data, function (index) {
-                        $(".deptSelectList").append(
-                          $("<option>", {
-                            value: result.data[index].locationID,
-                            text: result.data[index].name,
-                          })
-                        );
-                      });
-                    },
-                  });
+                  // Get department id
+                  let departmentID;
+                  let locationID;
 
                   $.ajax({
                     //2
                     type: "POST",
-                    url: "libs/php/getAllLocations.php",
+                    url: "libs/php/getDepartmentID.php",
                     dataType: "json",
+                    data: {
+                      employeeDept: result.data[index].department,
+                    },
 
-                    success: function (result) {
-                      $(".locSelectList").html("");
+                    success: function (resultDeptID) {
 
-                      $(".locSelectList").append(
-                        '<option selected disabled value="">' +
-                          "Select location" +
-                          "</option>"
-                      );
+                      departmentID = resultDeptID.data[0].id;
 
-                      $.each(result.data, function (index) {
-                        $(".locSelectList").append(
-                          $("<option>", {
-                            value: result.data[index].id,
-                            text: result.data[index].name,
-                          })
-                        );
+                      // Display the employee's department in the department dropdown
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/getAllDepartments.php",
+                        dataType: "json",
+
+                        success: function (resultDept) {
+                          $(".deptEditSelectList").html("");
+
+                          $.each(resultDept.data, function (index) {
+                            $("#txtEditDept").val(departmentID);
+
+                            $(".deptEditSelectList").append(
+                              $("<option>", {
+                                value: resultDept.data[index].id,
+                                text: resultDept.data[index].name,
+                              })
+                            );
+                          });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+
+                      $(".deptEditSelectList").on("change", function () {
+                        let departID = $(this).val();
+                        if (departID) {
+                          // Find the location id from the department id
+                          $.ajax({
+                            //2
+                            type: "POST",
+                            url: "libs/php/getLocationID.php",
+                            dataType: "json",
+                            data: {
+                              employeeDeptID: departID,
+                            },
+
+                            success: function (resultLocID) {
+                              locationID = resultLocID.data[0].locationID;
+
+                              // Use location id to set location dropdown
+                              $.ajax({
+                                //2
+                                type: "POST",
+                                url: "libs/php/getAllLocations.php",
+                                dataType: "json",
+
+                                success: function (resultLoc) {
+                                  $(".locEditSelectList").html("");
+
+                                  $.each(resultLoc.data, function (index) {
+                                    $("#txtEditLoc").val(locationID);
+
+                                    $(".locEditSelectList").append(
+                                      $("<option>", {
+                                        value: resultLoc.data[index].id,
+                                        text: resultLoc.data[index].name,
+                                      })
+                                    );
+                                  });
+                                },
+                                error: function (
+                                  jqXHR,
+                                  textStatus,
+                                  errorThrown
+                                ) {
+                                  console.log("status code: " + jqXHR.status);
+                                  console.log("errorThrown: " + errorThrown);
+                                  console.log(
+                                    "jqXHR.responseText: " + jqXHR.responseText
+                                  );
+                                },
+                              });
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                              console.log("status code: " + jqXHR.status);
+                              console.log("errorThrown: " + errorThrown);
+                              console.log(
+                                "jqXHR.responseText: " + jqXHR.responseText
+                              );
+                            },
+                          });
+                        }
                       });
                     },
-                  });
-
-                  $(".deptSelectList").change(function () {
-                    $(
-                      ".locSelectList option[value=" + $(this).val() + "]"
-                    ).prop("selected", "selected");
-                  });
-
-                  $(".locSelectList").change(function () {
-                    $(
-                      ".deptSelectList option[value=" + $(this).val() + "]"
-                    ).prop("selected", "selected");
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
                   });
 
                   setTimeout(function () {
@@ -1850,25 +2109,45 @@ $(document).ready(function () {
 
                     $("#editConfirmModal").modal("hide");
 
-                    let jobTitle = $("#editJobTitle").val();
+                    let firstName = $("#txtEditFirstName").val();
 
+                    if (firstName !== "") {
+                      firstName =
+                        firstName[0].toUpperCase() +
+                        firstName.substring(1, firstName.length);
+                    }
+    
+                    let lastName = $("#txtEditLastName").val();
+    
+                    if (lastName !== "") {
+                      lastName =
+                        lastName[0].toUpperCase() +
+                        lastName.substring(1, lastName.length);
+                    }
+    
+                    let jobTitle = $("#txtEditJobTitle").val();
+    
                     if (jobTitle !== "") {
                       jobTitle =
                         jobTitle[0].toUpperCase() +
                         jobTitle.substring(1, jobTitle.length);
                     }
+    
+                    console.log(result.data[index].id);
 
                     $.ajax({
                       url: "libs/php/editEmployee.php",
                       method: "post",
                       dataType: "text",
                       data: {
-                        firstName: $("#txtEditFirstName").html(),
-                        lastName: $("#txtEditLastName").html(),
+                        id: result.data[index].id,
+                        firstName: firstName,
+                        lastName: lastName,
                         jobTitle: jobTitle,
-                        email: $("#editEmail").val(),
-                        dept: $("#editDept").val(),
+                        email: $("#txtEditEmail").val(),
+                        dept: $("#txtEditDept").val(),
                       },
+    
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
@@ -2258,72 +2537,123 @@ $(document).ready(function () {
                   $("#employeeModal").modal("hide");
                   $("#editHeading").empty();
                   $("#editHeading").append("Edit employee");
+                  $("#txtEditFirstName").val(result.data[index].firstName);
+                  $("#txtEditLastName").val(result.data[index].lastName);
+                  $("#txtEditJobTitle").val(result.data[index].jobTitle);
+                  $("#txtEditEmail").val(result.data[index].email);
 
-                  $("#txtEditFirstName").html(result.data[index].firstName);
-                  $("#txtEditLastName").html(result.data[index].lastName);
-
-                  $.ajax({
-                    //2
-                    type: "POST",
-                    url: "libs/php/getAllDepartments.php",
-                    dataType: "json",
-
-                    success: function (result) {
-                      $(".deptSelectList").html("");
-
-                      $(".deptSelectList").append(
-                        "<option selected disabled>" +
-                          "Select department" +
-                          "</option>"
-                      );
-
-                      $.each(result.data, function (index) {
-                        $(".deptSelectList").append(
-                          $("<option>", {
-                            value: result.data[index].locationID,
-                            text: result.data[index].name,
-                          })
-                        );
-                      });
-                    },
-                  });
+                  // Get department id
+                  let depID;
+                  let locatID;
 
                   $.ajax({
                     //2
                     type: "POST",
-                    url: "libs/php/getAllLocations.php",
+                    url: "libs/php/getDepartmentID.php",
                     dataType: "json",
+                    data: {
+                      employeeDept: result.data[index].department,
+                    },
 
-                    success: function (result) {
-                      $(".locSelectList").html("");
+                    success: function (resultDeptID) {
+                      depID = resultDeptID.data[0].id;
 
-                      $(".locSelectList").append(
-                        '<option selected disabled value="">' +
-                          "Select location" +
-                          "</option>"
-                      );
+                      // Display the employee's department in the department dropdown
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/getAllDepartments.php",
+                        dataType: "json",
 
-                      $.each(result.data, function (index) {
-                        $(".locSelectList").append(
-                          $("<option>", {
-                            value: result.data[index].id,
-                            text: result.data[index].name,
-                          })
-                        );
+                        success: function (resultDept) {
+                          $(".deptEditSelectList").html("");
+
+                          $.each(resultDept.data, function (index) {
+                            $("#txtEditDept").val(depID);
+
+                            $(".deptEditSelectList").append(
+                              $("<option>", {
+                                value: resultDept.data[index].id,
+                                text: resultDept.data[index].name,
+                              })
+                            );
+                          });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+
+                      $(".deptEditSelectList").on("change", function () {
+                        let departID = $(this).val();
+                        if (departID) {
+                          // Find the location id from the department id
+                          $.ajax({
+                            //2
+                            type: "POST",
+                            url: "libs/php/getLocationID.php",
+                            dataType: "json",
+                            data: {
+                              employeeDeptID: departID,
+                            },
+
+                            success: function (resultLocID) {
+                              locatID = resultLocID.data[0].locationID;
+
+                              // Use location id to set location dropdown
+                              $.ajax({
+                                //2
+                                type: "POST",
+                                url: "libs/php/getAllLocations.php",
+                                dataType: "json",
+
+                                success: function (resultLoc) {
+                                  $(".locEditSelectList").html("");
+
+                                  $.each(resultLoc.data, function (index) {
+                                    $("#txtEditLoc").val(locatID);
+
+                                    $(".locEditSelectList").append(
+                                      $("<option>", {
+                                        value: resultLoc.data[index].id,
+                                        text: resultLoc.data[index].name,
+                                      })
+                                    );
+                                  });
+                                },
+                                error: function (
+                                  jqXHR,
+                                  textStatus,
+                                  errorThrown
+                                ) {
+                                  console.log("status code: " + jqXHR.status);
+                                  console.log("errorThrown: " + errorThrown);
+                                  console.log(
+                                    "jqXHR.responseText: " + jqXHR.responseText
+                                  );
+                                },
+                              });
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                              console.log("status code: " + jqXHR.status);
+                              console.log("errorThrown: " + errorThrown);
+                              console.log(
+                                "jqXHR.responseText: " + jqXHR.responseText
+                              );
+                            },
+                          });
+                        }
                       });
                     },
-                  });
-
-                  $(".deptSelectList").change(function () {
-                    $(
-                      ".locSelectList option[value=" + $(this).val() + "]"
-                    ).prop("selected", "selected");
-                  });
-
-                  $(".locSelectList").change(function () {
-                    $(
-                      ".deptSelectList option[value=" + $(this).val() + "]"
-                    ).prop("selected", "selected");
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
                   });
 
                   setTimeout(function () {
@@ -2360,25 +2690,43 @@ $(document).ready(function () {
 
                     $("#editConfirmModal").modal("hide");
 
-                    let jobTitle = $("#editJobTitle").val();
+                    let firstName = $("#txtEditFirstName").val();
 
+                    if (firstName !== "") {
+                      firstName =
+                        firstName[0].toUpperCase() +
+                        firstName.substring(1, firstName.length);
+                    }
+    
+                    let lastName = $("#txtEditLastName").val();
+    
+                    if (lastName !== "") {
+                      lastName =
+                        lastName[0].toUpperCase() +
+                        lastName.substring(1, lastName.length);
+                    }
+    
+                    let jobTitle = $("#txtEditJobTitle").val();
+    
                     if (jobTitle !== "") {
                       jobTitle =
                         jobTitle[0].toUpperCase() +
                         jobTitle.substring(1, jobTitle.length);
                     }
-
+    
                     $.ajax({
                       url: "libs/php/editEmployee.php",
                       method: "post",
                       dataType: "text",
                       data: {
-                        firstName: $("#txtEditFirstName").html(),
-                        lastName: $("#txtEditLastName").html(),
+                        id: result.data[index].id,
+                        firstName: firstName,
+                        lastName: lastName,
                         jobTitle: jobTitle,
-                        email: $("#editEmail").val(),
-                        dept: $("#editDept").val(),
+                        email: $("#txtEditEmail").val(),
+                        dept: $("#txtEditDept").val(),
                       },
+    
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
@@ -2817,7 +3165,7 @@ $(document).ready(function () {
 
               setTimeout(function () {
                 $("#employeeModal").modal("show");
-              }, 5000);
+              }, 1000);
 
               //Edit employee modal
 
@@ -2826,32 +3174,112 @@ $(document).ready(function () {
                 $("#employeeModal").modal("hide");
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
+                $("#txtEditFirstName").val(result.data[index].firstName);
+                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditJobTitle").val(result.data[index].jobTitle);
+                $("#txtEditEmail").val(result.data[index].email);
 
-                $("#txtEditFirstName").html(result.data[0].firstName);
-                $("#txtEditLastName").html(result.data[0].lastName);
+                // Get department id
+                let deptID;
+                let locID;
 
                 $.ajax({
                   //2
                   type: "POST",
-                  url: "libs/php/getAllDepartments.php",
+                  url: "libs/php/getDepartmentID.php",
                   dataType: "json",
+                  data: {
+                    employeeDept: result.data[index].department,
+                  },
 
-                  success: function (result) {
-                    $(".deptSelectList").html("");
+                  success: function (resultDeptID) {
+                    deptID = resultDeptID.data[index].id;
 
-                    $(".deptSelectList").append(
-                      "<option selected disabled>" +
-                        "Select department" +
-                        "</option>"
-                    );
+                    // Display the employee's department in the department dropdown
+                    $.ajax({
+                      //2
+                      type: "POST",
+                      url: "libs/php/getAllDepartments.php",
+                      dataType: "json",
 
-                    $.each(result.data, function (index) {
-                      $(".deptSelectList").append(
-                        $("<option>", {
-                          value: result.data[index].locationID,
-                          text: result.data[index].name,
-                        })
-                      );
+                      success: function (resultDept) {
+                        $(".deptEditSelectList").html("");
+
+                        $.each(resultDept.data, function (index) {
+                          $("#txtEditDept").val(deptID);
+
+                          $(".deptEditSelectList").append(
+                            $("<option>", {
+                              value: resultDept.data[index].id,
+                              text: resultDept.data[index].name,
+                            })
+                          );
+                        });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("status code: " + jqXHR.status);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log(
+                          "jqXHR.responseText: " + jqXHR.responseText
+                        );
+                      },
+                    });
+
+                    $(".deptEditSelectList").on("change", function () {
+                      let departID = $(this).val();
+                      if (departID) {
+                        // Find the location id from the department id
+                        $.ajax({
+                          //2
+                          type: "POST",
+                          url: "libs/php/getLocationID.php",
+                          dataType: "json",
+                          data: {
+                            employeeDeptID: departID,
+                          },
+
+                          success: function (resultLocID) {
+                            locID = resultLocID.data[index].locationID;
+
+                            // Use location id to set location dropdown
+                            $.ajax({
+                              //2
+                              type: "POST",
+                              url: "libs/php/getAllLocations.php",
+                              dataType: "json",
+
+                              success: function (resultLoc) {
+                                $(".locEditSelectList").html("");
+
+                                $.each(resultLoc.data, function (index) {
+                                  $("#txtEditLoc").val(locID);
+
+                                  $(".locEditSelectList").append(
+                                    $("<option>", {
+                                      value: resultLoc.data[index].id,
+                                      text: resultLoc.data[index].name,
+                                    })
+                                  );
+                                });
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("status code: " + jqXHR.status);
+                                console.log("errorThrown: " + errorThrown);
+                                console.log(
+                                  "jqXHR.responseText: " + jqXHR.responseText
+                                );
+                              },
+                            });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("status code: " + jqXHR.status);
+                            console.log("errorThrown: " + errorThrown);
+                            console.log(
+                              "jqXHR.responseText: " + jqXHR.responseText
+                            );
+                          },
+                        });
+                      }
                     });
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
@@ -2860,52 +3288,6 @@ $(document).ready(function () {
                     console.log("jqXHR.responseText: " + jqXHR.responseText);
                   },
                 });
-
-                $.ajax({
-                  //2
-                  type: "POST",
-                  url: "libs/php/getAllLocations.php",
-                  dataType: "json",
-
-                  success: function (result) {
-                    $(".locSelectList").html("");
-
-                    $(".locSelectList").append(
-                      '<option selected disabled value="">' +
-                        "Select location" +
-                        "</option>"
-                    );
-
-                    $.each(result.data, function (index) {
-                      $(".locSelectList").append(
-                        $("<option>", {
-                          value: result.data[index].id,
-                          text: result.data[index].name,
-                        })
-                      );
-                    });
-                  },
-                  error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("status code: " + jqXHR.status);
-                    console.log("errorThrown: " + errorThrown);
-                    console.log("jqXHR.responseText: " + jqXHR.responseText);
-                  },
-                });
-
-                $(".deptSelectList").change(function () {
-                  $(".locSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
-                });
-
-                $(".locSelectList").change(function () {
-                  $(".deptSelectList option[value=" + $(this).val() + "]").prop(
-                    "selected",
-                    "selected"
-                  );
-                });
-
                 setTimeout(function () {
                   $("#editEmployeeModal").modal("show");
                 }, 1000);
@@ -2938,25 +3320,43 @@ $(document).ready(function () {
 
                   $("#editConfirmModal").modal("hide");
 
-                  let jobTitle = $("#editJobTitle").val();
+                  let firstName = $("#txtEditFirstName").val();
 
+                  if (firstName !== "") {
+                    firstName =
+                      firstName[0].toUpperCase() +
+                      firstName.substring(1, firstName.length);
+                  }
+  
+                  let lastName = $("#txtEditLastName").val();
+  
+                  if (lastName !== "") {
+                    lastName =
+                      lastName[0].toUpperCase() +
+                      lastName.substring(1, lastName.length);
+                  }
+  
+                  let jobTitle = $("#txtEditJobTitle").val();
+  
                   if (jobTitle !== "") {
                     jobTitle =
                       jobTitle[0].toUpperCase() +
                       jobTitle.substring(1, jobTitle.length);
                   }
-
+  
                   $.ajax({
                     url: "libs/php/editEmployee.php",
                     method: "post",
                     dataType: "text",
                     data: {
-                      firstName: $("#txtEditFirstName").html(),
-                      lastName: $("#txtEditLastName").html(),
+                      id: result.data[index].id,
+                      firstName: firstName,
+                      lastName: lastName,
                       jobTitle: jobTitle,
-                      email: $("#editEmail").val(),
-                      dept: $("#editDept").val(),
+                      email: $("#txtEditEmail").val(),
+                      dept: $("#txtEditDept").val(),
                     },
+  
                     success: function (result) {
                       $("#editMessage").html("");
                       $("#editMessage").append(result);

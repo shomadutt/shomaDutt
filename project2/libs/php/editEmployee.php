@@ -30,18 +30,45 @@
 	if(!mysqli_select_db($conn, 'companydirectory')) {
         echo 'Database Not Selected';
     }
-		
-	$firstName = $_POST['firstName']; 
-	$lastName = $_POST['lastName']; 
+
+	$id = $_POST['id'];
+
+	//Make sure first name is valid
+	if(strlen($_POST['firstName'] > 0)) {
+    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['firstName'])) { 
+        die ("Invalid first name.");
+		}
+    }
+
+	//Make sure last name is valid
+	if(strlen($_POST['firstName'] > 0)) {
+    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['firstName'])) { 
+        die ("Invalid first name.");
+		}
+    }
 
 	//Make sure job title is valid
 	if(strlen($_POST['jobTitle'] > 0)) {
     	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['jobTitle'])) { 
-        die ("Invalid job title.");
+        die ("Invalid jobTitle.");
 		}
     }
 	
 	$sql = "";
+
+	if (isset($_POST['firstName'])){
+		$firstName = strip_tags($_POST['firstName']);
+		$firstName = mysqli_real_escape_string($conn, $firstName);
+		}else{
+			$firstName = NULL;
+	}
+
+	if (isset($_POST['lastName'])){
+		$lastName = strip_tags($_POST['lastName']);
+		$lastName = mysqli_real_escape_string($conn, $lastName);
+		}else{
+			$lastName = NULL;
+	}
 
 	if (isset($_POST['jobTitle'])){
 		$jobTitle = strip_tags($_POST['jobTitle']);
@@ -57,17 +84,12 @@
 			$email = NULL;
 	}
 
-	if (isset($_POST['dept'])){
-		$dept = strip_tags($_POST['dept']);
-		$dept = mysqli_real_escape_string($conn, $dept);
-		}else{
-			$dept = $_POST['dept'];
-	}
-
+	$dept = $_POST['dept'];
+	
 	$sql = "UPDATE personnel 
-	SET jobTitle = '$jobTitle', email = '$email', departmentID = '$dept'
-	WHERE firstName = '$firstName' 
-	AND lastName = '$lastName'";
+	SET firstName = '$firstName', lastName = '$lastName', jobTitle = '$jobTitle', 
+		email = '$email', departmentID = '$dept'
+	WHERE id = '$id'";
 
 	//Response
     

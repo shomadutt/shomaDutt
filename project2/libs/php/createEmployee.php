@@ -53,8 +53,7 @@
 
 	$sql = "INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) 
 			VALUES ('$firstName', '$lastName', '$jobTitle', '$email', '$dept')";
-
-	//Make sure name is valid
+			
     if(!preg_match("/^[a-zA-Z' ]+$/", $firstName)) { 
         die ("Invalid first name.");
     }
