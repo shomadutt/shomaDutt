@@ -35,21 +35,21 @@
 
 	//Make sure first name is valid
 	if(strlen($_POST['firstName'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['firstName'])) { 
+    	if(!preg_match("/^[a-zA-Z-' ]*$/", $_POST['firstName'])) { 
         die ("Invalid first name.");
 		}
     }
 
 	//Make sure last name is valid
 	if(strlen($_POST['firstName'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['firstName'])) { 
+    	if(!preg_match("/^[a-zA-Z-' ]*$/", $_POST['firstName'])) { 
         die ("Invalid first name.");
 		}
     }
 
 	//Make sure job title is valid
 	if(strlen($_POST['jobTitle'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z' ]+$/", $_POST['jobTitle'])) { 
+    	if(!preg_match("/^[a-zA-Z-' ]*$/", $_POST['jobTitle'])) { 
         die ("Invalid jobTitle.");
 		}
     }
