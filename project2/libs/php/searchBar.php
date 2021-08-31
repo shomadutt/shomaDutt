@@ -1,10 +1,5 @@
 <?php
 
-	// example use from browser
-	// http://localhost/companydirectory/libs/php/getAll.php
-
-	// remove next two lines for production
-
 	if (isset($_POST['query'])) {
 	
 	ini_set('display_errors', 'On');

@@ -34,9 +34,6 @@
 	$deptName = $_POST['deptName']; 
 	$addDeptLoc = $_POST['addDeptLoc']; 
 
-	// print_r($deptName);
-	// print_r($addDeptLoc);
-
 	// escaping content
 	$deptName = strip_tags($_POST['deptName']);
 
