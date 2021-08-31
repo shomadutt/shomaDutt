@@ -45,7 +45,7 @@
 	$sql = "INSERT INTO department (name, locationID) VALUES ('$deptName', '$addDeptLoc')";
 
 	//Make sure name is valid
-    if(!preg_match("/^[a-zA-Z-' ]*$/", $deptName)) { 
+    if(!preg_match("/^[a-zA-Z-]+$/", $deptName)) { 
         die ("Invalid department name");
     }
 

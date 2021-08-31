@@ -44,7 +44,7 @@
 	$sql = "INSERT INTO location (name) VALUES ('$locName')";
 
 	//Make sure name is valid
-    if(!preg_match("/^[a-zA-Z-' ]*$/", $locName)) { 
+    if(!preg_match("/^[a-zA-Z-]+$/", $locName)) { 
         die ("Invalid location name");
     }
 

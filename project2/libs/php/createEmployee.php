@@ -54,15 +54,15 @@
 	$sql = "INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) 
 			VALUES ('$firstName', '$lastName', '$jobTitle', '$email', '$dept')";
 			
-    if(!preg_match("/^[a-zA-Z-' ]*$/", $firstName)) { 
+    if(!preg_match("/^[a-zA-Z-]+$/", $firstName)) { 
         die ("Invalid first name.");
     }
 
-	if(!preg_match("/^[a-zA-Z-' ]*$/", $lastName)) { 
+	if(!preg_match("/^[a-zA-Z-']+$/", $lastName)) { 
         die ("Invalid last name.");
     }
 
-	if(!preg_match("/^[a-zA-Z-' ]*$/", $jobTitle)) { 
+	if(!preg_match("/^[a-zA-Z-]+$/", $jobTitle)) { 
         die ("Invalid job title.");
     }
 
