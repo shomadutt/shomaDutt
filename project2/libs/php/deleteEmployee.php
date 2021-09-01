@@ -31,10 +31,10 @@
         echo 'Database Not Selected';
     }
 		
-	$lastName = $_POST['lastName']; 
+	$id = $_POST['id']; 
 
 	
-	$sql = "DELETE FROM personnel WHERE lastName = '$lastName'";
+	$sql = "DELETE FROM personnel WHERE id = '$id'";
     $result = mysqli_query ($conn, $sql);
 
 	if ($result) {

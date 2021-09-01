@@ -145,7 +145,7 @@ $(document).ready(function () {
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
                 $("#txtEditFirstName").val(result.data[index].firstName);
-                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditLastName").html(result.data[index].lastName);
                 $("#txtEditJobTitle").val(result.data[index].jobTitle);
                 $("#txtEditEmail").val(result.data[index].email);
 
@@ -305,14 +305,6 @@ $(document).ready(function () {
                     firstName.substring(1, firstName.length);
                 }
 
-                let lastName = $("#txtEditLastName").val();
-
-                if (lastName !== "") {
-                  lastName =
-                    lastName[0].toUpperCase() +
-                    lastName.substring(1, lastName.length);
-                }
-
                 let jobTitle = $("#txtEditJobTitle").val();
 
                 if (jobTitle !== "") {
@@ -328,7 +320,7 @@ $(document).ready(function () {
                   data: {
                     id: result.data[index].id,
                     firstName: firstName,
-                    lastName: lastName,
+                    lastName: $("#txtEditLastName").html(),
                     jobTitle: jobTitle,
                     email: $("#txtEditEmail").val(),
                     dept: $("#txtEditDept").val(),
@@ -374,7 +366,7 @@ $(document).ready(function () {
                   url: "libs/php/deleteEmployee.php",
                   dataType: "text",
                   data: {
-                    lastName: result.data[index].lastName,
+                    id: result.data[index].id,
                   },
 
                   success: function (result) {
@@ -1039,7 +1031,7 @@ $(document).ready(function () {
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
                 $("#txtEditFirstName").val(result.data[index].firstName);
-                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditLastName").html(result.data[index].lastName);
                 $("#txtEditJobTitle").val(result.data[index].jobTitle);
                 $("#txtEditEmail").val(result.data[index].email);
 
@@ -1189,14 +1181,6 @@ $(document).ready(function () {
                     firstName.substring(1, firstName.length);
                 }
 
-                let lastName = $("#txtEditLastName").val();
-
-                if (lastName !== "") {
-                  lastName =
-                    lastName[0].toUpperCase() +
-                    lastName.substring(1, lastName.length);
-                }
-
                 let jobTitle = $("#txtEditJobTitle").val();
 
                 if (jobTitle !== "") {
@@ -1212,7 +1196,7 @@ $(document).ready(function () {
                   data: {
                     id: result.data[index].id,
                     firstName: firstName,
-                    lastName: lastName,
+                    lastName: $("#txtEditLastName").html(),
                     jobTitle: jobTitle,
                     email: $("#txtEditEmail").val(),
                     dept: $("#txtEditDept").val(),
@@ -1262,7 +1246,7 @@ $(document).ready(function () {
                   url: "libs/php/deleteEmployee.php",
                   dataType: "text",
                   data: {
-                    lastName: result.data[index].lastName,
+                    id: result.data[index].id,
                   },
 
                   success: function (result) {
@@ -1416,7 +1400,7 @@ $(document).ready(function () {
                   $("#editHeading").empty();
                   $("#editHeading").append("Edit employee");
                   $("#txtEditFirstName").val(result.data[index].firstName);
-                  $("#txtEditLastName").val(result.data[index].lastName);
+                  $("#txtEditLastName").html(result.data[index].lastName);
                   $("#txtEditJobTitle").val(result.data[index].jobTitle);
                   $("#txtEditEmail").val(result.data[index].email);
 
@@ -1577,14 +1561,6 @@ $(document).ready(function () {
                         firstName.substring(1, firstName.length);
                     }
     
-                    let lastName = $("#txtEditLastName").val();
-    
-                    if (lastName !== "") {
-                      lastName =
-                        lastName[0].toUpperCase() +
-                        lastName.substring(1, lastName.length);
-                    }
-    
                     let jobTitle = $("#txtEditJobTitle").val();
     
                     if (jobTitle !== "") {
@@ -1602,7 +1578,7 @@ $(document).ready(function () {
                       data: {
                         id: result.data[index].id,
                         firstName: firstName,
-                        lastName: lastName,
+                        lastName: $("#txtEditLastName").html(),
                         jobTitle: jobTitle,
                         email: $("#txtEditEmail").val(),
                         dept: $("#txtEditDept").val(),
@@ -1653,7 +1629,7 @@ $(document).ready(function () {
                     url: "libs/php/deleteEmployee.php",
                     dataType: "text",
                     data: {
-                      lastName: result.data[index].lastName,
+                      id: result.data[index].id,
                     },
 
                     success: function (result) {
@@ -1998,7 +1974,7 @@ $(document).ready(function () {
                   $("#editHeading").empty();
                   $("#editHeading").append("Edit employee");
                   $("#txtEditFirstName").val(result.data[index].firstName);
-                  $("#txtEditLastName").val(result.data[index].lastName);
+                  $("#txtEditLastName").html(result.data[index].lastName);
                   $("#txtEditJobTitle").val(result.data[index].jobTitle);
                   $("#txtEditEmail").val(result.data[index].email);
 
@@ -2158,14 +2134,6 @@ $(document).ready(function () {
                         firstName.substring(1, firstName.length);
                     }
     
-                    let lastName = $("#txtEditLastName").val();
-    
-                    if (lastName !== "") {
-                      lastName =
-                        lastName[0].toUpperCase() +
-                        lastName.substring(1, lastName.length);
-                    }
-    
                     let jobTitle = $("#txtEditJobTitle").val();
     
                     if (jobTitle !== "") {
@@ -2181,7 +2149,7 @@ $(document).ready(function () {
                       data: {
                         id: result.data[index].id,
                         firstName: firstName,
-                        lastName: lastName,
+                        lastName: $("#txtEditLastName").html(),
                         jobTitle: jobTitle,
                         email: $("#txtEditEmail").val(),
                         dept: $("#txtEditDept").val(),
@@ -2232,7 +2200,7 @@ $(document).ready(function () {
                     url: "libs/php/deleteEmployee.php",
                     dataType: "text",
                     data: {
-                      lastName: result.data[index].lastName,
+                      id: result.data[index].id,
                     },
 
                     success: function (result) {
@@ -2436,7 +2404,6 @@ $(document).ready(function () {
   //Search modal
 
   $("#search").on("click", function () {
-    $(this).closest("form").find("input[type=text]").val("");
 
     $("#searchHeading").empty();
     $("#searchHeading").append("Search");
@@ -2540,7 +2507,7 @@ $(document).ready(function () {
   });
 
   $("#searchConfirmForm").submit(function (event) {
-    $(this).closest("form").find("input[type=text]").val("");
+   
     event.preventDefault();
 
     $("#searchConfirmModal").modal("hide");
@@ -2631,7 +2598,7 @@ $(document).ready(function () {
                 $("#editHeading").empty();
                 $("#editHeading").append("Edit employee");
                 $("#txtEditFirstName").val(result.data[index].firstName);
-                $("#txtEditLastName").val(result.data[index].lastName);
+                $("#txtEditLastName").html(result.data[index].lastName);
                 $("#txtEditJobTitle").val(result.data[index].jobTitle);
                 $("#txtEditEmail").val(result.data[index].email);
 
@@ -2784,14 +2751,6 @@ $(document).ready(function () {
                       firstName.substring(1, firstName.length);
                   }
   
-                  let lastName = $("#txtEditLastName").val();
-  
-                  if (lastName !== "") {
-                    lastName =
-                      lastName[0].toUpperCase() +
-                      lastName.substring(1, lastName.length);
-                  }
-  
                   let jobTitle = $("#txtEditJobTitle").val();
   
                   if (jobTitle !== "") {
@@ -2807,7 +2766,7 @@ $(document).ready(function () {
                     data: {
                       id: result.data[index].id,
                       firstName: firstName,
-                      lastName: lastName,
+                      lastName: $("#txtEditLastName").html(),
                       jobTitle: jobTitle,
                       email: $("#txtEditEmail").val(),
                       dept: $("#txtEditDept").val(),
@@ -2860,7 +2819,7 @@ $(document).ready(function () {
                 url: "libs/php/deleteEmployee.php",
                 dataType: "text",
                 data: {
-                  lastName: result.data[index].lastName,
+                  id: result.data[index].id,
                 },
 
                 success: function (result) {

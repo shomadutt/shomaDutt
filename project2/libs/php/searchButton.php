@@ -48,7 +48,7 @@
 
 	$query = "";
 
-	if(strlen($firstName > 0)) {
+	if(strlen($firstName) > 0) {
 		$query = "";
 		$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
 		FROM personnel p 
@@ -85,7 +85,7 @@
 		LEFT JOIN location l ON (l.id = d.locationID) 
 		WHERE p.lastName LIKE '%$lastName%'";
 
-		if(strlen($firstName > 0)) {
+		if(strlen($firstName) > 0) {
 			$query .= "AND p.firstName LIKE '%$firstName%'";
 		}	
 
@@ -115,7 +115,7 @@
 		LEFT JOIN location l ON (l.id = d.locationID) 
 		WHERE p.jobTitle LIKE '%$jobTitle%'";
 
-		if(strlen($firstName > 0)) {
+		if(strlen($firstName) > 0) {
 			$query .= "AND p.firstName LIKE '%$firstName%'";
 		}	
 
@@ -144,7 +144,7 @@
 		LEFT JOIN location l ON (l.id = d.locationID) 
 		WHERE p.email LIKE '%$email%'";
 
-		if(strlen($firstName > 0)) {
+		if(strlen($firstName) > 0) {
 			$query .= "AND p.firstName LIKE '%$firstName%'";
 		}	
 
