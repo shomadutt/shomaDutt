@@ -31,65 +31,41 @@
         echo 'Database Not Selected';
     }
 
-	$id = $_POST['id'];
-
-	//Make sure first name is valid
-	if(strlen($_POST['firstName'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z-]+$/", $_POST['firstName'])) { 
-        die ("Invalid first name.");
-		}
-    }
-
-	//Make sure last name is valid
-	if(strlen($_POST['lastName'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z-']+$/", $_POST['lastName'])) { 
-        die ("Invalid last name.");
-		}
-    }
-
-	//Make sure job title is valid
-	if(strlen($_POST['jobTitle'] > 0)) {
-    	if(!preg_match("/^[a-zA-Z-]+$/", $_POST['jobTitle'])) { 
-        die ("Invalid job title.");
-		}
-    }
-	
-	$sql = "";
-
-	if (isset($_POST['firstName'])){
-		$firstName = strip_tags($_POST['firstName']);
-		$firstName = mysqli_real_escape_string($conn, $firstName);
-		}else{
-			$firstName = NULL;
-	}
-
-	if (isset($_POST['lastName'])){
-		$lastName = strip_tags($_POST['lastName']);
-		$lastName = mysqli_real_escape_string($conn, $lastName);
-		}else{
-			$lastName = NULL;
-	}
-
-	if (isset($_POST['jobTitle'])){
-		$jobTitle = strip_tags($_POST['jobTitle']);
-		$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
-		}else{
-			$jobTitle = NULL;
-	}
-			
-	if (isset($_POST['email'])){
-		$email = strip_tags($_POST['email']);
-		$email = mysqli_real_escape_string($conn, $email);
-		}else{
-			$email = NULL;
-	}
-
+	$firstName = $_POST['firstName']; 
+	$lastName = $_POST['lastName'];
+	$jobTitle = $_POST['jobTitle'];
+	$email = $_POST['email'];
 	$dept = $_POST['dept'];
+	$id = $_POST['id'];
+	
+	// escaping content
+	$firstName = strip_tags($_POST['firstName']); 
+	$lastName = strip_tags($_POST['lastName']);
+	$jobTitle = strip_tags($_POST['jobTitle']);
+	$email = strip_tags($_POST['email']);
+
+	// filter the form input
+	$firstName = mysqli_real_escape_string($conn, $firstName);
+	$lastName = mysqli_real_escape_string($conn, $lastName);
+	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
+	$email = mysqli_real_escape_string($conn, $email);
 	
 	$sql = "UPDATE personnel 
 	SET firstName = '$firstName', lastName = '$lastName', jobTitle = '$jobTitle', 
 		email = '$email', departmentID = '$dept'
 	WHERE id = '$id'";
+
+	if(!preg_match("/^[a-zA-Z-]+$/", $firstName)) { 
+		die ("Invalid first name.");
+	}
+		
+	if(!preg_match("/^[a-zA-Z-']+$/", $lastName)) { 
+		die ("Invalid last name.");
+	}
+		
+	if(!preg_match("/^[a-zA-Z-]+$/", $jobTitle)) { 
+		die ("Invalid job title.");
+	}
 
 	//Response
     
