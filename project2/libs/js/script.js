@@ -7,10 +7,9 @@ $(window).on("load", function () {
       });
   }
 
-  if(window.localStorage.getItem('focus_on')){
-    $(window.localStorage.getItem('focus_on')).focus();
+  if (window.localStorage.getItem("focus_on")) {
+    $(window.localStorage.getItem("focus_on")).focus();
   }
-
 });
 
 $(document).ready(function () {
@@ -892,7 +891,7 @@ $(document).ready(function () {
               $("#deleteModal").modal("hide");
             });
           } else {
-            window.localStorage.setItem('focus_on', '#deleteSearchBar');
+            window.localStorage.setItem("focus_on", "#deleteSearchBar");
             location.reload();
           }
 
@@ -1272,7 +1271,7 @@ $(document).ready(function () {
               });
             });
           } else {
-            window.localStorage.setItem('focus_on', '#searchBar');
+            window.localStorage.setItem("focus_on", "#searchBar");
             location.reload();
           }
         });
@@ -1418,7 +1417,6 @@ $(document).ready(function () {
                     },
 
                     success: function (resultDeptID) {
-
                       departmentID = resultDeptID.data[0].id;
 
                       // Display the employee's department in the department dropdown
@@ -1560,15 +1558,15 @@ $(document).ready(function () {
                         firstName[0].toUpperCase() +
                         firstName.substring(1, firstName.length);
                     }
-    
+
                     let jobTitle = $("#txtEditJobTitle").val();
-    
+
                     if (jobTitle !== "") {
                       jobTitle =
                         jobTitle[0].toUpperCase() +
                         jobTitle.substring(1, jobTitle.length);
                     }
-    
+
                     console.log(result.data[index].id);
 
                     $.ajax({
@@ -1583,7 +1581,7 @@ $(document).ready(function () {
                         email: $("#txtEditEmail").val(),
                         dept: $("#txtEditDept").val(),
                       },
-    
+
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
@@ -2133,15 +2131,15 @@ $(document).ready(function () {
                         firstName[0].toUpperCase() +
                         firstName.substring(1, firstName.length);
                     }
-    
+
                     let jobTitle = $("#txtEditJobTitle").val();
-    
+
                     if (jobTitle !== "") {
                       jobTitle =
                         jobTitle[0].toUpperCase() +
                         jobTitle.substring(1, jobTitle.length);
                     }
-    
+
                     $.ajax({
                       url: "libs/php/editEmployee.php",
                       method: "post",
@@ -2154,7 +2152,7 @@ $(document).ready(function () {
                         email: $("#txtEditEmail").val(),
                         dept: $("#txtEditDept").val(),
                       },
-    
+
                       success: function (result) {
                         $("#editMessage").html("");
                         $("#editMessage").append(result);
@@ -2507,7 +2505,7 @@ $(document).ready(function () {
   });
 
   $("#searchConfirmForm").submit(function (event) {
-   
+    
     event.preventDefault();
 
     $("#searchConfirmModal").modal("hide");
@@ -2750,15 +2748,15 @@ $(document).ready(function () {
                       firstName[0].toUpperCase() +
                       firstName.substring(1, firstName.length);
                   }
-  
+
                   let jobTitle = $("#txtEditJobTitle").val();
-  
+
                   if (jobTitle !== "") {
                     jobTitle =
                       jobTitle[0].toUpperCase() +
                       jobTitle.substring(1, jobTitle.length);
                   }
-  
+
                   $.ajax({
                     url: "libs/php/editEmployee.php",
                     method: "post",
@@ -2771,7 +2769,7 @@ $(document).ready(function () {
                       email: $("#txtEditEmail").val(),
                       dept: $("#txtEditDept").val(),
                     },
-  
+
                     success: function (result) {
                       $("#editMessage").html("");
                       $("#editMessage").append(result);
