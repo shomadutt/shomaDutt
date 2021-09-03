@@ -27,7 +27,7 @@
 
 	}	
 
-	$query = 'SELECT id, firstName, lastName FROM personnel ORDER BY lastName';
+	$query = 'SELECT id, firstName, lastName, jobTitle, email, departmentID FROM personnel ORDER BY lastName';
 
 	$result = $conn->query($query);
 	

@@ -20,66 +20,35 @@
   </head>
 
   <body>
+   
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-1 alignmentRight pad">
-          <button class="directoryButton" id="editButton">Edit</button>
-        </div>
-        <div class="col-sm-1 alignmentRight pad">
-          <button class="directoryButton" id="search">Search</button>
-        </div>
-        <div class="col-sm-4">
-          <h1 id="directoryTitle">Company Directory</h1>
-        </div>
-        <div class="col-sm-3" id="alignmentRight">
-          <button class="directoryButton" id="plus">+</button>
-        </div>
+
+      <div class="space"></div>
+
+      <ul class="nav nav-tabs nav-justified" id="directoryTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="personnel-tab" data-bs-toggle="tab" data-bs-target="#personnel" type="button" role="tab" aria-controls="personnel" aria-selected="true">Personnel</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="department-tab" data-bs-toggle="tab" data-bs-target="#department" type="button" role="tab" aria-controls="department" aria-selected="false">Department</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="location-tab" data-bs-toggle="tab" data-bs-target="#location" type="button" role="tab" aria-controls="location" aria-selected="false">Location</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="directoryTabContent">
+        <div class="tab-pane fade show active" id="personnel" role="tabpanel" aria-labelledby="personnel-tab"></div>
+        <div class="tab-pane fade" id="department" role="tabpanel" aria-labelledby="department-tab"></div>
+        <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab"></div>
       </div>
 
-      <div class="row" id="searchRow">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-2">
-          <div class="form-outline">
-            <input
-              name="searchBar"
-              type="search"
-              id="searchBar"
-              class="form-control"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </div>
+      <div class="space"></div>
+
+      
+        <div class="row" id="directoryRow">
+          <div id="directoryData"></div>
         </div>
-
-        <div class="col-sm-3">
-          <div class="dropdown">
-            <button
-              class="btn btn-info dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Department or Location
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li>
-                <a class="dropdown-item" href="#" id="department">Department</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#" id="location">Location</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col" id="directoryData"></div>
-
-        <div class="col" id="verticalAlphabet"></div>
-      </div>
+    
 
       <!-- Employee modal -->
       <div
@@ -214,10 +183,7 @@
                   </tr>
                   <tr>
                     <td>Last name</td>
-                    <td
-                      id="txtEditLastName"
-                      name="txtEditLastName"
-                    ></td>
+                    <td id="txtEditLastName" name="txtEditLastName"></td>
                   </tr>
                   <tr>
                     <td>Job title</td>
