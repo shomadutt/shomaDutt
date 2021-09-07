@@ -9,11 +9,42 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
-  // Automatically click the personnel tab on page load
-  jQuery(function () {
+  
+
+   // Automatically click the personnel tab on page load
+   jQuery(function () {
     jQuery("#personnel-tab").click();
   });
 
+ // Delete employee event handler
+ $("#deleteEmployee").on("click", function () {
+  $("#editEmployeeModal").modal("hide");
+
+  setTimeout(function () {
+    $("#deleteEmployeeConfirmModal").modal("show");
+  }, 1000);
+});
+
+// Delete department even handler
+$("#deleteDepartment").on("click", function () {
+  $("#editDepartmentModal").modal("hide");
+
+  setTimeout(function () {
+    $("#deleteDepartmentConfirmModal").modal("show");
+  }, 1000);
+});
+
+// Delete location event handler
+$("#deleteLocation").on("click", function () {
+  $("#editLocationModal").modal("hide");
+
+  setTimeout(function () {
+    $("#deleteLocationConfirmModal").modal("show");
+  }, 1000);
+});
+
+
+ // Letters array
   const alphabetArray = [
     "A",
     "B",
@@ -71,7 +102,7 @@ $(document).ready(function () {
                 `<div id="square" class="square"></div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
-                `<a id="searchLinkEmployee${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].firstName}` +
+                `<a id="searchLinkEmployee${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
                 " " +
                 `${result.data[index].lastName}</a>` +
                 "</div>" +
@@ -282,15 +313,7 @@ $(document).ready(function () {
                   });
                 });
 
-                // Delete employee
-
-                $("#deleteEmployee").on("click", function () {
-                  $("#editEmployeeModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#deleteEmployeeConfirmModal").modal("show");
-                  }, 1000);
-                });
+               // Delete employee
 
                 $("#deleteEmployeeConfirmForm").submit(function (event) {
                   event.preventDefault();
@@ -388,7 +411,7 @@ $(document).ready(function () {
                   `<div id="square" class="square"></div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
-                  `<a id="nameLink${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].firstName}` +
+                  `<a id="nameLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
                   " " +
                   `${result.data[index].lastName}</a>` +
                   "</div>" +
@@ -607,14 +630,6 @@ $(document).ready(function () {
 
                   // Delete employee
 
-                  $("#deleteEmployee").on("click", function () {
-                    $("#editEmployeeModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#deleteEmployeeConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
                   $("#deleteEmployeeConfirmForm").submit(function (event) {
                     event.preventDefault();
 
@@ -712,7 +727,7 @@ $(document).ready(function () {
                 `<div id="deptSquare" class="square"></div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
-                `<a id="searchLinkDept${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].name}` +
+                `<a id="searchLinkDept${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
                 "</div>" +
                 "</div>";
 
@@ -824,14 +839,6 @@ $(document).ready(function () {
 
                 // Delete department
 
-                $("#deleteDepartment").on("click", function () {
-                  $("#editDepartmentModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#deleteDepartmentConfirmModal").modal("show");
-                  }, 1000);
-                });
-
                 $("#deleteDepartmentConfirmForm").submit(function (event) {
                   event.preventDefault();
 
@@ -928,7 +935,7 @@ $(document).ready(function () {
                   `<div id="deptSquare" class="square"></div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
-                  `<a id="deptLink${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].name}` +
+                  `<a id="deptLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
                   "</div>" +
                   "</div>";
 
@@ -1042,14 +1049,6 @@ $(document).ready(function () {
 
                   // Delete department
 
-                  $("#deleteDepartment").on("click", function () {
-                    $("#editDepartmentModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#deleteDepartmentConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
                   $("#deleteDepartmentConfirmForm").submit(function (event) {
                     event.preventDefault();
 
@@ -1135,7 +1134,7 @@ $(document).ready(function () {
                 `<div id="locSquare" class="square"></div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
-                `<a id="searchLocLink${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].name}` +
+                `<a id="searchLocLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
                 "</div>" +
                 "</div>";
 
@@ -1212,14 +1211,6 @@ $(document).ready(function () {
                 });
 
                 // Delete location
-
-                $("#deleteLocation").on("click", function () {
-                  $("#editLocationModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#deleteLocationConfirmModal").modal("show");
-                  }, 1000);
-                });
 
                 $("#deleteLocationConfirmForm").submit(function (event) {
                   event.preventDefault();
@@ -1317,7 +1308,7 @@ $(document).ready(function () {
                   `<div id="locSquare" class="square"></div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
-                  `<a id="locLink${index}" class="nameLink hoverOver" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].name}` +
+                  `<a id="locLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
                   "</div>" +
                   "</div>";
 
@@ -1396,14 +1387,6 @@ $(document).ready(function () {
                   });
 
                   // Delete location
-
-                  $("#deleteLocation").on("click", function () {
-                    $("#editLocationModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#deleteLocationConfirmModal").modal("show");
-                    }, 1000);
-                  });
 
                   $("#deleteLocationConfirmForm").submit(function (event) {
                     event.preventDefault();
@@ -2213,7 +2196,7 @@ $(document).ready(function () {
                   `<div id="searchSquare${index}" class="square"></div>` +
                   "</div>" +
                   '<div class="col-sm-4 namePosition">' +
-                  `<a id="searchNameLink${index}" class="nameLink" href="#employeeHeading" data-bs-toggle="modal" data-bs-target="#employeeModal">${result.data[index].lastName}` +
+                  `<a id="searchNameLink${index}" class="nameLink" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].lastName}` +
                   " " +
                   `${result.data[index].firstName}</a>`;
                 "</div>" + "</div>";
@@ -2432,14 +2415,6 @@ $(document).ready(function () {
 
                   // Delete employee
 
-                  $("#deleteEmployee").on("click", function () {
-                    $("#editEmployeeModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#deleteEmployeeConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
                   $("#deleteEmployeeConfirmForm").submit(function (event) {
                     event.preventDefault();
 
@@ -2490,8 +2465,11 @@ $(document).ready(function () {
                 });
               });
             } else {
-              $("#searchResultsHeading").append("No matches");
+              let searchNoMatchMarkup = 
+              '<div id="noMatch">No matches</div>';
 
+              $("#searchResultsData").append(searchNoMatchMarkup);
+                
               setTimeout(function () {
                 $("#searchPersonnelResultsModal").modal("show");
               }, 1000);
