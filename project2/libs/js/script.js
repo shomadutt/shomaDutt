@@ -9,42 +9,39 @@ $(window).on("load", function () {
 });
 
 $(document).ready(function () {
-  
-
-   // Automatically click the personnel tab on page load
-   jQuery(function () {
+  // Automatically click the personnel tab on page load
+  jQuery(function () {
     jQuery("#personnel-tab").click();
   });
 
- // Delete employee event handler
- $("#deleteEmployee").on("click", function () {
-  $("#editEmployeeModal").modal("hide");
+  // Delete employee event handler
+  $("#deleteEmployee").on("click", function () {
+    $("#editEmployeeModal").modal("hide");
 
-  setTimeout(function () {
-    $("#deleteEmployeeConfirmModal").modal("show");
-  }, 1000);
-});
+    setTimeout(function () {
+      $("#deleteEmployeeConfirmModal").modal("show");
+    }, 1000);
+  });
 
-// Delete department even handler
-$("#deleteDepartment").on("click", function () {
-  $("#editDepartmentModal").modal("hide");
+  // Delete department event handler
+  $("#deleteDepartment").on("click", function () {
+    $("#editDepartmentModal").modal("hide");
 
-  setTimeout(function () {
-    $("#deleteDepartmentConfirmModal").modal("show");
-  }, 1000);
-});
+    setTimeout(function () {
+      $("#deleteDepartmentConfirmModal").modal("show");
+    }, 1000);
+  });
 
-// Delete location event handler
-$("#deleteLocation").on("click", function () {
-  $("#editLocationModal").modal("hide");
+  // Delete location event handler
+  $("#deleteLocation").on("click", function () {
+    $("#editLocationModal").modal("hide");
 
-  setTimeout(function () {
-    $("#deleteLocationConfirmModal").modal("show");
-  }, 1000);
-});
+    setTimeout(function () {
+      $("#deleteLocationConfirmModal").modal("show");
+    }, 1000);
+  });
 
-
- // Letters array
+  // Letters array
   const alphabetArray = [
     "A",
     "B",
@@ -249,7 +246,7 @@ $("#deleteLocation").on("click", function () {
                   }, 1000);
                 });
 
-                $("#editEmployeeConfirmForm").submit(function (event) {
+                $("#editEmployeeSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#editEmployeeConfirmModal").modal("hide");
@@ -313,7 +310,7 @@ $("#deleteLocation").on("click", function () {
                   });
                 });
 
-               // Delete employee
+                // Delete employee
 
                 $("#deleteEmployeeConfirmForm").submit(function (event) {
                   event.preventDefault();
@@ -2209,7 +2206,6 @@ $("#deleteLocation").on("click", function () {
 
                 //Edit employee modal
                 $(`#searchNameLink${index}`).on("click", function () {
-
                   $("#searchPersonnelResultsModal").modal("hide");
 
                   $("#editFirstName").val(result.data[index].firstName);
@@ -2465,11 +2461,10 @@ $("#deleteLocation").on("click", function () {
                 });
               });
             } else {
-              let searchNoMatchMarkup = 
-              '<div id="noMatch">No matches</div>';
+              let searchNoMatchMarkup = '<div id="noMatch">No matches</div>';
 
               $("#searchResultsData").append(searchNoMatchMarkup);
-                
+
               setTimeout(function () {
                 $("#searchPersonnelResultsModal").modal("show");
               }, 1000);
