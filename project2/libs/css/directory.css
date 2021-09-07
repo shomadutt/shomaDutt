@@ -6,7 +6,7 @@ body {
   background-color: rgb(243, 239, 236);
 }
 
-#preloader {
+ #preloader {
   position: fixed;
   top: 0;
   left: 0;
@@ -51,7 +51,7 @@ body {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-}
+} 
 
 /* clears the ‘X’ from the search field in Internet Explorer */
 input[type="search"]::-ms-clear {
@@ -73,13 +73,7 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-.directoryButton {
-  color: #48fd1d;
-  border: none;
-  background-color: transparent;
-  font-size: 25px;
-  font-weight: 400;
-}
+
 
 /* h1 {
   color: #4e02fb;
@@ -92,12 +86,6 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .pad {
   padding-top: 30px;
-}
-
-#plus {
-  font-size: 50px;
-  margin-top: 10px;
-  margin-left: 20px;
 }
 
 #directoryTitle {
@@ -113,13 +101,36 @@ input[type="search"]::-webkit-search-results-decoration {
 .square {
   height: 40px;
   width: 50px;
-  background-color: #e40a38;
+  background-color: #dc3545;
   margin-bottom: 30px;
 }
 
 #deptSquare {
-  background-color: #27b652;
+  background-color: #28a745;
 }
+
+#locSquare {
+  background-color: #17a2b8;
+}
+
+.directoryButton {
+  width: 47px;
+  height: 47px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.7);
+}
+
+#plus {
+  background-color: #ffc107;
+}
+
+#delete, #search {
+  background-color: #dc3545;
+}
+
+#search {
+  background-color: #dc3545;
+}
+
 
 .namePosition {
   padding-top: 7px;
@@ -132,12 +143,10 @@ input[type="search"]::-webkit-search-results-decoration {
   border-radius: 10px !important;
 }
 
-.modal-header {
-  background-color: #00cc00;
-  color: #fff;
-  border-top-left-radius: 10px !important;
-  border-top-right-radius: 10px !important;
-}
+/* .modal-header {
+  /* background-color: #2e1dfd; */
+  /* color: #fff; */
+/* } */ 
 
 .modal-body {
   max-height: 70vh;
@@ -196,14 +205,14 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .modalButton {
-  color: #fff;
+  color: #000;
   border: none;
   background-color: transparent;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 #selectAll {
-  width: 80px;
+  width: 100px;
   margin-left: 159px;
 }
 
@@ -228,15 +237,30 @@ input[type="search"]::-webkit-search-results-decoration {
   font-size: 15px;
 }
 
-#addDeptMessage,
+#createPersonnelSuccessMessage,
+#createPersonnelErrorMessage,
+#createDepartmentSuccessMessage,
+#createLocationSuccessMessage,
+#editEmployeeSuccessMessage,
+#editDepartmentSuccessMessage,
+#editLocationSuccessMessage,
+#deleteEmployeeSuccessMessage,
+#deleteDepartmentSuccessMessage,
+#deleteLocationSuccessMessage,
+#deletePersonnelSuccessMessage,
+#deleteDepartmentButtonSuccessMessage,
+#searchPersonnelErrorMessage,
+
+
+
+
 #deleteDeptMessage,
 #addLocMessage,
 #deleteLocMessage,
-#createMessage,
 #editMessage,
 #deleteMessage,
 #searchErrorMessage,
-#createErrorMessage,
+
 #editErrorMessage {
   text-align: center;
   margin-top: 5px;
@@ -312,7 +336,7 @@ input[type="search"]::-webkit-search-results-decoration {
   width: 40px;
   height: 40px;
   border: 4px #ddd solid;
-  border-top: 4px #2e93e6 solid;
+  border-top: 4px #5bc0de solid;
   border-radius: 50%;
   animation: sp-anime 0.8s infinite linear;
 }
@@ -327,9 +351,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* start again */
 
-.nav {
-  margin-left: 100px;
-  margin-right: 100px;
+.nav { 
+  margin-left: 300px;
 }
 
 .nav-tabs {
@@ -346,9 +369,22 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .nav-item {
-  background-color:#2e1dfd;
+  background-color:#0d6efd;
 }
 
 .hoverOver:hover {
   color: #FF1493;
+}
+
+#createPersonnelConfirmMessage, #createDepartmentConfirmMessage, 
+#createLocationConfirmMessage, #editEmployeeConfirmMessage,
+#editDepartmentConfirmMessage, #editLocationConfirmMessage,
+#deleteEmployeeConfirmMessage, #deleteDepartmentConfirmMessage,
+#deleteLocationConfirmMessage, #deletePersonnelConfirmMessage,
+#deleteDepartmentButtonConfirmMessage, #searchPersonnelConfirmMessage {
+  text-align: center;
+}
+
+#buttons {
+  float: right;
 }

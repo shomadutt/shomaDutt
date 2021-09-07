@@ -33,7 +33,13 @@
 		
 	$firstName = $_POST['firstName']; 
 	$lastName = $_POST['lastName'];
-	$jobTitle = $_POST['jobTitle'];
+
+	if(strlen($_POST['jobTitle']) > 0) {
+		$jobTitle = $_POST['jobTitle'];
+	} else {
+		$jobTitle = "";
+	}
+	
 	$email = $_POST['email'];
 	$dept = $_POST['dept'];
 	
@@ -62,9 +68,11 @@
         die ("Invalid last name.");
     }
 
-	if(!preg_match("/^[a-zA-Z-]+$/", $jobTitle)) { 
-        die ("Invalid job title.");
-    }
+	if($jobTitle !== "") {
+		if(!preg_match("/^[a-zA-Z-]+$/", $jobTitle)) { 
+			die ("Invalid job title.");
+		}
+	}
 
 	//Response
     //Checking to see if email already exists
@@ -73,7 +81,7 @@
     }
     
     elseif(!mysqli_query($conn, $sql)) {
-        echo 'Could not add employee.';
+        echo 'Could not create employee.';
     }
 	
     else {

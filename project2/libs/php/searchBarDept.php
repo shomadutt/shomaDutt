@@ -1,5 +1,7 @@
 <?php
 
+	if (isset($_POST['query'])) {
+	
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
@@ -27,7 +29,9 @@
 
 	}	
 
-	$query = 'SELECT id, firstName, lastName FROM personnel ORDER BY lastName';
+	$query = "SELECT name, id, locationID FROM department
+	WHERE name LIKE '{$_POST['query']}%' 
+	ORDER BY name, id, locationID";
 
 	$result = $conn->query($query);
 	
@@ -63,5 +67,7 @@
 	mysqli_close($conn);
 
 	echo json_encode($output); 
+
+	}
 
 ?>

@@ -57,113 +57,25 @@
 		WHERE p.firstName LIKE '%$firstName%'";
 
 		if(strlen($lastName) > 0) {
-			$query .= "AND p.lastName LIKE '%$lastName%'";
+			$query .= "OR p.lastName LIKE '%$lastName%'";
 		}	
 
 		if(strlen($jobTitle) > 0) {
-			$query .= "AND p.jobTitle LIKE '%$jobTitle%'";
+			$query .= "OR p.jobTitle LIKE '%$jobTitle%'";
 		}
 
 		if(strlen($email) > 0) {
-			$query .= "AND p.email LIKE '%$email%'";
+			$query .= "OR p.email LIKE '%$email%'";
 		}	
 
 		if(strlen($dName) > 0) {
-			$query .= "AND d.name = '$dName'";
+			$query .= "OR d.name = '$dName'";
 		}	
 
 		if(strlen($lName) > 0) {
-			$query .= "AND l.name = '$lName'";
+			$query .= "OR l.name = '$lName'";
 		}	
 	} 
-	
-	else if(strlen($lastName) > 0) {
-		$query = "";
-		$query = "SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
-		FROM personnel p 
-		LEFT JOIN department d ON (d.id = p.departmentID) 
-		LEFT JOIN location l ON (l.id = d.locationID) 
-		WHERE p.lastName LIKE '%$lastName%'";
-
-		if(strlen($firstName) > 0) {
-			$query .= "AND p.firstName LIKE '%$firstName%'";
-		}	
-
-		if(strlen($jobTitle) > 0) {
-			$query .= "AND p.jobTitle LIKE '%$jobTitle%'";
-		}
-
-		if(strlen($email) > 0) {
-			$query .= "AND p.email LIKE '%$email%'";
-		}	
-
-		if(strlen($dName) > 0) {
-			$query .= "AND d.name = '$dName'";
-		}	
-
-		if(strlen($lName) > 0) {
-			$query .= "AND l.name = '$lName'";
-		}	
-
-	} 
-	
-	else if(strlen($jobTitle) > 0) {
-		$query = "";
-		$query = "SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
-		FROM personnel p 
-		LEFT JOIN department d ON (d.id = p.departmentID) 
-		LEFT JOIN location l ON (l.id = d.locationID) 
-		WHERE p.jobTitle LIKE '%$jobTitle%'";
-
-		if(strlen($firstName) > 0) {
-			$query .= "AND p.firstName LIKE '%$firstName%'";
-		}	
-
-		if(strlen($lastName) > 0) {
-			$query .= "AND p.lastName LIKE '%$lastName%'";
-		}	
-
-		if(strlen($email) > 0) {
-			$query .= "AND p.email LIKE '%$email%'";
-		}	
-
-		if(strlen($dName) > 0) {
-			$query .= "AND d.name = '$dName'";
-		}	
-
-		if(strlen($lName) > 0) {
-			$query .= "AND l.name = '$lName'";
-		}	
-	}
-
-	else if(strlen($email) > 0) {
-		$query = "";
-		$query = "SELECT p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
-		FROM personnel p 
-		LEFT JOIN department d ON (d.id = p.departmentID) 
-		LEFT JOIN location l ON (l.id = d.locationID) 
-		WHERE p.email LIKE '%$email%'";
-
-		if(strlen($firstName) > 0) {
-			$query .= "AND p.firstName LIKE '%$firstName%'";
-		}	
-
-		if(strlen($lastName) > 0) {
-			$query .= "AND p.lastName LIKE '%$lastName%'";
-		}	
-
-		if(strlen($jobTitle) > 0) {
-			$query .= "AND p.jobTitle LIKE '%$jobTitle%'";
-		}	
-
-		if(strlen($dName) > 0) {
-			$query .= "AND d.name = '$dName'";
-		}	
-
-		if(strlen($lName) > 0) {
-			$query .= "AND l.name = '$lName'";
-		}	
-	}
 
 	$result = $conn->query($query);
 	

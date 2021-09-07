@@ -31,49 +31,28 @@
         echo 'Database Not Selected';
     }
 
-	$firstName = $_POST['firstName']; 
-	$lastName = $_POST['lastName'];
-	$jobTitle = $_POST['jobTitle'];
-
-	if(strlen($_POST['jobTitle']) > 0) {
-		$jobTitle = $_POST['jobTitle'];
-	} else {
-		$jobTitle = "";
-	}
-	
-	$email = $_POST['email'];
 	$dept = $_POST['dept'];
+	$loc = $_POST['loc'];
 	$id = $_POST['id'];
 	
 	// escaping content
-	$firstName = strip_tags($_POST['firstName']); 
-	$jobTitle = strip_tags($_POST['jobTitle']);
-	$email = strip_tags($_POST['email']);
+	$dept = strip_tags($_POST['dept']); 
 
 	// filter the form input
-	$firstName = mysqli_real_escape_string($conn, $firstName);
-	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
-	$email = mysqli_real_escape_string($conn, $email);
+	$dept = mysqli_real_escape_string($conn, $dept);
 	
-	$sql = "UPDATE personnel 
-	SET firstName = '$firstName', lastName = '$lastName', jobTitle = '$jobTitle', 
-		email = '$email', departmentID = '$dept'
+	$sql = "UPDATE department 
+	SET name = '$dept', locationID = '$loc'
 	WHERE id = '$id'";
 
-	if(!preg_match("/^[a-zA-Z-]+$/", $firstName)) { 
-		die ("Invalid first name.");
+	if(!preg_match("/^[a-zA-Z- ]+$/", $dept)) { 
+		die ("Invalid department name.");
 	}
-		
-	if($jobTitle !== "") {
-		if(!preg_match("/^[a-zA-Z-]+$/", $jobTitle)) { 
-			die ("Invalid job title.");
-		}
-	}
-	
+
 	//Response
     
     if(!mysqli_query($conn, $sql)) {
-        echo 'Could not edit employee.';
+        echo 'Could not edit department.';
     }
 	
     else {
