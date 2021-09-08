@@ -99,10 +99,15 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .square {
-  height: 40px;
+  height: 50px;
   width: 50px;
+  line-height: 50px;
+  border-radius: 50%;
   background-color: #dc3545;
   margin-bottom: 30px;
+  color: white;
+  text-align: center;
+  font-size: 25px;
 }
 
 #deptSquare {
@@ -111,6 +116,10 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #locSquare {
   background-color: #17a2b8;
+}
+
+#searchSquare {
+  background-color: #dc3545;
 }
 
 .directoryButton {
@@ -131,10 +140,8 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: #dc3545;
 }
 
-
 .namePosition {
   padding-top: 7px;
-  text-align: left;
 }
 
 .modal-content {
@@ -250,6 +257,7 @@ input[type="search"]::-webkit-search-results-decoration {
 #deletePersonnelSuccessMessage,
 #deleteDepartmentButtonSuccessMessage,
 #searchPersonnelErrorMessage,
+
 
 
 
@@ -374,6 +382,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .hoverOver:hover {
   color: #FF1493;
+  cursor: pointer;
 }
 
 #createPersonnelConfirmMessage, #createDepartmentConfirmMessage, 
@@ -388,3 +397,14 @@ input[type="search"]::-webkit-search-results-decoration {
 #buttons {
   float: right;
 }
+
+#noMatch {
+  text-align: center;
+  margin-top: 23px;
+}
+
+.header {
+  background-color: rgb(243, 239, 236);
+}
+
+

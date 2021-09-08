@@ -14,31 +14,52 @@ $(document).ready(function () {
     jQuery("#personnel-tab").click();
   });
 
+  // Edit employee submit event handler
+  $("#editEmployeeSubmit").on("click", function (event) {
+    event.preventDefault();
+
+    $("#editEmployeeModal").modal("hide");
+
+    $("#editEmployeeConfirmModal").modal("show");
+  });
+
+  // Edit department submit event handler
+  $("#editDepartmentSubmit").on("click", function (event) {
+    event.preventDefault();
+
+    $("#editDepartmentModal").modal("hide");
+
+    $("#editDepartmentConfirmModal").modal("show");
+  });
+
+  // Edit location submit event handler
+  $("#editLocationSubmit").on("click", function (event) {
+    event.preventDefault();
+
+    $("#editLocationModal").modal("hide");
+
+    $("#editLocationConfirmModal").modal("show");
+  });
+
   // Delete employee event handler
   $("#deleteEmployee").on("click", function () {
     $("#editEmployeeModal").modal("hide");
 
-    setTimeout(function () {
-      $("#deleteEmployeeConfirmModal").modal("show");
-    }, 1000);
+    $("#deleteEmployeeConfirmModal").modal("show");
   });
 
   // Delete department event handler
   $("#deleteDepartment").on("click", function () {
     $("#editDepartmentModal").modal("hide");
 
-    setTimeout(function () {
-      $("#deleteDepartmentConfirmModal").modal("show");
-    }, 1000);
+    $("#deleteDepartmentConfirmModal").modal("show");
   });
 
   // Delete location event handler
   $("#deleteLocation").on("click", function () {
     $("#editLocationModal").modal("hide");
 
-    setTimeout(function () {
-      $("#deleteLocationConfirmModal").modal("show");
-    }, 1000);
+    $("#deleteLocationConfirmModal").modal("show");
   });
 
   // Letters array
@@ -76,7 +97,8 @@ $(document).ready(function () {
   $("#personnel-tab").on("click", function () {
     // Search bar for personnel
     $("#searchBar").keyup(function () {
-      let query = $(this).val();
+      let query = "";
+      query = $(this).val();
 
       $.ajax({
         url: "libs/php/searchBarEmployee.php",
@@ -96,7 +118,7 @@ $(document).ready(function () {
                 '<div class="row" >' +
                 '<div class="col-sm-4"></div>' +
                 '<div class="col-sm-1">' +
-                `<div id="square" class="square"></div>` +
+                `<div id="square" class="square">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
                 `<a id="searchLinkEmployee${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
@@ -232,21 +254,9 @@ $(document).ready(function () {
                   },
                 });
 
-                setTimeout(function () {
-                  $("#editEmployeeModal").modal("show");
-                }, 1000);
+                $("#editEmployeeModal").modal("show");
 
-                $("#editEmployeeForm").submit(function (event) {
-                  event.preventDefault();
-
-                  $("#editEmployeeModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#editEmployeeConfirmModal").modal("show");
-                  }, 1000);
-                });
-
-                $("#editEmployeeSubmit").on("click", function (event) {
+                $("#editEmployeeConfirmSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#editEmployeeConfirmModal").modal("hide");
@@ -285,9 +295,7 @@ $(document).ready(function () {
                       $("#editEmployeeSuccessMessage").html("");
                       $("#editEmployeeSuccessMessage").append(resultEmp);
 
-                      setTimeout(function () {
-                        $("#editEmployeeSuccessModal").modal("show");
-                      }, 1000);
+                      $("#editEmployeeSuccessModal").modal("show");
 
                       // To stop form resubmission
                       if (window.history.replaceState) {
@@ -298,9 +306,7 @@ $(document).ready(function () {
                         );
                       }
 
-                      setTimeout(function () {
-                        location.reload();
-                      }, 3000);
+                      location.reload();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("status code: " + jqXHR.status);
@@ -312,7 +318,7 @@ $(document).ready(function () {
 
                 // Delete employee
 
-                $("#deleteEmployeeConfirmForm").submit(function (event) {
+                $("#deleteEmployeeConfirmSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#deleteEmployeeConfirmModal").modal("hide");
@@ -333,9 +339,7 @@ $(document).ready(function () {
                       $("#deleteEmployeeSuccessMessage").append(resultDelete);
                       //console.log(result);
 
-                      setTimeout(function () {
-                        $("#deleteEmployeeSuccessModal").modal("show");
-                      }, 1000);
+                      $("#deleteEmployeeSuccessModal").modal("show");
 
                       // To stop form resubmission
                       if (window.history.replaceState) {
@@ -346,9 +350,7 @@ $(document).ready(function () {
                         );
                       }
 
-                      setTimeout(function () {
-                        location.reload();
-                      }, 3000);
+                      location.reload();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("status code: " + jqXHR.status);
@@ -402,10 +404,10 @@ $(document).ready(function () {
 
               if (lastNameUpper === alphabetArray[alphabetIndex]) {
                 employeeMarkup =
-                  '<div class="row" >' +
+                  '<div class="row">' +
                   '<div class="col-sm-4"></div>' +
                   '<div class="col-sm-1">' +
-                  `<div id="square" class="square"></div>` +
+                  `<div id="square" class="square">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
                   `<a id="nameLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
@@ -545,21 +547,9 @@ $(document).ready(function () {
                     },
                   });
 
-                  setTimeout(function () {
-                    $("#editEmployeeModal").modal("show");
-                  }, 1000);
+                  $("#editEmployeeModal").modal("show");
 
-                  $("#editEmployeeForm").submit(function (event) {
-                    event.preventDefault();
-
-                    $("#editEmployeeModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#editEmployeeConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
-                  $("#editEmployeeConfirmForm").submit(function (event) {
+                  $("#editEmployeeConfirmSubmit").on("click", function (event) {
                     event.preventDefault();
 
                     $("#editEmployeeConfirmModal").modal("hide");
@@ -598,9 +588,7 @@ $(document).ready(function () {
                         $("#editEmployeeSuccessMessage").html("");
                         $("#editEmployeeSuccessMessage").append(resultEmp);
 
-                        setTimeout(function () {
-                          $("#editEmployeeSuccessModal").modal("show");
-                        }, 1000);
+                        $("#editEmployeeSuccessModal").modal("show");
 
                         // To stop form resubmission
                         if (window.history.replaceState) {
@@ -611,9 +599,7 @@ $(document).ready(function () {
                           );
                         }
 
-                        setTimeout(function () {
-                          location.reload();
-                        }, 3000);
+                        location.reload();
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
                         console.log("status code: " + jqXHR.status);
@@ -627,53 +613,54 @@ $(document).ready(function () {
 
                   // Delete employee
 
-                  $("#deleteEmployeeConfirmForm").submit(function (event) {
-                    event.preventDefault();
+                  $("#deleteEmployeeConfirmSubmit").on(
+                    "click",
+                    function (event) {
+                      event.preventDefault();
 
-                    $("#deleteEmployeeConfirmModal").modal("hide");
+                      $("#deleteEmployeeConfirmModal").modal("hide");
 
-                    $.ajax({
-                      //2
-                      type: "POST",
-                      url: "libs/php/deleteEmployee.php",
-                      dataType: "text",
-                      data: {
-                        id: result.data[index].id,
-                      },
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/deleteEmployee.php",
+                        dataType: "text",
+                        data: {
+                          id: result.data[index].id,
+                        },
 
-                      success: function (resultDelete) {
-                        //3
+                        success: function (resultDelete) {
+                          //3
 
-                        $("#deleteEmployeeSuccessMessage").html("");
-                        $("#deleteEmployeeSuccessMessage").append(resultDelete);
-                        //console.log(result);
-
-                        setTimeout(function () {
-                          $("#deleteEmployeeSuccessModal").modal("show");
-                        }, 1000);
-
-                        // To stop form resubmission
-                        if (window.history.replaceState) {
-                          window.history.replaceState(
-                            null,
-                            null,
-                            window.location.href
+                          $("#deleteEmployeeSuccessMessage").html("");
+                          $("#deleteEmployeeSuccessMessage").append(
+                            resultDelete
                           );
-                        }
+                          //console.log(result);
 
-                        setTimeout(function () {
+                          $("#deleteEmployeeSuccessModal").modal("show");
+
+                          // To stop form resubmission
+                          if (window.history.replaceState) {
+                            window.history.replaceState(
+                              null,
+                              null,
+                              window.location.href
+                            );
+                          }
+
                           location.reload();
-                        }, 3000);
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("status code: " + jqXHR.status);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log(
-                          "jqXHR.responseText: " + jqXHR.responseText
-                        );
-                      },
-                    });
-                  });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+                    }
+                  );
                 });
               }
             });
@@ -701,7 +688,8 @@ $(document).ready(function () {
   $("#department-tab").on("click", function () {
     // Search bar for department
     $("#searchBar").keyup(function () {
-      let query = $(this).val();
+      let query = "";
+      query = $(this).val();
 
       $.ajax({
         url: "libs/php/searchBarDept.php",
@@ -721,7 +709,7 @@ $(document).ready(function () {
                 '<div class="row" >' +
                 '<div class="col-sm-6"></div>' +
                 '<div class="col-sm-1">' +
-                `<div id="deptSquare" class="square"></div>` +
+                `<div id="deptSquare" class="square">${result.data[index].name[0]}</div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
                 `<a id="searchLinkDept${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
@@ -765,21 +753,9 @@ $(document).ready(function () {
 
                 $("#editDepartment").val(result.data[index].name);
 
-                setTimeout(function () {
-                  $("#editDepartmentModal").modal("show");
-                }, 1000);
+                $("#editDepartmentModal").modal("show");
 
-                $("#editDepartmentForm").submit(function (event) {
-                  event.preventDefault();
-
-                  $("#editDepartmentModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#editDepartmentConfirmModal").modal("show");
-                  }, 1000);
-                });
-
-                $("#editDepartmentConfirmForm").submit(function (event) {
+                $("#editDepartmentConfirmSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#editDepartmentConfirmModal").modal("hide");
@@ -809,9 +785,7 @@ $(document).ready(function () {
                       $("#editDepartmentSuccessMessage").html("");
                       $("#editDepartmentSuccessMessage").append(result);
 
-                      setTimeout(function () {
-                        $("#editEmployeeSuccessModal").modal("show");
-                      }, 1000);
+                      $("#editDepartmentSuccessModal").modal("show");
 
                       // To stop form resubmission
                       if (window.history.replaceState) {
@@ -822,9 +796,7 @@ $(document).ready(function () {
                         );
                       }
 
-                      setTimeout(function () {
-                        location.reload();
-                      }, 3000);
+                      location.reload();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("status code: " + jqXHR.status);
@@ -836,53 +808,54 @@ $(document).ready(function () {
 
                 // Delete department
 
-                $("#deleteDepartmentConfirmForm").submit(function (event) {
-                  event.preventDefault();
+                $("#deleteDepartmentConfirmSubmit").on(
+                  "click",
+                  function (event) {
+                    event.preventDefault();
 
-                  $("#deleteDepartmentConfirmModal").modal("hide");
+                    $("#deleteDepartmentConfirmModal").modal("hide");
 
-                  $.ajax({
-                    //2
-                    type: "POST",
-                    url: "libs/php/deleteDepartment.php",
-                    dataType: "text",
-                    data: {
-                      deleteDept: result.data[index].id,
-                    },
+                    $.ajax({
+                      //2
+                      type: "POST",
+                      url: "libs/php/deleteDepartment.php",
+                      dataType: "text",
+                      data: {
+                        deleteDept: result.data[index].id,
+                      },
 
-                    success: function (resultDeleteDept) {
-                      //3
+                      success: function (resultDeleteDept) {
+                        //3
 
-                      $("#deleteDepartmentSuccessMessage").html("");
-                      $("#deleteDepartmentSuccessMessage").append(
-                        resultDeleteDept
-                      );
-                      //console.log(result);
-
-                      setTimeout(function () {
-                        $("#deleteDepartmentSuccessModal").modal("show");
-                      }, 1000);
-
-                      // To stop form resubmission
-                      if (window.history.replaceState) {
-                        window.history.replaceState(
-                          null,
-                          null,
-                          window.location.href
+                        $("#deleteDepartmentSuccessMessage").html("");
+                        $("#deleteDepartmentSuccessMessage").append(
+                          resultDeleteDept
                         );
-                      }
+                        //console.log(result);
 
-                      setTimeout(function () {
+                        $("#deleteDepartmentSuccessModal").modal("show");
+
+                        // To stop form resubmission
+                        if (window.history.replaceState) {
+                          window.history.replaceState(
+                            null,
+                            null,
+                            window.location.href
+                          );
+                        }
+
                         location.reload();
-                      }, 3000);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("status code: " + jqXHR.status);
-                      console.log("errorThrown: " + errorThrown);
-                      console.log("jqXHR.responseText: " + jqXHR.responseText);
-                    },
-                  });
-                });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("status code: " + jqXHR.status);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log(
+                          "jqXHR.responseText: " + jqXHR.responseText
+                        );
+                      },
+                    });
+                  }
+                );
               });
             } else {
               window.localStorage.setItem("focus_on", "#searchBar");
@@ -929,7 +902,7 @@ $(document).ready(function () {
                   '<div class="row" >' +
                   '<div class="col-sm-6"></div>' +
                   '<div class="col-sm-1">' +
-                  `<div id="deptSquare" class="square"></div>` +
+                  `<div id="deptSquare" class="square">${result.data[index].name[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
                   `<a id="deptLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
@@ -973,128 +946,114 @@ $(document).ready(function () {
 
                   $("#editDepartment").val(result.data[index].name);
 
-                  setTimeout(function () {
-                    $("#editDepartmentModal").modal("show");
-                  }, 1000);
+                  $("#editDepartmentModal").modal("show");
 
-                  $("#editDepartmentForm").submit(function (event) {
-                    event.preventDefault();
+                  $("#editDepartmentConfirmSubmit").on(
+                    "click",
+                    function (event) {
+                      event.preventDefault();
 
-                    $("#editDepartmentModal").modal("hide");
+                      $("#editDepartmentConfirmModal").modal("hide");
 
-                    setTimeout(function () {
-                      $("#editDepartmentConfirmModal").modal("show");
-                    }, 1000);
-                  });
+                      let departmentName = $("#editDepartment").val();
 
-                  $("#editDepartmentConfirmForm").submit(function (event) {
-                    event.preventDefault();
+                      if (departmentName !== "") {
+                        departmentName =
+                          departmentName[0].toUpperCase() +
+                          departmentName.substring(1, departmentName.length);
+                      }
 
-                    $("#editDepartmentConfirmModal").modal("hide");
+                      let locName = $("#editDeptLoc").val();
 
-                    let departmentName = $("#editDepartment").val();
+                      $.ajax({
+                        url: "libs/php/editDepartment.php",
+                        method: "post",
+                        dataType: "text",
+                        data: {
+                          id: result.data[index].id,
+                          dept: departmentName,
+                          loc: locName,
+                        },
 
-                    if (departmentName !== "") {
-                      departmentName =
-                        departmentName[0].toUpperCase() +
-                        departmentName.substring(1, departmentName.length);
-                    }
+                        success: function (result) {
+                          console.log(result);
+                          $("#editDepartmentSuccessMessage").html("");
+                          $("#editDepartmentSuccessMessage").append(result);
 
-                    let locName = $("#editDeptLoc").val();
+                          $("#editDepartmentSuccessModal").modal("show");
 
-                    $.ajax({
-                      url: "libs/php/editDepartment.php",
-                      method: "post",
-                      dataType: "text",
-                      data: {
-                        id: result.data[index].id,
-                        dept: departmentName,
-                        loc: locName,
-                      },
+                          // To stop form resubmission
+                          if (window.history.replaceState) {
+                            window.history.replaceState(
+                              null,
+                              null,
+                              window.location.href
+                            );
+                          }
 
-                      success: function (result) {
-                        console.log(result);
-                        $("#editDepartmentSuccessMessage").html("");
-                        $("#editDepartmentSuccessMessage").append(result);
-
-                        setTimeout(function () {
-                          $("#editEmployeeSuccessModal").modal("show");
-                        }, 1000);
-
-                        // To stop form resubmission
-                        if (window.history.replaceState) {
-                          window.history.replaceState(
-                            null,
-                            null,
-                            window.location.href
-                          );
-                        }
-
-                        setTimeout(function () {
                           location.reload();
-                        }, 3000);
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("status code: " + jqXHR.status);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log(
-                          "jqXHR.responseText: " + jqXHR.responseText
-                        );
-                      },
-                    });
-                  });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+                    }
+                  );
 
                   // Delete department
 
-                  $("#deleteDepartmentConfirmForm").submit(function (event) {
-                    event.preventDefault();
+                  $("#deleteDepartmentConfirmSubmit").on(
+                    "click",
+                    function (event) {
+                      event.preventDefault();
 
-                    $("#deleteDepartmentConfirmModal").modal("hide");
+                      $("#deleteDepartmentConfirmModal").modal("hide");
 
-                    $.ajax({
-                      //2
-                      type: "POST",
-                      url: "libs/php/deleteDepartment.php",
-                      dataType: "text",
-                      data: {
-                        deleteDept: result.data[index].id,
-                      },
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/deleteDepartment.php",
+                        dataType: "text",
+                        data: {
+                          deleteDept: result.data[index].id,
+                        },
 
-                      success: function (resultDeleteDept) {
-                        //3
+                        success: function (resultDeleteDept) {
+                          //3
 
-                        $("#deleteDepartmentSuccessMessage").html("");
-                        $("#deleteDepartmentSuccessMessage").append(
-                          resultDeleteDept
-                        );
-                        //console.log(result);
-
-                        setTimeout(function () {
-                          $("#deleteDepartmentSuccessModal").modal("show");
-                        }, 1000);
-
-                        // To stop form resubmission
-                        if (window.history.replaceState) {
-                          window.history.replaceState(
-                            null,
-                            null,
-                            window.location.href
+                          $("#deleteDepartmentSuccessMessage").html("");
+                          $("#deleteDepartmentSuccessMessage").append(
+                            resultDeleteDept
                           );
-                        }
+                          //console.log(result);
 
-                        setTimeout(function () {
+                          $("#deleteDepartmentSuccessModal").modal("show");
+
+                          // To stop form resubmission
+                          if (window.history.replaceState) {
+                            window.history.replaceState(
+                              null,
+                              null,
+                              window.location.href
+                            );
+                          }
+
                           location.reload();
-                        }, 3000);
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("status code: " + jqXHR.status);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log(
-                          "jqXHR.responseText: " + jqXHR.responseText
-                        );
-                      },
-                    });
-                  });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+                    }
+                  );
                 });
               }
             });
@@ -1108,7 +1067,8 @@ $(document).ready(function () {
   $("#location-tab").on("click", function () {
     // Search bar for location
     $("#searchBar").keyup(function () {
-      let query = $(this).val();
+      let query = "";
+      query = $(this).val();
 
       $.ajax({
         url: "libs/php/searchBarLoc.php",
@@ -1128,7 +1088,7 @@ $(document).ready(function () {
                 '<div class="row" >' +
                 '<div class="col-sm-6"></div>' +
                 '<div class="col-sm-1">' +
-                `<div id="locSquare" class="square"></div>` +
+                `<div id="locSquare" class="square">${result.data[index].name[0]}</div>` +
                 "</div>" +
                 '<div class="col-sm-3 namePosition">' +
                 `<a id="searchLocLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
@@ -1137,25 +1097,14 @@ $(document).ready(function () {
 
               $("#directoryData").append(searchLocationMarkup);
 
+              $("#editLoc").val(result.data[index].name);
+
               //Edit location modal for search bar
               $(`#searchLinkLoc${index}`).on("click", function () {
-                $("#editLoc").val(result.data[index].name);
+                
+                $("#editLocationModal").modal("show");
 
-                setTimeout(function () {
-                  $("#editLocationModal").modal("show");
-                }, 1000);
-
-                $("#editLocationForm").submit(function (event) {
-                  event.preventDefault();
-
-                  $("#editLocationModal").modal("hide");
-
-                  setTimeout(function () {
-                    $("#editLocationConfirmModal").modal("show");
-                  }, 1000);
-                });
-
-                $("#editLocationConfirmForm").submit(function (event) {
+                $("#editLocationConfirmSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#editLocationConfirmModal").modal("hide");
@@ -1182,9 +1131,7 @@ $(document).ready(function () {
                       $("#editLocationSuccessMessage").html("");
                       $("#editLocationSuccessMessage").append(result);
 
-                      setTimeout(function () {
-                        $("#editLocationSuccessModal").modal("show");
-                      }, 1000);
+                      $("#editLocationSuccessModal").modal("show");
 
                       // To stop form resubmission
                       if (window.history.replaceState) {
@@ -1195,9 +1142,7 @@ $(document).ready(function () {
                         );
                       }
 
-                      setTimeout(function () {
-                        location.reload();
-                      }, 3000);
+                      location.reload();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("status code: " + jqXHR.status);
@@ -1209,7 +1154,7 @@ $(document).ready(function () {
 
                 // Delete location
 
-                $("#deleteLocationConfirmForm").submit(function (event) {
+                $("#deleteLocationConfirmSubmit").on("click", function (event) {
                   event.preventDefault();
 
                   $("#deleteLocationConfirmModal").modal("hide");
@@ -1232,9 +1177,7 @@ $(document).ready(function () {
                       );
                       //console.log(result);
 
-                      setTimeout(function () {
-                        $("#deleteLocationSuccessModal").modal("show");
-                      }, 1000);
+                      $("#deleteLocationSuccessModal").modal("show");
 
                       // To stop form resubmission
                       if (window.history.replaceState) {
@@ -1245,9 +1188,7 @@ $(document).ready(function () {
                         );
                       }
 
-                      setTimeout(function () {
-                        location.reload();
-                      }, 3000);
+                      location.reload();
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("status code: " + jqXHR.status);
@@ -1302,7 +1243,7 @@ $(document).ready(function () {
                   '<div class="row" >' +
                   '<div class="col-sm-6"></div>' +
                   '<div class="col-sm-1">' +
-                  `<div id="locSquare" class="square"></div>` +
+                  `<div id="locSquare" class="square">${result.data[index].name[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
                   `<a id="locLink${index}" class="nameLink hoverOver" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
@@ -1315,21 +1256,9 @@ $(document).ready(function () {
                 $(`#locLink${index}`).on("click", function () {
                   $("#editLoc").val(result.data[index].name);
 
-                  setTimeout(function () {
-                    $("#editLocationModal").modal("show");
-                  }, 1000);
+                  $("#editLocationModal").modal("show");
 
-                  $("#editLocationForm").submit(function (event) {
-                    event.preventDefault();
-
-                    $("#editLocationModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#editLocationConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
-                  $("#editLocationConfirmForm").submit(function (event) {
+                  $("#editLocationConfirmSubmit").on("click", function (event) {
                     event.preventDefault();
 
                     $("#editLocationConfirmModal").modal("hide");
@@ -1356,9 +1285,7 @@ $(document).ready(function () {
                         $("#editLocationSuccessMessage").html("");
                         $("#editLocationSuccessMessage").append(result);
 
-                        setTimeout(function () {
-                          $("#editLocationSuccessModal").modal("show");
-                        }, 1000);
+                        $("#editLocationSuccessModal").modal("show");
 
                         // To stop form resubmission
                         if (window.history.replaceState) {
@@ -1369,9 +1296,7 @@ $(document).ready(function () {
                           );
                         }
 
-                        setTimeout(function () {
-                          location.reload();
-                        }, 3000);
+                        location.reload();
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
                         console.log("status code: " + jqXHR.status);
@@ -1385,55 +1310,54 @@ $(document).ready(function () {
 
                   // Delete location
 
-                  $("#deleteLocationConfirmForm").submit(function (event) {
-                    event.preventDefault();
+                  $("#deleteLocationConfirmSubmit").on(
+                    "click",
+                    function (event) {
+                      event.preventDefault();
 
-                    $("#deleteLocationConfirmModal").modal("hide");
+                      $("#deleteLocationConfirmModal").modal("hide");
 
-                    $.ajax({
-                      //2
-                      type: "POST",
-                      url: "libs/php/deleteLocation.php",
-                      dataType: "text",
-                      data: {
-                        deleteLoc: result.data[index].id,
-                      },
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/deleteLocation.php",
+                        dataType: "text",
+                        data: {
+                          deleteLoc: result.data[index].id,
+                        },
 
-                      success: function (resultDeleteLoc) {
-                        //3
+                        success: function (resultDeleteLoc) {
+                          //3
 
-                        $("#deleteLocationSuccessMessage").html("");
-                        $("#deleteLocationSuccessMessage").append(
-                          resultDeleteLoc
-                        );
-                        //console.log(result);
-
-                        setTimeout(function () {
-                          $("#deleteLocationSuccessModal").modal("show");
-                        }, 1000);
-
-                        // To stop form resubmission
-                        if (window.history.replaceState) {
-                          window.history.replaceState(
-                            null,
-                            null,
-                            window.location.href
+                          $("#deleteLocationSuccessMessage").html("");
+                          $("#deleteLocationSuccessMessage").append(
+                            resultDeleteLoc
                           );
-                        }
+                          //console.log(result);
 
-                        setTimeout(function () {
+                          $("#deleteLocationSuccessModal").modal("show");
+
+                          // To stop form resubmission
+                          if (window.history.replaceState) {
+                            window.history.replaceState(
+                              null,
+                              null,
+                              window.location.href
+                            );
+                          }
+
                           location.reload();
-                        }, 3000);
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("status code: " + jqXHR.status);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log(
-                          "jqXHR.responseText: " + jqXHR.responseText
-                        );
-                      },
-                    });
-                  });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+                    }
+                  );
                 });
               }
             });
@@ -1528,11 +1452,9 @@ $(document).ready(function () {
         );
       });
 
-      setTimeout(function () {
-        $("#createPersonnelModal").modal("show");
-      }, 1000);
+      $("#createPersonnelModal").modal("show");
 
-      $("#createPersonnelForm").submit(function (event) {
+      $("#createPersonnelSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createPersonnelModal").modal("hide");
@@ -1542,17 +1464,14 @@ $(document).ready(function () {
           $("#createPersonnelErrorMessage").append(
             "Please select a department."
           );
-          setTimeout(function () {
-            $("#createPersonnelErrorModal").modal("show");
-          }, 1000);
+
+          $("#createPersonnelErrorModal").modal("show");
         } else {
-          setTimeout(function () {
-            $("#createPersonnelConfirmModal").modal("show");
-          }, 1000);
+          $("#createPersonnelConfirmModal").modal("show");
         }
       });
 
-      $("#createPersonnelConfirmForm").submit(function (event) {
+      $("#createPersonnelConfirmSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createPersonnelConfirmModal").modal("hide");
@@ -1595,18 +1514,14 @@ $(document).ready(function () {
             $("#createPersonnelSuccessMessage").append(result);
             //console.log(result);
 
-            setTimeout(function () {
-              $("#createPersonnelSuccessModal").modal("show");
-            }, 1000);
+            $("#createPersonnelSuccessModal").modal("show");
 
             // To stop form resubmission
             if (window.history.replaceState) {
               window.history.replaceState(null, null, window.location.href);
             }
 
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            location.reload();
           },
           error: function (jqXHR, textStatus, errorThrown) {
             console.log("status code: " + jqXHR.status);
@@ -1642,21 +1557,17 @@ $(document).ready(function () {
         },
       });
 
-      setTimeout(function () {
-        $("#createDepartmentModal").modal("show");
-      }, 1000);
+      $("#createDepartmentModal").modal("show");
 
-      $("#createDepartmentForm").submit(function (event) {
+      $("#createDepartmentSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createDepartmentModal").modal("hide");
 
-        setTimeout(function () {
-          $("#createDepartmentConfirmModal").modal("show");
-        }, 1000);
+        $("#createDepartmentConfirmModal").modal("show");
       });
 
-      $("#createDepartmentConfirmForm").submit(function (event) {
+      $("#createDepartmentConfirmSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createDepartmentConfirmModal").modal("hide");
@@ -1681,18 +1592,14 @@ $(document).ready(function () {
             $("#createDepartmentSuccessMessage").html("");
             $("#createDepartmentSuccessMessage").append(result);
 
-            setTimeout(function () {
-              $("#createDepartmentSuccessModal").modal("show");
-            }, 1000);
+            $("#createDepartmentSuccessModal").modal("show");
 
             // To stop form resubmission
             if (window.history.replaceState) {
               window.history.replaceState(null, null, window.location.href);
             }
 
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            location.reload();
           },
           error: function (jqXHR, textStatus, errorThrown) {
             console.log("status code: " + jqXHR.status);
@@ -1702,21 +1609,17 @@ $(document).ready(function () {
         });
       });
     } else if (id === "location") {
-      setTimeout(function () {
-        $("#createLocationModal").modal("show");
-      }, 1000);
+      $("#createLocationModal").modal("show");
 
-      $("#createLocationForm").submit(function (event) {
+      $("#createLocationSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createLocationModal").modal("hide");
 
-        setTimeout(function () {
-          $("#createLocationConfirmModal").modal("show");
-        }, 1000);
+        $("#createLocationConfirmModal").modal("show");
       });
 
-      $("#createLocationConfirmForm").submit(function (event) {
+      $("#createLocationConfirmSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#createLocationConfirmModal").modal("hide");
@@ -1740,18 +1643,14 @@ $(document).ready(function () {
             $("#createLocationSuccessMessage").html("");
             $("#createLocationSuccessMessage").append(result);
 
-            setTimeout(function () {
-              $("#createLocationSuccessModal").modal("show");
-            }, 1000);
+            $("#createLocationSuccessModal").modal("show");
 
             // To stop form resubmission
             if (window.history.replaceState) {
               window.history.replaceState(null, null, window.location.href);
             }
 
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            location.reload();
           },
           error: function (jqXHR, textStatus, errorThrown) {
             console.log("status code: " + jqXHR.status);
@@ -1813,7 +1712,7 @@ $(document).ready(function () {
                     '<div class="row">' +
                     '<div class="col-sm-2"></div>' +
                     '<div class="col-sm-2">' +
-                    `<div id="deleteSquare${index}" class="square"></div>` +
+                    `<div id="deleteSquare" class="square">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                     "</div>" +
                     '<div class="col-sm-6 namePosition">' +
                     `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].lastName}` +
@@ -1855,9 +1754,7 @@ $(document).ready(function () {
             }
           });
 
-          setTimeout(function () {
-            $("#deletePersonnelModal").modal("show");
-          }, 1000);
+          $("#deletePersonnelModal").modal("show");
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log("status code: " + jqXHR.status);
@@ -1866,17 +1763,15 @@ $(document).ready(function () {
         },
       });
 
-      $("#deletePersonnelForm").submit(function (event) {
+      $("#deletePersonnelSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#deletePersonnelModal").modal("hide");
 
-        setTimeout(function () {
-          $("#deletePersonnelConfirmModal").modal("show");
-        }, 1000);
+        $("#deletePersonnelConfirmModal").modal("show");
       });
 
-      $("#deletePersonnelConfirmForm").submit(function (event) {
+      $("#deletePersonnelConfirmSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#deletePersonnelConfirmModal").modal("hide");
@@ -1901,18 +1796,13 @@ $(document).ready(function () {
           success: function (result) {
             //3
 
-            console.log(result);
+            //console.log(result);
             $("#deletePersonnelSuccessMessage").html("");
             $("#deletePersonnelSuccessMessage").append(result);
-            console.log(result);
 
-            setTimeout(function () {
-              $("#deletePersonnelSuccessModal").modal("show");
-            }, 1000);
+            $("#deletePersonnelSuccessModal").modal("show");
 
-            setTimeout(function () {
-              location.reload();
-            }, 3000);
+            location.reload();
           },
           error: function (jqXHR, textStatus, errorThrown) {
             console.log("status code: " + jqXHR.status);
@@ -1946,7 +1836,7 @@ $(document).ready(function () {
                   '<div class="row">' +
                   '<div class="col-sm-2"></div>' +
                   '<div class="col-sm-2">' +
-                  `<div id="deleteSearchSquare${index}" class="square"></div>` +
+                  `<div id="deleteSearchSquare" class="square">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-6 namePosition">' +
                   `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].lastName}` +
@@ -1984,25 +1874,21 @@ $(document).ready(function () {
                   $("#selectedPersonnel").append(n + " selected");
                 });
 
-                setTimeout(function () {
-                  $("#deletePersonnelModal").modal("show");
-                }, 1000);
+                $("#deletePersonnelModal").modal("show");
               } else {
                 window.localStorage.setItem("focus_on", "#deleteSearchBar");
                 location.reload();
               }
 
-              $("#deletePersonnelForm").submit(function (event) {
+              $("#deletePersonnelSubmit").on("click", function (event) {
                 event.preventDefault();
 
                 $("#deletePersonnelModal").modal("hide");
 
-                setTimeout(function () {
-                  $("#deletePersonnelConfirmModal").modal("show");
-                }, 1000);
+                $("#deletePersonnelConfirmModal").modal("show");
               });
 
-              $("#deletePersonnelConfirmForm").submit(function (event) {
+              $("#deletePersonnelConfirmSubmit").on("click", function (event) {
                 event.preventDefault();
 
                 $("#deletePersonnelConfirmModal").modal("hide");
@@ -2031,13 +1917,9 @@ $(document).ready(function () {
                     $("#deletePersonnelMessage").append(result);
                     //console.log(result);
 
-                    setTimeout(function () {
-                      $("#deletePersonnelSuccessModal").modal("show");
-                    }, 1000);
+                    $("#deletePersonnelSuccessModal").modal("show");
 
-                    setTimeout(function () {
-                      location.reload();
-                    }, 3000);
+                    location.reload();
                   },
                 });
                 $("#selected").html("");
@@ -2126,11 +2008,9 @@ $(document).ready(function () {
         },
       });
 
-      setTimeout(function () {
-        $("#searchPersonnelModal").modal("show");
-      }, 1000);
+      $("#searchPersonnelModal").modal("show");
 
-      $("#searchPersonnelForm").submit(function (event) {
+      $("#searchPersonnelSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#searchPersonnelModal").modal("hide");
@@ -2145,17 +2025,14 @@ $(document).ready(function () {
           $("#searchPersonnelErrorMessage").append(
             "Please also type in another field."
           );
-          setTimeout(function () {
-            $("#searchPersonnelErrorModal").modal("show");
-          }, 1000);
+
+          $("#searchPersonnelErrorModal").modal("show");
         } else {
-          setTimeout(function () {
-            $("#searchPersonnelConfirmModal").modal("show");
-          }, 1000);
+          $("#searchPersonnelConfirmModal").modal("show");
         }
       });
 
-      $("#searchPersonnelConfirmForm").submit(function (event) {
+      $("#searchPersonnelConfirmSubmit").on("click", function (event) {
         event.preventDefault();
 
         $("#searchPersonnelConfirmModal").modal("hide");
@@ -2190,7 +2067,7 @@ $(document).ready(function () {
                   '<div class="row">' +
                   '<div class="col-sm-3"></div>' +
                   '<div class="col-sm-2">' +
-                  `<div id="searchSquare${index}" class="square"></div>` +
+                  `<div id="searchSquare" class="square">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-4 namePosition">' +
                   `<a id="searchNameLink${index}" class="nameLink" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].lastName}` +
@@ -2200,9 +2077,7 @@ $(document).ready(function () {
 
                 $("#searchResultsData").append(searchResultsMarkup);
 
-                setTimeout(function () {
-                  $("#searchPersonnelResultsModal").modal("show");
-                }, 1000);
+                $("#searchPersonnelResultsModal").modal("show");
 
                 //Edit employee modal
                 $(`#searchNameLink${index}`).on("click", function () {
@@ -2329,21 +2204,9 @@ $(document).ready(function () {
                     },
                   });
 
-                  setTimeout(function () {
-                    $("#editEmployeeModal").modal("show");
-                  }, 1000);
+                  $("#editEmployeeModal").modal("show");
 
-                  $("#editEmployeeForm").submit(function (event) {
-                    event.preventDefault();
-
-                    $("#editEmployeeModal").modal("hide");
-
-                    setTimeout(function () {
-                      $("#editEmployeeConfirmModal").modal("show");
-                    }, 1000);
-                  });
-
-                  $("#editEmployeeConfirmForm").submit(function (event) {
+                  $("#editEmployeeConfirmSubmit").on("click", function (event) {
                     event.preventDefault();
 
                     $("#editEmployeeConfirmModal").modal("hide");
@@ -2382,9 +2245,7 @@ $(document).ready(function () {
                         $("#editEmployeeSuccessMessage").html("");
                         $("#editEmployeeSuccessMessage").append(resultEmp);
 
-                        setTimeout(function () {
-                          $("#editEmployeeSuccessModal").modal("show");
-                        }, 1000);
+                        $("#editEmployeeSuccessModal").modal("show");
 
                         // To stop form resubmission
                         if (window.history.replaceState) {
@@ -2395,9 +2256,7 @@ $(document).ready(function () {
                           );
                         }
 
-                        setTimeout(function () {
-                          location.reload();
-                        }, 3000);
+                        location.reload();
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
                         console.log("status code: " + jqXHR.status);
@@ -2411,53 +2270,54 @@ $(document).ready(function () {
 
                   // Delete employee
 
-                  $("#deleteEmployeeConfirmForm").submit(function (event) {
-                    event.preventDefault();
+                  $("#deleteEmployeeConfirmSubmit").on(
+                    "click",
+                    function (event) {
+                      event.preventDefault();
 
-                    $("#deleteEmployeeConfirmModal").modal("hide");
+                      $("#deleteEmployeeConfirmModal").modal("hide");
 
-                    $.ajax({
-                      //2
-                      type: "POST",
-                      url: "libs/php/deleteEmployee.php",
-                      dataType: "text",
-                      data: {
-                        id: result.data[index].id,
-                      },
+                      $.ajax({
+                        //2
+                        type: "POST",
+                        url: "libs/php/deleteEmployee.php",
+                        dataType: "text",
+                        data: {
+                          id: result.data[index].id,
+                        },
 
-                      success: function (resultDelete) {
-                        //3
+                        success: function (resultDelete) {
+                          //3
 
-                        $("#deleteEmployeeSuccessMessage").html("");
-                        $("#deleteEmployeeSuccessMessage").append(resultDelete);
-                        //console.log(result);
-
-                        setTimeout(function () {
-                          $("#deleteEmployeeSuccessModal").modal("show");
-                        }, 1000);
-
-                        // To stop form resubmission
-                        if (window.history.replaceState) {
-                          window.history.replaceState(
-                            null,
-                            null,
-                            window.location.href
+                          $("#deleteEmployeeSuccessMessage").html("");
+                          $("#deleteEmployeeSuccessMessage").append(
+                            resultDelete
                           );
-                        }
+                          //console.log(result);
 
-                        setTimeout(function () {
+                          $("#deleteEmployeeSuccessModal").modal("show");
+
+                          // To stop form resubmission
+                          if (window.history.replaceState) {
+                            window.history.replaceState(
+                              null,
+                              null,
+                              window.location.href
+                            );
+                          }
+
                           location.reload();
-                        }, 3000);
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("status code: " + jqXHR.status);
-                        console.log("errorThrown: " + errorThrown);
-                        console.log(
-                          "jqXHR.responseText: " + jqXHR.responseText
-                        );
-                      },
-                    });
-                  });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
+                      });
+                    }
+                  );
                 });
               });
             } else {
@@ -2465,9 +2325,7 @@ $(document).ready(function () {
 
               $("#searchResultsData").append(searchNoMatchMarkup);
 
-              setTimeout(function () {
-                $("#searchPersonnelResultsModal").modal("show");
-              }, 1000);
+              $("#searchPersonnelResultsModal").modal("show");
             }
           },
           error: function (jqXHR, textStatus, errorThrown) {

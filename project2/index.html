@@ -126,8 +126,6 @@
             aria-label="Search"
           />
         </div>
-
-       
       </div>
 
       <div class="space"></div>
@@ -147,118 +145,104 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createPersonnelForm"
-              name="createPersonnelForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Create employee
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>First name</td>
-                    <td>
-                      <input
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        id="createFirstName"
-                        name="createFirstName"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Last name</td>
-                    <td>
-                      <input
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        id="createLastName"
-                        name="createLastName"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Job title</td>
-                    <td>
-                      <input
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        id="createJobTitle"
-                        name="createJobTitle"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Email</td>
-                    <td>
-                      <input
-                        class="form-control form-control-sm"
-                        type="email"
-                        aria-label=".form-control-sm example"
-                        id="createEmail"
-                        name="createEmail"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Department</td>
-                    <td>
-                      <select
-                        id="createPersonnelDept"
-                        class="form-select form-select-sm deptSelectList"
-                        aria-label=".form-select-sm example"
-                        required
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        class="form-select form-select-sm locSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="createPersonnelSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Create employee
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>First name</td>
+                  <td>
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      id="createFirstName"
+                      name="createFirstName"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last name</td>
+                  <td>
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      id="createLastName"
+                      name="createLastName"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Job title</td>
+                  <td>
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      id="createJobTitle"
+                      name="createJobTitle"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <input
+                      class="form-control form-control-sm"
+                      type="email"
+                      aria-label=".form-control-sm example"
+                      id="createEmail"
+                      name="createEmail"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Department</td>
+                  <td>
+                    <select
+                      id="createPersonnelDept"
+                      class="form-select form-select-sm deptSelectList"
+                      aria-label=".form-select-sm example"
+                      required
+                    ></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <select
+                      class="form-select form-select-sm locSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="createPersonnelSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -274,40 +258,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createPersonnelConfirmForm"
-              name="createPersonnelConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="createPersonnelConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="createPersonnelConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="createPersonnelConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -395,72 +376,58 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createDepartmentForm"
-              name="createDepartmentForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Create department
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>Department</td>
-                    <td>
-                      <input
-                        name="createDeptName"
-                        id="createDeptName"
-                        class="form-control form-control-sm"
-                        type="text"
-                        required
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        name="createDeptLoc"
-                        id="createDeptLoc"
-                        class="form-select form-select-sm locSelectList"
-                        aria-label=".form-select-sm example"
-                        required
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="createDepartmentSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Create department
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>Department</td>
+                  <td>
+                    <input
+                      name="createDeptName"
+                      id="createDeptName"
+                      class="form-control form-control-sm"
+                      type="text"
+                      required
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <select
+                      name="createDeptLoc"
+                      id="createDeptLoc"
+                      class="form-select form-select-sm locSelectList"
+                      aria-label=".form-select-sm example"
+                      required
+                    ></select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="createDepartmentSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -476,40 +443,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createDepartmentConfirmForm"
-              name="createDepartmentConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="createDepartmentConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="createDepartmentConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="createDepartmentConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -561,60 +525,46 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createLocationForm"
-              name="createLocationForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Create Location
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <input
-                        name="createLocName"
-                        id="createLocName"
-                        class="form-control form-control-sm"
-                        type="text"
-                        required
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="createLocationSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Create Location
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <input
+                      name="createLocName"
+                      id="createLocName"
+                      class="form-control form-control-sm"
+                      type="text"
+                      required
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="createLocationSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -630,40 +580,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="createLocationConfirmForm"
-              name="createLocationConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="createLocationConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="createLocationConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="createLocationConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -716,108 +663,101 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Edit employee
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>First name</td>
-                    <td>
-                      <input
-                        id="editFirstName"
-                        name="editFirstName"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Last name</td>
-                    <td id="editLastName" name="editLastName"></td>
-                  </tr>
-                  <tr>
-                    <td>Job title</td>
-                    <td>
-                      <input
-                        id="editJobTitle"
-                        name="editJobTitle"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Email</td>
-                    <td>
-                      <input
-                        id="editEmail"
-                        name="editEmail"
-                        class="form-control form-control-sm"
-                        type="email"
-                        aria-label=".form-control-sm example"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Department</td>
-                    <td>
-                      <select
-                        id="editEmployeeDept"
-                        name="editEmployeeDept"
-                        class="form-select form-select-sm deptEditSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        id="editEmployeeLoc"
-                        name="editEmployeeLoc"
-                        class="form-select form-select-sm locEditSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-danger me-auto"
-                  id="deleteEmployee"
-                >
-                  Delete employee
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="editEmployeeSubmit"
-                >
-                  Submit
-                </button>
-              </div>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">Edit employee</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>First name</td>
+                  <td>
+                    <input
+                      id="editFirstName"
+                      name="editFirstName"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last name</td>
+                  <td id="editLastName" name="editLastName"></td>
+                </tr>
+                <tr>
+                  <td>Job title</td>
+                  <td>
+                    <input
+                      id="editJobTitle"
+                      name="editJobTitle"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <input
+                      id="editEmail"
+                      name="editEmail"
+                      class="form-control form-control-sm"
+                      type="email"
+                      aria-label=".form-control-sm example"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Department</td>
+                  <td>
+                    <select
+                      id="editEmployeeDept"
+                      name="editEmployeeDept"
+                      class="form-select form-select-sm deptEditSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <select
+                      id="editEmployeeLoc"
+                      name="editEmployeeLoc"
+                      class="form-select form-select-sm locEditSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-danger me-auto"
+                id="deleteEmployee"
+              >
+                Delete employee
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="editEmployeeSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -833,40 +773,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="editEmployeeConfirmForm"
-              name="editEmployeeConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="editEmployeeConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="editEmployeeConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="editEmployeeConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -918,40 +855,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="deleteEmployeeConfirmForm"
-              name="deleteEmployeeConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="deleteEmployeeConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="deleteEmployeeConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="deleteEmployeeConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1004,77 +938,63 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="editDepartmentForm"
-              name="editDepartmentForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Edit Department
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>Department</td>
-                    <td>
-                      <input
-                        id="editDepartment"
-                        name="editDepartment"
-                        class="form-select form-select-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        required
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        id="editDeptLoc"
-                        name="editDeptLoc"
-                        class="form-select form-select-sm deptEditLocSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-danger me-auto"
-                  id="deleteDepartment"
-                >
-                  Delete department
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="editDepartmentSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Edit Department
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>Department</td>
+                  <td>
+                    <input
+                      id="editDepartment"
+                      name="editDepartment"
+                      class="form-select form-select-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      required
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <select
+                      id="editDeptLoc"
+                      name="editDeptLoc"
+                      class="form-select form-select-sm deptEditLocSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-danger me-auto"
+                id="deleteDepartment"
+              >
+                Delete department
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="editDepartmentSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1090,40 +1010,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="editDepartmentConfirmForm"
-              name="editDepartmentConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="editDepartmentConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="editDepartmentConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="editDepartmentConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1175,40 +1092,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="deleteDepartmentConfirmForm"
-              name="deleteDepartmentConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="deleteDepartmentConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="deleteDepartmentConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="deleteDepartmentConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1261,66 +1175,50 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="editLocationForm"
-              name="editLocationForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Edit Location
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <input
-                        id="editLoc"
-                        name="editLoc"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                        required
-                      />
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-danger me-auto"
-                  id="deleteLocation"
-                >
-                  Delete location
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="editLocationSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Location</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <input
+                      id="editLoc"
+                      name="editLoc"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                      required
+                    />
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-danger me-auto"
+                id="deleteLocation"
+              >
+                Delete location
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="editLocationSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1336,40 +1234,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="editLocationConfirmForm"
-              name="editLocationConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="editLocationConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="editLocationConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="editLocationConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1421,40 +1316,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="deleteLocationConfirmForm"
-              name="deleteLocationConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="deleteLocationConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="deleteLocationConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="deleteLocationConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1507,80 +1399,64 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="deletePersonnelForm"
-              name="deletePersonnelForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Delete personnel
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <div class="row">
-                    <div class="col-sm-7" id="selectedPersonnel">
-                      0 selected
-                    </div>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Delete personnel
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <div class="row">
+                  <div class="col-sm-7" id="selectedPersonnel">0 selected</div>
 
-                    <div class="col-sm-3">
-                      <button
-                        type="button"
-                        class="modalButton"
-                        id="selectAllPersonnel"
-                      >
-                        Select all
-                      </button>
-                    </div>
+                  <div class="col-sm-3">
+                    <button
+                      type="button"
+                      class="modalButton"
+                      id="selectAllPersonnel"
+                    >
+                      Select all
+                    </button>
                   </div>
+                </div>
 
-                  <div class="space"></div>
+                <div class="space"></div>
 
-                  <div class="form-outline" id="deletePersonnelSearch">
-                    <input
-                      name="deletePersonnelSearchBar"
-                      type="search"
-                      id="deletePersonnelSearchBar"
-                      class="form-control"
-                      placeholder="Search"
-                      aria-label="Search"
-                    />
-                  </div>
+                <div class="form-outline" id="deletePersonnelSearch">
+                  <input
+                    name="deletePersonnelSearchBar"
+                    type="search"
+                    id="deletePersonnelSearchBar"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </div>
 
-                  <div class="space"></div>
+                <div class="space"></div>
 
-                  <div class="row">
-                    <div class="col-sm-10" id="deletePersonnelData"></div>
-                  </div>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-danger"
-                  id="deletePersonnelSubmit"
-                >
-                  Delete
-                </button>
-              </div>
-            </form>
+                <div class="row">
+                  <div class="col-sm-10" id="deletePersonnelData"></div>
+                </div>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-danger"
+                id="deletePersonnelSubmit"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1596,40 +1472,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="deletePersonnelConfirmForm"
-              name="deletePersonnelConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="deletePersonnelConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="deletePersonnelConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="deletePersonnelConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -1682,117 +1555,103 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="searchPersonnelForm"
-              name="searchPersonnelForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Search personnel
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body modalBodyFont">
-                <table
-                  class="
-                    table table-striped
-                    modalTable
-                    modal-body
-                    modalBodyFont
-                  "
-                >
-                  <tr>
-                    <td>First name</td>
-                    <td>
-                      <input
-                        id="searchFirstName"
-                        name="searchFirstName"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Last name</td>
-                    <td>
-                      <input
-                        id="searchLastName"
-                        name="searchLastName"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Job title</td>
-                    <td>
-                      <input
-                        id="searchJobTitle"
-                        name="searchJobTitle"
-                        class="form-control form-control-sm"
-                        type="text"
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Email</td>
-                    <td>
-                      <input
-                        id="searchEmail"
-                        name="searchEmail"
-                        class="form-control form-control-sm"
-                        type="email"
-                        aria-label=".form-control-sm example"
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Department</td>
-                    <td>
-                      <select
-                        name="searchDept"
-                        id="searchDept"
-                        class="form-select form-select-sm deptSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Location</td>
-                    <td>
-                      <select
-                        name="searchLoc"
-                        id="searchLoc"
-                        class="form-select form-select-sm locSelectList"
-                        aria-label=".form-select-sm example"
-                      ></select>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary">Reset</button>
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="searchPersonnelSubmit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Search personnel
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <table
+                class="table table-striped modalTable modal-body modalBodyFont"
+              >
+                <tr>
+                  <td>First name</td>
+                  <td>
+                    <input
+                      id="searchFirstName"
+                      name="searchFirstName"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last name</td>
+                  <td>
+                    <input
+                      id="searchLastName"
+                      name="searchLastName"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Job title</td>
+                  <td>
+                    <input
+                      id="searchJobTitle"
+                      name="searchJobTitle"
+                      class="form-control form-control-sm"
+                      type="text"
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <input
+                      id="searchEmail"
+                      name="searchEmail"
+                      class="form-control form-control-sm"
+                      type="email"
+                      aria-label=".form-control-sm example"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Department</td>
+                  <td>
+                    <select
+                      name="searchDept"
+                      id="searchDept"
+                      class="form-select form-select-sm deptSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Location</td>
+                  <td>
+                    <select
+                      name="searchLoc"
+                      id="searchLoc"
+                      class="form-select form-select-sm locSelectList"
+                      aria-label=".form-select-sm example"
+                    ></select>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="searchPersonnelSubmit"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1844,40 +1703,37 @@
       >
         <div class="modal-dialog">
           <div class="modal-content">
-            <form
-              class="form-horizontal"
-              method="post"
-              action=""
-              id="searchPersonnelConfirmForm"
-              name="searchPersonnelConfirmForm"
-              role="form"
-            >
-              <div class="modal-header btn-primary">
-                <h5 class="modal-title"></h5>
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body modalBodyFont">
+              <div class="modal-body">
+                <div id="searchPersonnelConfirmMessage">Are you sure?</div>
+              </div>
+              <div class="modal-footer">
                 <button
                   type="button"
-                  class="btn-close"
+                  class="btn btn-secondary"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
+                >
+                  Close
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="searchPersonnelConfirmSubmit"
+                >
+                  Yes
+                </button>
               </div>
-
-              <div class="modal-body modalBodyFont">
-                <div class="modal-body">
-                  <div id="searchPersonnelConfirmMessage">Are you sure?</div>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="submit" class="btn btn-primary">Yes</button>
-                </div>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
