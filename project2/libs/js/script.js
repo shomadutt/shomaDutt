@@ -43,14 +43,12 @@ $(document).ready(function () {
         jobTitle[0].toUpperCase() + jobTitle.substring(1, jobTitle.length);
     }
 
-    console.log($("a").attr("data-employee-id"));
-
     $.ajax({
       url: "libs/php/editEmployee.php",
       method: "post",
       dataType: "text",
       data: {
-        id: $("a").attr("data-employee-id"),
+        id: $(this).data("employee-id"),
         firstName: firstName,
         lastName: $("#editLastName").html(),
         jobTitle: jobTitle,
@@ -70,7 +68,7 @@ $(document).ready(function () {
           window.history.replaceState(null, null, window.location.href);
         }
 
-        // location.reload();
+        location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log("status code: " + jqXHR.status);
@@ -99,7 +97,7 @@ $(document).ready(function () {
       url: "libs/php/deleteEmployee.php",
       dataType: "text",
       data: {
-        id: $("a").attr("data-employee-id"),
+        id: $(this).data("employee-id"),
       },
 
       success: function (resultDelete) {
@@ -116,7 +114,7 @@ $(document).ready(function () {
           window.history.replaceState(null, null, window.location.href);
         }
 
-        location.reload();
+        // location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log("status code: " + jqXHR.status);
@@ -379,9 +377,6 @@ $(document).ready(function () {
     $("#selected").html("");
   });
 
-
-
-
   // Letters array
   const alphabetArray = [
     "A",
@@ -453,6 +448,18 @@ $(document).ready(function () {
               $(`#searchLinkEmployee${result.data[index].id}`).on(
                 "click",
                 function () {
+                  // Capturing the custom attribute data in the edit employee confirm button to be used in the edit employee confirm event handler
+                  $("#editEmployeeConfirmSubmit").data(
+                    "employee-id",
+                    $(this).data("employee-id")
+                  );
+
+                  // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
+                  $("#deleteEmployeeConfirmSubmit").data(
+                    "employee-id",
+                    $(this).data("employee-id")
+                  );
+
                   $("#editFirstName").val(result.data[index].firstName);
                   $("#editLastName").html(result.data[index].lastName);
                   $("#editJobTitle").val(result.data[index].jobTitle);
@@ -637,6 +644,18 @@ $(document).ready(function () {
 
                 //Edit employee modal
                 $(`#nameLink${result.data[index].id}`).on("click", function () {
+                  // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
+                  $("#editEmployeeConfirmSubmit").data(
+                    "employee-id",
+                    $(this).data("employee-id")
+                  );
+
+                  // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
+                  $("#deleteEmployeeConfirmSubmit").data(
+                    "employee-id",
+                    $(this).data("employee-id")
+                  );
+
                   $("#editFirstName").val(result.data[index].firstName);
                   $("#editLastName").html(result.data[index].lastName);
                   $("#editJobTitle").val(result.data[index].jobTitle);
@@ -1168,39 +1187,31 @@ $(document).ready(function () {
           $("#createPersonnelConfirmModal").modal("show");
         }
 
-         
+        if ($("#createLastName").val() === "") {
+          $("#createPersonnelErrorMessage").html("");
+          $("#createPersonnelErrorMessage").append("Please enter a last name.");
 
-          if ($("#createLastName").val() === "") {
-            $("#createPersonnelErrorMessage").html("");
-            $("#createPersonnelErrorMessage").append(
-              "Please enter a last name."
-            );
-  
           $("#createPersonnelErrorModal").modal("show");
-
         } else {
           $("#createPersonnelConfirmModal").modal("show");
         }
 
-          if ($("#createEmail").val() === "") {
-            $("#createPersonnelErrorMessage").html("");
-            $("#createPersonnelErrorMessage").append(
-              "Please enter an email address."
-            );
-  
-          $("#createPersonnelErrorModal").modal("show");
+        if ($("#createEmail").val() === "") {
+          $("#createPersonnelErrorMessage").html("");
+          $("#createPersonnelErrorMessage").append(
+            "Please enter an email address."
+          );
 
+          $("#createPersonnelErrorModal").modal("show");
         } else {
           $("#createPersonnelConfirmModal").modal("show");
         }
-
-
 
         // if($("#createFirstName").val() === "") {
         //   alert("Please enter a first name");
         //   return false;
         // }
-        
+
         // if($("#createLastName").val() === "") {
         //   alert("Please enter a last name");
         //   return false;
@@ -1210,7 +1221,6 @@ $(document).ready(function () {
         //   alert("Please enter an email address");
         //   return false;
         // }
-
 
         if ($("#createPersonnelDept").val() === null) {
           $("#createPersonnelErrorMessage").html("");
@@ -1516,9 +1526,6 @@ $(document).ready(function () {
         },
       });
 
-     
-
-      
       // Delete search bar for personnel
       $("#deletePersonnelSearchBar").keyup(function () {
         let query = $(this).val();
@@ -1585,7 +1592,6 @@ $(document).ready(function () {
                 window.localStorage.setItem("focus_on", "#deleteSearchBar");
                 location.reload();
               }
-
             });
           },
           error: function (jqXHR, textStatus, errorThrown) {
@@ -1737,145 +1743,159 @@ $(document).ready(function () {
                   `${result.data[index].firstName}</a>`;
                 "</div>" + "</div>";
 
-
                 $("#searchResultsData").append(searchResultsMarkup);
 
                 $("#searchPersonnelResultsModal").modal("show");
 
-
                 //Edit employee modal
-                $(`#searchNameLink${result.data[index].id}`).on("click", function () {
+                $(`#searchNameLink${result.data[index].id}`).on(
+                  "click",
+                  function () {
+                    console.log(result.data[index].id);
 
-                  console.log($(`#searchNameLink${result.data[index].id}`));
+                    console.log($("a").attr("data-employee-id"));
 
-                  console.log($("a").attr("data-employee-id"));
+                    // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
+                    $("#editEmployeeConfirmSubmit").data(
+                      "employee-id",
+                      $(this).data("employee-id")
+                    );
 
-                  $("#searchPersonnelResultsModal").modal("hide");
+                    // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
+                    $("#deleteEmployeeConfirmSubmit").data(
+                      "employee-id",
+                      $(this).data("employee-id")
+                    );
 
-                  $("#editFirstName").val(result.data[index].firstName);
-                  $("#editLastName").html(result.data[index].lastName);
-                  $("#editJobTitle").val(result.data[index].jobTitle);
-                  $("#editEmail").val(result.data[index].email);
+                    $("#searchPersonnelResultsModal").modal("hide");
 
-                  // Get department id
-                  let deptID;
-                  let locID;
+                    $("#editFirstName").val(result.data[index].firstName);
+                    $("#editLastName").html(result.data[index].lastName);
+                    $("#editJobTitle").val(result.data[index].jobTitle);
+                    $("#editEmail").val(result.data[index].email);
 
-                  $.ajax({
-                    //2
-                    type: "POST",
-                    url: "libs/php/getDepartmentID.php",
-                    dataType: "json",
-                    data: {
-                      employeeDept: result.data[index].department,
-                    },
+                    // Get department id
+                    let deptID;
+                    let locID;
 
-                    success: function (resultDeptID) {
-                      //console.log(resultDeptID);
+                    $.ajax({
+                      //2
+                      type: "POST",
+                      url: "libs/php/getDepartmentID.php",
+                      dataType: "json",
+                      data: {
+                        employeeDept: result.data[index].department,
+                      },
 
-                      deptID = resultDeptID.data[index].id;
+                      success: function (resultDeptID) {
+                        //console.log(resultDeptID);
 
-                      // Display the employee's department in the department dropdown
-                      $.ajax({
-                        //2
-                        type: "POST",
-                        url: "libs/php/getAllDepartments.php",
-                        dataType: "json",
+                        deptID = resultDeptID.data[index].id;
 
-                        success: function (resultDept) {
-                          $(".deptEditSelectList").html("");
+                        // Display the employee's department in the department dropdown
+                        $.ajax({
+                          //2
+                          type: "POST",
+                          url: "libs/php/getAllDepartments.php",
+                          dataType: "json",
 
-                          $.each(resultDept.data, function (index) {
-                            $("#editEmployeeDept").val(deptID);
+                          success: function (resultDept) {
+                            $(".deptEditSelectList").html("");
 
-                            $(".deptEditSelectList").append(
-                              $("<option>", {
-                                value: resultDept.data[index].id,
-                                text: resultDept.data[index].name,
-                              })
-                            );
-                          });
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                          console.log("status code: " + jqXHR.status);
-                          console.log("errorThrown: " + errorThrown);
-                          console.log(
-                            "jqXHR.responseText: " + jqXHR.responseText
-                          );
-                        },
-                      });
+                            $.each(resultDept.data, function (index) {
+                              $("#editEmployeeDept").val(deptID);
 
-                      $(".deptEditSelectList").on("change", function () {
-                        let departID = $(this).val();
-                        if (departID) {
-                          // Find the location id from the department id
-                          $.ajax({
-                            //2
-                            type: "POST",
-                            url: "libs/php/getLocationID.php",
-                            dataType: "json",
-                            data: {
-                              employeeDeptID: departID,
-                            },
-
-                            success: function (resultLocID) {
-                              locID = resultLocID.data[index].locationID;
-
-                              // Use location id to set location dropdown
-                              $.ajax({
-                                //2
-                                type: "POST",
-                                url: "libs/php/getAllLocations.php",
-                                dataType: "json",
-
-                                success: function (resultLoc) {
-                                  $(".locEditSelectList").html("");
-
-                                  $.each(resultLoc.data, function (index) {
-                                    $("#editEmployeeLoc").val(locID);
-
-                                    $(".locEditSelectList").append(
-                                      $("<option>", {
-                                        value: resultLoc.data[index].id,
-                                        text: resultLoc.data[index].name,
-                                      })
-                                    );
-                                  });
-                                },
-                                error: function (
-                                  jqXHR,
-                                  textStatus,
-                                  errorThrown
-                                ) {
-                                  console.log("status code: " + jqXHR.status);
-                                  console.log("errorThrown: " + errorThrown);
-                                  console.log(
-                                    "jqXHR.responseText: " + jqXHR.responseText
-                                  );
-                                },
-                              });
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                              console.log("status code: " + jqXHR.status);
-                              console.log("errorThrown: " + errorThrown);
-                              console.log(
-                                "jqXHR.responseText: " + jqXHR.responseText
+                              $(".deptEditSelectList").append(
+                                $("<option>", {
+                                  value: resultDept.data[index].id,
+                                  text: resultDept.data[index].name,
+                                })
                               );
-                            },
-                          });
-                        }
-                      });
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("status code: " + jqXHR.status);
-                      console.log("errorThrown: " + errorThrown);
-                      console.log("jqXHR.responseText: " + jqXHR.responseText);
-                    },
-                  });
+                            });
+                          },
+                          error: function (jqXHR, textStatus, errorThrown) {
+                            console.log("status code: " + jqXHR.status);
+                            console.log("errorThrown: " + errorThrown);
+                            console.log(
+                              "jqXHR.responseText: " + jqXHR.responseText
+                            );
+                          },
+                        });
 
-                  $("#editEmployeeModal").modal("show");
+                        $(".deptEditSelectList").on("change", function () {
+                          let departID = $(this).val();
+                          if (departID) {
+                            // Find the location id from the department id
+                            $.ajax({
+                              //2
+                              type: "POST",
+                              url: "libs/php/getLocationID.php",
+                              dataType: "json",
+                              data: {
+                                employeeDeptID: departID,
+                              },
 
-                });
+                              success: function (resultLocID) {
+                                locID = resultLocID.data[index].locationID;
+
+                                // Use location id to set location dropdown
+                                $.ajax({
+                                  //2
+                                  type: "POST",
+                                  url: "libs/php/getAllLocations.php",
+                                  dataType: "json",
+
+                                  success: function (resultLoc) {
+                                    $(".locEditSelectList").html("");
+
+                                    $.each(resultLoc.data, function (index) {
+                                      $("#editEmployeeLoc").val(locID);
+
+                                      $(".locEditSelectList").append(
+                                        $("<option>", {
+                                          value: resultLoc.data[index].id,
+                                          text: resultLoc.data[index].name,
+                                        })
+                                      );
+                                    });
+                                  },
+                                  error: function (
+                                    jqXHR,
+                                    textStatus,
+                                    errorThrown
+                                  ) {
+                                    console.log("status code: " + jqXHR.status);
+                                    console.log("errorThrown: " + errorThrown);
+                                    console.log(
+                                      "jqXHR.responseText: " +
+                                        jqXHR.responseText
+                                    );
+                                  },
+                                });
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("status code: " + jqXHR.status);
+                                console.log("errorThrown: " + errorThrown);
+                                console.log(
+                                  "jqXHR.responseText: " + jqXHR.responseText
+                                );
+                              },
+                            });
+                          }
+                        });
+                      },
+                      error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("status code: " + jqXHR.status);
+                        console.log("errorThrown: " + errorThrown);
+                        console.log(
+                          "jqXHR.responseText: " + jqXHR.responseText
+                        );
+                      },
+                    });
+
+                    $("#editEmployeeModal").modal("show");
+                  }
+                );
               });
             } else {
               let searchNoMatchMarkup = '<div id="noMatch">No matches</div>';
