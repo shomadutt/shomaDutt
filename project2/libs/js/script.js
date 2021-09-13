@@ -148,6 +148,11 @@ $(document).ready(function () {
     } else {
       $("#editDepartmentConfirmModal").modal("show");
     }
+
+    // if ($("#editDeptLoc").val() === "") {
+    //   $("#editDeptLoc").val() = $(this).data("location-id");
+    //   $("#editDepartmentConfirmModal").modal("show");
+    // }
   });
 
   // Edit department confirmation event handler
@@ -676,7 +681,7 @@ $(document).ready(function () {
               `<div class="col-sm-1 alignmentRight" id="letterIndex">${alphabetArray[alphabetIndex]}</div>` +
               "</div>";
 
-            let letter = $("#directoryData").append(letterMarkup);
+            $("#directoryData").append(letterMarkup);
 
             $.each(result.data, function (index) {
               let lastNameUpper = result.data[index].lastName[0].toUpperCase();
@@ -694,18 +699,18 @@ $(document).ready(function () {
                   `${result.data[index].lastName}` +
                   " " +
                   "</a></div>" +
-                  '<div class="col-sm-2 namePosition">' +
+                  '<div class="col-sm-2 namePosition d-none d-md-block">' +
                   `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].jobTitle}` +
                   "</a></div>" +
-                  '<div class="col-sm-4 namePosition">' +
+                  '<div class="col-sm-3 namePosition d-none d-md-block">' +
                   `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].email}` +
                   "</a></div>" +
-                  '<div class="col-sm-2 namePosition nameFont">' +
+                  '<div class="col-sm-3 namePosition nameFont d-none d-md-block">' +
                   `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].department}` +
                   "</a></div>" +
                   "</div>";
 
-                letter.append(employeeMarkup);
+                $("#directoryData").append(employeeMarkup);
 
                 //Edit employee modal
                 $(`.nameLink${result.data[index].id}`).on("click", function () {
@@ -961,8 +966,6 @@ $(document).ready(function () {
       });
     });
 
-    let employeeLocName;
-
     $.ajax({
       url: "libs/php/getAllDepartments.php",
       dataType: "json",
@@ -984,14 +987,14 @@ $(document).ready(function () {
               `<div class="col-sm-3 alignmentRight" id="horizontal${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
               "</div>";
 
-            let deptLetter = $("#directoryData").append(deptLetterMarkup);
+            $("#directoryData").append(deptLetterMarkup);
 
             $.each(result.data, function (index) {
               let deptNameUpper = result.data[index].name[0].toUpperCase();
 
               if (deptNameUpper === alphabetArray[alphabetIndex]) {
                 let deptMarkup =
-                  '<div class="row" >' +
+                  `<div class="row" id="directoryDept${index}" >` +
                   '<div class="col-sm-3"></div>' +
                   '<div class="col-sm-1">' +
                   `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
@@ -1000,7 +1003,7 @@ $(document).ready(function () {
                   `<a class="deptLink${result.data[index].id} nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
                   "</div>";
 
-                let employeeLocMarkup = deptLetter.append(deptMarkup);
+                $("#directoryData").append(deptMarkup);
 
                 $.ajax({
                   url: "libs/php/getLocationName.php",
@@ -1012,27 +1015,34 @@ $(document).ready(function () {
                   success: function (resultEmployeeLocName) {
                     let endMarkup =
                       '<div class="col-sm-4 namePosition">' +
-                      `<a class="deptLink${result.data[index].id} nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
+                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
                       "</div>";
 
-                    employeeLocMarkup.append(endMarkup);
+                    // Appending the location markup by row id related to index after tha ajax call
+                    $(`#directoryDept${index}`).append(endMarkup);
                   },
                 });
               }
 
               //Edit department modal
               $(`.deptLink${result.data[index].id}`).on("click", function () {
-                // Capturing the custom attribute data in the confirm button to be used in the edit department confirm event handler
+                // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
                 $("#editDepartmentConfirmSubmit").data(
                   "department-id",
                   $(this).data("department-id")
                 );
 
-                // Capturing the custom attribute data in the delete confirm button to be used in the delete department confirm event handler
+                // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
                 $("#deleteDepartmentConfirmSubmit").data(
                   "department-id",
                   $(this).data("department-id")
                 );
+
+                // Capturing the location custom attribute data in the confirm button to be used in the edit department confirm event handler
+                //  $("#editDepartmentConfirmSubmit").data(
+                //   "location-id",
+                //   $(this).data("location-id")
+                // );
 
                 $.ajax({
                   //2
@@ -1167,10 +1177,10 @@ $(document).ready(function () {
           ) {
             let locLetterMarkup =
               '<div class="row">' +
-              `<div class="col-sm-5 alignmentRight" id="horizontal${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
+              `<div class="col-sm-4 alignmentRight" id="horizontal${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
               "</div>";
 
-            let locLetter = $("#directoryData").append(locLetterMarkup);
+            $("#directoryData").append(locLetterMarkup);
 
             $.each(result.data, function (index) {
               let locNameUpper = result.data[index].name[0].toUpperCase();
@@ -1178,7 +1188,7 @@ $(document).ready(function () {
               if (locNameUpper === alphabetArray[alphabetIndex]) {
                 let locMarkup =
                   '<div class="row" >' +
-                  '<div class="col-sm-5"></div>' +
+                  '<div class="col-sm-4"></div>' +
                   '<div class="col-sm-1">' +
                   `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
                   "</div>" +
@@ -1187,7 +1197,7 @@ $(document).ready(function () {
                   "</div>" +
                   "</div>";
 
-                locLetter.append(locMarkup);
+                $("#directoryData").append(locMarkup);
 
                 //Edit location modal
                 $(`#locLink${result.data[index].id}`).on("click", function () {
@@ -1316,6 +1326,9 @@ $(document).ready(function () {
 
         $("#createPersonnelModal").modal("hide");
 
+        let email = $("#createEmail").val();
+        let emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
         if (
           $("#createFirstName").val() === "" ||
           $("#createLastName").val() === "" ||
@@ -1325,6 +1338,12 @@ $(document).ready(function () {
           $("#createPersonnelErrorMessage").html("");
           $("#createPersonnelErrorMessage").append("Please fill all fields.");
 
+          $("#createPersonnelErrorModal").modal("show");
+        } else if (!email.match(emailformat)) {
+          $("#createPersonnelErrorMessage").html("");
+          $("#createPersonnelErrorMessage").append(
+            "Please enter a valid email address."
+          );
           $("#createPersonnelErrorModal").modal("show");
         } else {
           $("#createPersonnelConfirmModal").modal("show");
