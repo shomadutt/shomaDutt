@@ -149,10 +149,12 @@ $(document).ready(function () {
       $("#editDepartmentConfirmModal").modal("show");
     }
 
-    // if ($("#editDeptLoc").val() === "") {
-    //   $("#editDeptLoc").val() = $(this).data("location-id");
-    //   $("#editDepartmentConfirmModal").modal("show");
-    // }
+    if ($("#editDeptLoc").val() === null) {
+
+      $("#editDeptLoc").val($(this).data("location-id"));
+
+      $("#editDepartmentConfirmModal").modal("show");
+    }
   });
 
   // Edit department confirmation event handler
@@ -170,6 +172,8 @@ $(document).ready(function () {
     }
 
     let locName = $("#editDeptLoc").val();
+
+    console.log(locName);
 
     $.ajax({
       url: "libs/php/editDepartment.php",
@@ -1013,19 +1017,30 @@ $(document).ready(function () {
                     employeeLocationID: result.data[index].locationID,
                   },
                   success: function (resultEmployeeLocName) {
+                    //console.log(resultEmployeeLocName);
+
                     let endMarkup =
                       '<div class="col-sm-4 namePosition">' +
-                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
+                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
                       "</div>";
 
                     // Appending the location markup by row id related to index after tha ajax call
                     $(`#directoryDept${index}`).append(endMarkup);
                   },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
+                  },
                 });
               }
 
               //Edit department modal
-              $(`.deptLink${result.data[index].id}`).on("click", function () {
+
+              // Not able to access link within inner ajax call without $(document)
+              $(document).on("click", `.deptLink${result.data[index].id}`, function () {
+              // $(`.deptLink${result.data[index].id}`).on("click", function () {
+
                 // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
                 $("#editDepartmentConfirmSubmit").data(
                   "department-id",
@@ -1038,11 +1053,13 @@ $(document).ready(function () {
                   $(this).data("department-id")
                 );
 
-                // Capturing the location custom attribute data in the confirm button to be used in the edit department confirm event handler
-                //  $("#editDepartmentConfirmSubmit").data(
-                //   "location-id",
-                //   $(this).data("location-id")
-                // );
+                //Capturing the location custom attribute data in the confirm button to be used in the edit department confirm event handler
+                 $("#editDepartmentConfirmSubmit").data(
+                  "location-id",
+                  // $(document).data("location-id")
+                  // $(`.deptLink${result.data[index].id}`).data("location-id")
+                  $(this).data("location-id")
+                );
 
                 $.ajax({
                   //2
@@ -1082,6 +1099,11 @@ $(document).ready(function () {
             });
           }
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
   });
@@ -1221,6 +1243,11 @@ $(document).ready(function () {
             });
           }
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
   });
