@@ -2,7 +2,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Rubik", sans-serif;
-  font-size: 20px;
   background-color: rgb(248, 247, 244);
 }
 
@@ -78,15 +77,15 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .circle {
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
+  height: 43px;
+  width: 43px;
+  line-height: 43px;
   border-radius: 50%;
   background-color: #dc3545;
   margin-bottom: 30px;
   color: white;
   text-align: center;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 #deptCircle{
@@ -102,9 +101,18 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .directoryButton {
-  width: 47px;
-  height: 47px;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.7);
+  width: 43px;
+  height: 43px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  transition: box-shadow 0.15s ease-in-out;
+  box-shadow: -5px 5px 5px 0 rgba(5, 5, 5, 0.3);
+}
+
+.directoryButton:hover, .directoryButton:focus {
+  border-color: #e9ecef #e9ecef #dee2e6;
+  isolation: isolate;
 }
 
 #plus {
@@ -113,6 +121,10 @@ input[type="search"]::-webkit-search-results-decoration {
 
 #delete, #search {
   background-color: #dc3545;
+}
+
+#search {
+  margin-bottom: 5px;
 }
 
 .namePosition {
@@ -138,6 +150,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .nameLink {
   text-decoration: none;
+  font-size: 17px;
 }
 
 .modalButton {
@@ -147,9 +160,9 @@ input[type="search"]::-webkit-search-results-decoration {
   font-size: 18px;
 }
 
-#selectAll {
+#selectAllPersonnel {
   width: 100px;
-  margin-left: 159px;
+  margin-left: 8px;
 }
 
 .deleteCheckbox {
@@ -189,7 +202,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .nav-tabs {
-  font-size: large;
+  font-size: 17px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.7);
 }
 
@@ -232,21 +245,19 @@ input[type="search"]::-webkit-search-results-decoration {
   text-align: center;
 }
 
-
 #noMatch {
   text-align: center;
   margin-top: 23px;
 }
 
 .header {
-  /* background-color: rgb(248, 247, 244); */
   background-color: transparent;
 }
 
 #searchBar {
   max-width:35rem;
 	min-width:280px;
-	margin:auto;
+	margin: auto;
 }
 
 #fixedPosition {

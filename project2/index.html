@@ -125,17 +125,15 @@
       <div class="row" id="directoryRow">
         <div class="col-sm-1"></div>
 
-        <!-- <div class="col-sm-1" id="fixedPosition"> -->
-          <div class="col-sm-1" id="fixedPosition">
-            <div>
-              <button class="text-white directoryButton" id="search"></button>
-            </div>
-
-            <div>
-              <button class="text-white directoryButton" id="delete"></button>
-            </div>
+        <div class="col-sm-1" id="fixedPosition">
+          <div>
+            <button class="text-white directoryButton" id="search"></button>
           </div>
-        <!-- </div> -->
+
+          <div>
+            <button class="text-white directoryButton" id="delete"></button>
+          </div>
+        </div>
 
         <div class="col-sm-11">
           <div id="directoryData"></div>
@@ -1607,34 +1605,38 @@
               <table
                 class="table table-striped modalTable modal-body modalBodyFont"
               >
-                <div class="row">
-                  <div class="col-sm-7" id="selectedPersonnel">0 selected</div>
+                <div class="header sticky-top">
+                  <div class="row">
+                    <div class="col-sm-7" id="selectedPersonnel">
+                      0 selected
+                    </div>
 
-                  <div class="col-sm-3">
-                    <button
-                      type="button"
-                      class="modalButton"
-                      id="selectAllPersonnel"
-                    >
-                      Select all
-                    </button>
+                    <div class="col-sm-3">
+                      <button
+                        type="button"
+                        class="modalButton"
+                        id="selectAllPersonnel"
+                      >
+                        Select all
+                      </button>
+                    </div>
                   </div>
+
+                  <div class="space"></div>
+
+                  <div class="form-outline" id="deletePersonnelSearch">
+                    <input
+                      name="deletePersonnelSearchBar"
+                      type="search"
+                      id="deletePersonnelSearchBar"
+                      class="form-control"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                  </div>
+
+                  <div class="space"></div>
                 </div>
-
-                <div class="space"></div>
-
-                <div class="form-outline" id="deletePersonnelSearch">
-                  <input
-                    name="deletePersonnelSearchBar"
-                    type="search"
-                    id="deletePersonnelSearchBar"
-                    class="form-control"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                </div>
-
-                <div class="space"></div>
 
                 <div class="row">
                   <div class="col-sm-10" id="deletePersonnelData"></div>

@@ -1,4 +1,8 @@
 $(window).on("load", function () {
+
+  // Prevents Ajax requests from being cached in the browser
+  $.ajaxSetup({ cache: false });
+
   if ($("#preloader").length) {
     $("#preloader")
       .delay(100)
@@ -7,6 +11,7 @@ $(window).on("load", function () {
       });
   }
 });
+
 
 $(document).ready(function () {
   // Automatically click the personnel tab on page load
@@ -134,8 +139,6 @@ $(document).ready(function () {
   $("#editDepartmentSubmit").on("click", function (event) {
     event.preventDefault();
 
-    console.log($("#editDeptLoc").val());
-
     $("#editDepartmentModal").modal("hide");
 
     if ($("#editDeptLoc").val() === null) {
@@ -160,8 +163,6 @@ $(document).ready(function () {
     }
 
     let loc = $("#editDeptLoc").val();
-
-    console.log(loc);
 
     $.ajax({
       url: "libs/php/editDepartment.php",
@@ -218,9 +219,10 @@ $(document).ready(function () {
       },
 
       success: function (resultDeleteDept) {
+         //console.log(resultDeleteDept);
         $("#deleteDepartmentSuccessMessage").html("");
         $("#deleteDepartmentSuccessMessage").append(resultDeleteDept);
-        //console.log(result);
+       
 
         $("#deleteDepartmentSuccessModal").modal("show");
 
@@ -279,7 +281,7 @@ $(document).ready(function () {
       },
 
       success: function (result) {
-        console.log(result);
+        //console.log(result);
         $("#editLocationSuccessMessage").html("");
         $("#editLocationSuccessMessage").append(result);
 
@@ -324,9 +326,9 @@ $(document).ready(function () {
       },
 
       success: function (resultDeleteLoc) {
+        //console.log(resultDeleteLoc);
         $("#deleteLocationSuccessMessage").html("");
         $("#deleteLocationSuccessMessage").append(resultDeleteLoc);
-        //console.log(result);
 
         $("#deleteLocationSuccessModal").modal("show");
 
@@ -374,8 +376,6 @@ $(document).ready(function () {
     $("input:checked").each(function () {
       checkList.push($(this).val());
     });
-
-    //console.log(checkList);
 
     $.ajax({
       type: "POST",
@@ -447,11 +447,13 @@ $(document).ready(function () {
   // Populate the directory with employees
 
   $("#personnel-tab").on("click", function () {
+
     $("#delete").show();
     $("#search").show();
     $("#directorySpace").show();
 
     // Search bar for personnel
+
     $("#searchBar").keyup(function () {
       let query = "";
       query = $(this).val();
@@ -838,6 +840,7 @@ $(document).ready(function () {
 
   //Populate the directory with departments
   $("#department-tab").on("click", function () {
+
     $("#delete").hide();
     $("#search").hide();
     $("#directorySpace").show();
@@ -980,16 +983,12 @@ $(document).ready(function () {
 
                 let empLoc = result.data[index].locationID;
 
-                $("#editDeptLoc").on("change", function () {
-                  empLoc = $("#editDeptLoc").val();
-                });
-
                 $.ajax({
                   url: "libs/php/getLocationName.php",
                   method: "POST",
                   dataType: "json",
                   data: {
-                    employeeLocationID: empLoc,
+                    employeeLocationID: $("#editDeptLoc").val() || empLoc,
                   },
                   success: function (resultEmployeeLocName) {
                     //console.log(resultEmployeeLocName);
@@ -1084,6 +1083,7 @@ $(document).ready(function () {
 
   // Populate the directory with locations
   $("#location-tab").on("click", function () {
+
     $("#delete").hide();
     $("#search").hide();
     $("#directorySpace").show();
@@ -1344,6 +1344,14 @@ $(document).ready(function () {
             "Please enter a valid email address."
           );
           $("#createPersonnelErrorModal").modal("show");
+
+        } else if ($("#createPersonnelDept").val() === null) {
+          $("#createPersonnelErrorMessage").html("");
+          $("#createPersonnelErrorMessage").append(
+            "Please select a department."
+          );
+          $("#createPersonnelErrorModal").modal("show");
+
         } else {
           $("#createPersonnelConfirmModal").modal("show");
         }
@@ -1632,9 +1640,9 @@ $(document).ready(function () {
                     `<div id="deleteCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                     "</div>" +
                     '<div class="col-sm-6 namePosition">' +
-                    `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].lastName}` +
+                    `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].firstName}` +
                     " " +
-                    `${result.data[index].firstName}</div>` +
+                    `${result.data[index].lastName}</div>` +
                     "</div>" +
                     '<div class="col-sm-1">' +
                     '<form action="">' +
@@ -1767,7 +1775,6 @@ $(document).ready(function () {
 
     let searchId = $(".tab-content .active").attr("id");
 
-    // Search modal for personnel
     if (searchId === "personnel") {
       $("#searchPersonnelReset").on("click", function () {
         $("#searchFirstName").val("");
@@ -1896,9 +1903,9 @@ $(document).ready(function () {
                   `<div id="searchCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-4 namePosition">' +
-                  `<a id="searchNameLink${result.data[index].id}" class="nameLink" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].lastName}` +
+                  `<a id="searchNameLink${result.data[index].id}" class="nameLink" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
                   " " +
-                  `${result.data[index].firstName}` +
+                  `${result.data[index].lastName}` +
                   "</a></div>" +
                   "</div>";
 
@@ -1930,8 +1937,8 @@ $(document).ready(function () {
                     $("#editEmail").val(result.data[index].email);
 
                     // Get department id
-                    let deptID;
-                    let locID;
+                    let departmentID;
+                    let locatID;
 
                     $.ajax({
                       type: "POST",
@@ -1944,7 +1951,7 @@ $(document).ready(function () {
                       success: function (resultDeptID) {
                         //console.log(resultDeptID);
 
-                        deptID = resultDeptID.data[index].id;
+                        departmentID = resultDeptID.data[0].id;
 
                         // Display the employee's department in the department dropdown
                         $.ajax({
@@ -1956,7 +1963,7 @@ $(document).ready(function () {
                             $(".deptEditSelectList").html("");
 
                             $.each(resultDept.data, function (index) {
-                              $("#editEmployeeDept").val(deptID);
+                              $("#editEmployeeDept").val(departmentID);
 
                               $(".deptEditSelectList").append(
                                 $("<option>", {
@@ -1976,19 +1983,21 @@ $(document).ready(function () {
                         });
 
                         $(".deptEditSelectList").on("change", function () {
-                          let departID = $(this).val();
-                          if (departID) {
+                          let depID = $(this).val();
+                          if (depID) {
                             // Find the location id from the department id
                             $.ajax({
                               type: "POST",
                               url: "libs/php/getLocationID.php",
                               dataType: "json",
                               data: {
-                                employeeDeptID: departID,
+                                employeeDeptID: depID,
                               },
 
                               success: function (resultLocID) {
-                                locID = resultLocID.data[index].locationID;
+                                //console.log(resultLocID);
+
+                                locatID = resultLocID.data[0].locationID;
 
                                 // Use location id to set location dropdown
                                 $.ajax({
@@ -2000,7 +2009,7 @@ $(document).ready(function () {
                                     $(".locEditSelectList").html("");
 
                                     $.each(resultLoc.data, function (index) {
-                                      $("#editEmployeeLoc").val(locID);
+                                      $("#editEmployeeLoc").val(locatID);
 
                                       $(".locEditSelectList").append(
                                         $("<option>", {

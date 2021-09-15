@@ -46,36 +46,35 @@
 	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
 	$email = mysqli_real_escape_string($conn, $email);
 
-	$query = "";
-
-	if(strlen($firstName) > 0) {
-		$query = "";
-		$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
+	$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.name as department, l.name as location 
 		FROM personnel p 
 		LEFT JOIN department d ON (d.id = p.departmentID) 
-		LEFT JOIN location l ON (l.id = d.locationID) 
-		WHERE p.firstName LIKE '%$firstName%'";
+		LEFT JOIN location l ON (l.id = d.locationID)";
 
-		if(strlen($lastName) > 0) {
-			$query .= "OR p.lastName LIKE '%$lastName%'";
-		}	
+	if(strlen($firstName) > 0) {
+		$query .= "WHERE p.firstName LIKE '%$firstName%'";
+	}
 
-		if(strlen($jobTitle) > 0) {
-			$query .= "OR p.jobTitle LIKE '%$jobTitle%'";
-		}
-
-		if(strlen($email) > 0) {
-			$query .= "OR p.email LIKE '%$email%'";
-		}	
-
-		if(strlen($dName) > 0) {
-			$query .= "OR d.name = '$dName'";
-		}	
-
-		if(strlen($lName) > 0) {
-			$query .= "OR l.name = '$lName'";
-		}	
+	if(strlen($lastName) > 0) {
+		$query .= "OR p.lastName LIKE '%$lastName%'";
 	} 
+	
+	if(strlen($jobTitle) > 0) {
+		$query .= "OR p.jobTitle LIKE '%$jobTitle%'";
+	} 
+	
+	if(strlen($email) > 0) {
+		$query .= "OR p.email LIKE '%$email%'";
+	}
+	
+	if(strlen($dName) > 0) {
+			$query .= "OR d.name = '$dName'";
+	} 
+	
+	if (strlen($lName) > 0) {
+			$query .= "OR l.name = '$lName'";
+	}	
+	
 
 	$result = $conn->query($query);
 	
