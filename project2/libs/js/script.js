@@ -100,7 +100,6 @@ $(document).ready(function () {
     $("#deleteEmployeeConfirmModal").modal("hide");
 
     $.ajax({
-      //2
       type: "POST",
       url: "libs/php/deleteEmployee.php",
       dataType: "text",
@@ -109,11 +108,8 @@ $(document).ready(function () {
       },
 
       success: function (resultDelete) {
-        //3
-
         $("#deleteEmployeeSuccessMessage").html("");
         $("#deleteEmployeeSuccessMessage").append(resultDelete);
-        //console.log(result);
 
         $("#deleteEmployeeSuccessModal").modal("show");
 
@@ -138,23 +134,15 @@ $(document).ready(function () {
   $("#editDepartmentSubmit").on("click", function (event) {
     event.preventDefault();
 
+    console.log($("#editDeptLoc").val());
+
     $("#editDepartmentModal").modal("hide");
 
-    if ($("#editDepartment").val() === "") {
-      $("#editDepartmentErrorMessage").html("");
-      $("#editDepartmentErrorMessage").append("Please fill all fields.");
-
-      $("#editDepartmentErrorModal").modal("show");
-    } else {
-      $("#editDepartmentConfirmModal").modal("show");
-    }
-
     if ($("#editDeptLoc").val() === null) {
-
       $("#editDeptLoc").val($(this).data("location-id"));
-
-      $("#editDepartmentConfirmModal").modal("show");
     }
+
+    $("#editDepartmentConfirmModal").modal("show");
   });
 
   // Edit department confirmation event handler
@@ -171,9 +159,9 @@ $(document).ready(function () {
         departmentName.substring(1, departmentName.length);
     }
 
-    let locName = $("#editDeptLoc").val();
+    let loc = $("#editDeptLoc").val();
 
-    console.log(locName);
+    console.log(loc);
 
     $.ajax({
       url: "libs/php/editDepartment.php",
@@ -182,11 +170,10 @@ $(document).ready(function () {
       data: {
         id: $(this).data("department-id"),
         dept: departmentName,
-        loc: locName,
+        loc: loc,
       },
 
       success: function (result) {
-        console.log(result);
         $("#editDepartmentSuccessMessage").html("");
         $("#editDepartmentSuccessMessage").append(result);
 
@@ -223,7 +210,6 @@ $(document).ready(function () {
     $("#deleteDepartmentConfirmModal").modal("hide");
 
     $.ajax({
-      //2
       type: "POST",
       url: "libs/php/deleteDepartment.php",
       dataType: "text",
@@ -232,8 +218,6 @@ $(document).ready(function () {
       },
 
       success: function (resultDeleteDept) {
-        //3
-
         $("#deleteDepartmentSuccessMessage").html("");
         $("#deleteDepartmentSuccessMessage").append(resultDeleteDept);
         //console.log(result);
@@ -332,7 +316,6 @@ $(document).ready(function () {
     $("#deleteLocationConfirmModal").modal("hide");
 
     $.ajax({
-      //2
       type: "POST",
       url: "libs/php/deleteLocation.php",
       dataType: "text",
@@ -341,8 +324,6 @@ $(document).ready(function () {
       },
 
       success: function (resultDeleteLoc) {
-        //3
-
         $("#deleteLocationSuccessMessage").html("");
         $("#deleteLocationSuccessMessage").append(resultDeleteLoc);
         //console.log(result);
@@ -397,7 +378,6 @@ $(document).ready(function () {
     //console.log(checkList);
 
     $.ajax({
-      //2
       type: "POST",
       url: "libs/php/deletePersonnelCheckList.php",
       dataType: "text",
@@ -406,8 +386,6 @@ $(document).ready(function () {
       },
 
       success: function (result) {
-        //3
-
         //console.log(result);
         $("#deletePersonnelSuccessMessage").html("");
         $("#deletePersonnelSuccessMessage").append(result);
@@ -501,8 +479,8 @@ $(document).ready(function () {
                 '<div class="col-sm-4 namePosition">' +
                 `<a id="searchLinkEmployee${result.data[index].id}" class="nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
                 " " +
-                `${result.data[index].lastName}</a>` +
-                "</div>" +
+                `${result.data[index].lastName}` +
+                "</a></div>" +
                 "</div>";
 
               $("#directoryData").append(searchEmployeeMarkup);
@@ -533,7 +511,6 @@ $(document).ready(function () {
                   let locID;
 
                   $.ajax({
-                    //2
                     type: "POST",
                     url: "libs/php/getDepartmentID.php",
                     dataType: "json",
@@ -548,7 +525,6 @@ $(document).ready(function () {
 
                       // Display the employee's department in the department dropdown
                       $.ajax({
-                        //2
                         type: "POST",
                         url: "libs/php/getAllDepartments.php",
                         dataType: "json",
@@ -581,7 +557,6 @@ $(document).ready(function () {
                         if (departID) {
                           // Find the location id from the department id
                           $.ajax({
-                            //2
                             type: "POST",
                             url: "libs/php/getLocationID.php",
                             dataType: "json",
@@ -594,7 +569,6 @@ $(document).ready(function () {
 
                               // Use location id to set location dropdown
                               $.ajax({
-                                //2
                                 type: "POST",
                                 url: "libs/php/getAllLocations.php",
                                 dataType: "json",
@@ -740,7 +714,6 @@ $(document).ready(function () {
                   let locID;
 
                   $.ajax({
-                    //2
                     type: "POST",
                     url: "libs/php/getDepartmentID.php",
                     dataType: "json",
@@ -755,7 +728,6 @@ $(document).ready(function () {
 
                       // Display the employee's department in the department dropdown
                       $.ajax({
-                        //2
                         type: "POST",
                         url: "libs/php/getAllDepartments.php",
                         dataType: "json",
@@ -788,7 +760,6 @@ $(document).ready(function () {
                         if (departID) {
                           // Find the location id from the department id
                           $.ajax({
-                            //2
                             type: "POST",
                             url: "libs/php/getLocationID.php",
                             dataType: "json",
@@ -801,7 +772,6 @@ $(document).ready(function () {
 
                               // Use location id to set location dropdown
                               $.ajax({
-                                //2
                                 type: "POST",
                                 url: "libs/php/getAllLocations.php",
                                 dataType: "json",
@@ -899,7 +869,7 @@ $(document).ready(function () {
                 "</div>" +
                 '<div class="col-sm-4 namePosition">' +
                 `<a id="searchLinkDept${result.data[index].id}" class="nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
-                "</div>" +
+                "</a></div>" +
                 "</div>";
 
               $("#directoryData").append(searchDepartmentMarkup);
@@ -921,7 +891,6 @@ $(document).ready(function () {
                   );
 
                   $.ajax({
-                    //2
                     type: "POST",
                     url: "libs/php/getAllLocations.php",
                     dataType: "json",
@@ -1005,24 +974,30 @@ $(document).ready(function () {
                   "</div>" +
                   '<div class="col-sm-3 namePosition">' +
                   `<a class="deptLink${result.data[index].id} nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
-                  "</div>";
+                  "</a></div>";
 
                 $("#directoryData").append(deptMarkup);
+
+                let empLoc = result.data[index].locationID;
+
+                $("#editDeptLoc").on("change", function () {
+                  empLoc = $("#editDeptLoc").val();
+                });
 
                 $.ajax({
                   url: "libs/php/getLocationName.php",
                   method: "POST",
                   dataType: "json",
                   data: {
-                    employeeLocationID: result.data[index].locationID,
+                    employeeLocationID: empLoc,
                   },
                   success: function (resultEmployeeLocName) {
                     //console.log(resultEmployeeLocName);
 
                     let endMarkup =
                       '<div class="col-sm-4 namePosition">' +
-                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
-                      "</div>";
+                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-location-name="${resultEmployeeLocName.data[0].name}"data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
+                      "</a></div>";
 
                     // Appending the location markup by row id related to index after tha ajax call
                     $(`#directoryDept${index}`).append(endMarkup);
@@ -1038,64 +1013,63 @@ $(document).ready(function () {
               //Edit department modal
 
               // Not able to access link within inner ajax call without $(document)
-              $(document).on("click", `.deptLink${result.data[index].id}`, function () {
-              // $(`.deptLink${result.data[index].id}`).on("click", function () {
+              $(document).on(
+                "click",
+                `.deptLink${result.data[index].id}`,
+                function () {
+                  // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
+                  $("#editDepartmentConfirmSubmit").data(
+                    "department-id",
+                    $(this).data("department-id")
+                  );
 
-                // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
-                $("#editDepartmentConfirmSubmit").data(
-                  "department-id",
-                  $(this).data("department-id")
-                );
+                  // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
+                  $("#deleteDepartmentConfirmSubmit").data(
+                    "department-id",
+                    $(this).data("department-id")
+                  );
 
-                // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
-                $("#deleteDepartmentConfirmSubmit").data(
-                  "department-id",
-                  $(this).data("department-id")
-                );
+                  //Capturing the location custom attribute data in the confirm button to be used in the edit department submit event handler
+                  $("#editDepartmentSubmit").data(
+                    "location-id",
+                    $(this).data("location-id")
+                  );
 
-                //Capturing the location custom attribute data in the confirm button to be used in the edit department confirm event handler
-                 $("#editDepartmentConfirmSubmit").data(
-                  "location-id",
-                  // $(document).data("location-id")
-                  // $(`.deptLink${result.data[index].id}`).data("location-id")
-                  $(this).data("location-id")
-                );
+                  $.ajax({
+                    type: "POST",
+                    url: "libs/php/getAllLocations.php",
+                    dataType: "json",
 
-                $.ajax({
-                  //2
-                  type: "POST",
-                  url: "libs/php/getAllLocations.php",
-                  dataType: "json",
+                    success: function (result) {
+                      $(".deptEditLocSelectList").html("");
 
-                  success: function (result) {
-                    $(".deptEditLocSelectList").html("");
-
-                    $(".deptEditLocSelectList").append(
-                      "<option selected disabled>" +
-                        "Select location" +
-                        "</option>"
-                    );
-
-                    $.each(result.data, function (index) {
                       $(".deptEditLocSelectList").append(
-                        $("<option>", {
-                          value: result.data[index].id,
-                          text: result.data[index].name,
-                        })
+                        "<option selected disabled>" +
+                          "Select location" +
+                          "</option>"
                       );
-                    });
-                  },
-                  error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("status code: " + jqXHR.status);
-                    console.log("errorThrown: " + errorThrown);
-                    console.log("jqXHR.responseText: " + jqXHR.responseText);
-                  },
-                });
 
-                $("#editDepartment").val(result.data[index].name);
+                      $.each(result.data, function (index) {
+                        $(".deptEditLocSelectList").append(
+                          $("<option>", {
+                            value: result.data[index].id,
+                            text: result.data[index].name,
+                          })
+                        );
+                      });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
+                  });
 
-                $("#editDepartmentModal").modal("show");
-              });
+                  $("#editDepartment").val(result.data[index].name);
+
+                  $("#editDepartmentModal").modal("show");
+                }
+              );
             });
           }
         });
@@ -1141,7 +1115,7 @@ $(document).ready(function () {
                 "</div>" +
                 '<div class="col-sm-4 namePosition">' +
                 `<a id="searchLocLink${result.data[index].id}" class="nameLink hoverOver" data-location-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
-                "</div>" +
+                "</a></div>" +
                 "</div>";
 
               $("#directoryData").append(searchLocationMarkup);
@@ -1216,7 +1190,7 @@ $(document).ready(function () {
                   "</div>" +
                   '<div class="col-sm-4 namePosition">' +
                   `<a id="locLink${result.data[index].id}" class="nameLink hoverOver" data-location-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
-                  "</div>" +
+                  "</a></div>" +
                   "</div>";
 
                 $("#directoryData").append(locMarkup);
@@ -1275,7 +1249,6 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllDepartments.php",
         dataType: "json",
@@ -1304,7 +1277,6 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllLocations.php",
         dataType: "json",
@@ -1449,7 +1421,6 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllLocations.php",
         dataType: "json",
@@ -1623,14 +1594,11 @@ $(document).ready(function () {
 
     if (id === "personnel") {
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllPersonnel.php",
         dataType: "json",
 
         success: function (result) {
-          //3
-
           //console.log(result);
 
           $("#deletePersonnelData").html("");
@@ -1657,7 +1625,6 @@ $(document).ready(function () {
                   result.data[index].lastName[0].toUpperCase();
 
                 if (lastNameDeleteUpper === alphabetArray[alphabetIndex]) {
-                  //6
                   let deletePersonnelMarkup =
                     '<div class="row">' +
                     '<div class="col-sm-2"></div>' +
@@ -1731,7 +1698,6 @@ $(document).ready(function () {
 
             $.each(result.data, function (index) {
               if (query != "") {
-                //6
                 let deletePersonnelSearchMarkup =
                   '<div class="row">' +
                   '<div class="col-sm-2"></div>' +
@@ -1813,7 +1779,6 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllDepartments.php",
         dataType: "json",
@@ -1842,7 +1807,6 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        //2
         type: "POST",
         url: "libs/php/getAllLocations.php",
         dataType: "json",
@@ -1934,8 +1898,9 @@ $(document).ready(function () {
                   '<div class="col-sm-4 namePosition">' +
                   `<a id="searchNameLink${result.data[index].id}" class="nameLink" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].lastName}` +
                   " " +
-                  `${result.data[index].firstName}</a>`;
-                "</div>" + "</div>";
+                  `${result.data[index].firstName}` +
+                  "</a></div>" +
+                  "</div>";
 
                 $("#searchResultsData").append(searchResultsMarkup);
 
@@ -1969,7 +1934,6 @@ $(document).ready(function () {
                     let locID;
 
                     $.ajax({
-                      //2
                       type: "POST",
                       url: "libs/php/getDepartmentID.php",
                       dataType: "json",
@@ -1984,7 +1948,6 @@ $(document).ready(function () {
 
                         // Display the employee's department in the department dropdown
                         $.ajax({
-                          //2
                           type: "POST",
                           url: "libs/php/getAllDepartments.php",
                           dataType: "json",
@@ -2017,7 +1980,6 @@ $(document).ready(function () {
                           if (departID) {
                             // Find the location id from the department id
                             $.ajax({
-                              //2
                               type: "POST",
                               url: "libs/php/getLocationID.php",
                               dataType: "json",
@@ -2030,7 +1992,6 @@ $(document).ready(function () {
 
                                 // Use location id to set location dropdown
                                 $.ajax({
-                                  //2
                                   type: "POST",
                                   url: "libs/php/getAllLocations.php",
                                   dataType: "json",
@@ -2104,4 +2065,4 @@ $(document).ready(function () {
       });
     }
   });
-}); //1
+});
