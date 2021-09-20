@@ -55,12 +55,10 @@
 	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
 	$email = mysqli_real_escape_string($conn, $email);
 
-	$query = mysqli_query($conn,"SELECT * FROM personnel WHERE email = '$email'");
-
 	$sql = "INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID) 
 			VALUES ('$firstName', '$lastName', '$jobTitle', '$email', '$dept')";
 			
-    if(!preg_match("/^[a-zA-Z-]+$/", $firstName)) { 
+    if(!preg_match("/^[a-zA-Z- ]+$/", $firstName)) { 
         die ("Invalid first name.");
     }
 
@@ -74,13 +72,17 @@
 		}
 	}
 
-	//Response
-    //Checking to see if email already exists
-    if(mysqli_num_rows($query) > 0) {
-        echo "The email " . $email .  " already exists.";
+	if(!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/", $email)) { 
+        die ("Invalid email address.");
     }
+
+	if(empty($dept)) { 
+        die ("Please select a department.");
+    }
+
+	//Response
     
-    elseif(!mysqli_query($conn, $sql)) {
+    if(!mysqli_query($conn, $sql)) {
         echo 'Could not create employee.';
     }
 	

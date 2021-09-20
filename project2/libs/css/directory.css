@@ -2,10 +2,11 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Rubik", sans-serif;
+  color: #6666ff;
   background-color: rgb(248, 247, 244);
 }
 
- #preloader {
+#preloader {
   position: fixed;
   top: 0;
   left: 0;
@@ -50,7 +51,7 @@ body {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-} 
+}
 
 /* clears the ‘X’ from the search field in Internet Explorer */
 input[type="search"]::-ms-clear {
@@ -85,24 +86,27 @@ input[type="search"]::-webkit-search-results-decoration {
   margin-bottom: 30px;
   color: white;
   text-align: center;
-  font-size: 20px;
+  font-size: 15px;
 }
 
-#deptCircle{
+#deptCircle {
   background-color: #6f42c1;
 }
 
-#locCircle{
+#locCircle {
   background-color: #198754;
 }
 
-#searchCircle{
+#searchCircle {
   background-color: #dc3545;
 }
 
-.directoryButton {
+.functionButton {
   width: 43px;
   height: 43px;
+}
+
+.directoryButton {
   border: 1px solid transparent;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
@@ -110,7 +114,8 @@ input[type="search"]::-webkit-search-results-decoration {
   box-shadow: -5px 5px 5px 0 rgba(5, 5, 5, 0.3);
 }
 
-.directoryButton:hover, .directoryButton:focus {
+.directoryButton:hover,
+.directoryButton:focus {
   border-color: #e9ecef #e9ecef #dee2e6;
   isolation: isolate;
 }
@@ -119,23 +124,49 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: #ffcc33;
 }
 
-#delete, #search {
+#search {
   background-color: #dc3545;
 }
 
-#search {
-  margin-bottom: 5px;
+.employeeEdit,
+.deptEdit,
+.searchEmployeeEdit,
+.searchDeptEdit,
+.searchLocEdit,
+.locEdit,
+.searchPersEdit {
+  background-color: #05cafc;
+}
+
+.employeeDelete,
+.deptDelete,
+.searchEmployeeDelete,
+.searchDeptDelete,
+.searchLocDelete,
+.locDelete,
+.searchPersDelete {
+  background-color: #02b98b;
+}
+
+.editDeleteButton {
+  margin-top: 5px;
+  width: 65px;
+  height: 30px;
 }
 
 .namePosition {
-  padding-top: 7px;
+  padding-top: 10px;
+}
+
+#employCircle {
+  margin-left: 60px;
 }
 
 .modal-content {
   background-color: #f7f9fc;
   font-family: "Rubik", sans-serif;
   border-radius: 10px !important;
-} 
+}
 
 .modal-body {
   max-height: 70vh;
@@ -146,11 +177,6 @@ input[type="search"]::-webkit-search-results-decoration {
   .modal-dialog {
     max-width: 500px; /* New width for default modal */
   }
-}
-
-.nameLink {
-  text-decoration: none;
-  font-size: 17px;
 }
 
 .modalButton {
@@ -171,6 +197,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .modalBodyFont {
   font-size: 15px;
+  color: #000;
 }
 
 #createPersonnelSuccessMessage,
@@ -183,7 +210,6 @@ input[type="search"]::-webkit-search-results-decoration {
 #deleteEmployeeSuccessMessage,
 #deleteDepartmentSuccessMessage,
 #deleteLocationSuccessMessage,
-#deletePersonnelSuccessMessage,
 #deleteDepartmentButtonSuccessMessage,
 #searchPersonnelErrorMessage,
 #createDepartmentErrorMessage,
@@ -191,39 +217,32 @@ input[type="search"]::-webkit-search-results-decoration {
 #editEmployeeErrorMessage,
 #editDepartmentErrorMessage,
 #editLocationErrorMessage,
-#deletePersonnelErrorMessage {
+#deleteDepartmentErrorMessage,
+#deleteLocationErrorMessage {
   text-align: center;
   margin-top: 5px;
 }
 
-#selected {
-  font-size: 18px;
-  margin-left: 30px;
-}
-
 .nav-tabs {
   font-size: 17px;
+  font-family: "Rubik", sans-serif;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.7);
 }
 
 .nav-link {
-  color:white;
+  color: white;
 }
 
 .space {
   height: 30px;
 }
 
-#directorySpace {
-  height: 10px;
-}
-
-.noPaddingRight{
+.noPaddingRight {
   padding-right: 0;
 }
 
 .nav-item {
-  background-color:#0d6efd;
+  background-color: #0d6efd;
 }
 
 .nav {
@@ -231,17 +250,18 @@ input[type="search"]::-webkit-search-results-decoration {
   margin-right: 75px;
 }
 
-.hoverOver:hover {
-  color: #FF1493;
-  cursor: pointer;
-}
-
-#createPersonnelConfirmMessage, #createDepartmentConfirmMessage, 
-#createLocationConfirmMessage, #editEmployeeConfirmMessage,
-#editDepartmentConfirmMessage, #editLocationConfirmMessage,
-#deleteEmployeeConfirmMessage, #deleteDepartmentConfirmMessage,
-#deleteLocationConfirmMessage, #deletePersonnelConfirmMessage,
-#deleteDepartmentButtonConfirmMessage, #searchPersonnelConfirmMessage {
+#createPersonnelConfirmMessage,
+#createDepartmentConfirmMessage,
+#createLocationConfirmMessage,
+#editEmployeeConfirmMessage,
+#editDepartmentConfirmMessage,
+#editLocationConfirmMessage,
+#deleteEmployeeConfirmMessage,
+#deleteDepartmentConfirmMessage,
+#deleteLocationConfirmMessage,
+#deletePersonnelConfirmMessage,
+#deleteDepartmentButtonConfirmMessage,
+#searchPersonnelConfirmMessage {
   text-align: center;
 }
 
@@ -251,16 +271,56 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .header {
-  background-color: transparent;
+  background-color: rgb(248, 247, 244);
 }
 
 #searchBar {
-  max-width:35rem;
-	min-width:280px;
-	margin: auto;
+  max-width: 35rem;
+  min-width: 280px;
+  margin: auto;
 }
 
-#fixedPosition {
-  position: fixed;
+#iconWidth {
+  width: 100px;
 }
 
+@media screen and (max-width: 375px) {
+  #createPersonnelModal,
+  #createPersonnelConfirmModal,
+  #createPersonnelSuccessModal,
+  #createPersonnelErrorModal,
+  #createDepartmentModal,
+  #createDepartmentErrorModal,
+  #createDepartmentConfirmModal,
+  #createDepartmentSuccessModal,
+  #createLocationModal,
+  #createLocationErrorModal,
+  #createLocationConfirmModal,
+  #createLocationSuccessModal,
+  #editEmployeeModal,
+  #editEmployeeErrorModal,
+  #editEmployeeConfirmModal,
+  #editEmployeeSuccessModal,
+  #deleteEmployeeConfirmModal,
+  #deleteEmployeeSuccessModal,
+  #editDepartmentModal,
+  #editDepartmentErrorModal,
+  #editDepartmentConfirmModal,
+  #editDepartmentSuccessModal,
+  #deleteDepartmentErrorModal,
+  #deleteDepartmentConfirmModal,
+  #deleteDepartmentSuccessModal,
+  #editLocationModal,
+  #editLocationErrorModal,
+  #editLocationConfirmModal,
+  #editLocationSuccessModal,
+  #deleteLocationConfirmModal,
+  #deleteLocationErrorModal,
+  #deleteLocationSuccessModal,
+  #searchPersonnelModal,
+  #searchPersonnelErrorModal,
+  #searchPersonnelConfirmModal,
+  #searchPersonnelResultsModal {
+    width: 89%;
+  }
+}

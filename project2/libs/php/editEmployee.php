@@ -47,11 +47,13 @@
 	
 	// escaping content
 	$firstName = strip_tags($_POST['firstName']); 
+	$lastName = strip_tags($_POST['lastName']); 
 	$jobTitle = strip_tags($_POST['jobTitle']);
 	$email = strip_tags($_POST['email']);
 
 	// filter the form input
 	$firstName = mysqli_real_escape_string($conn, $firstName);
+	$lastName = mysqli_real_escape_string($conn, $lastName);
 	$jobTitle = mysqli_real_escape_string($conn, $jobTitle);
 	$email = mysqli_real_escape_string($conn, $email);
 	
@@ -62,6 +64,10 @@
 
 	if(!preg_match("/^[a-zA-Z-]+$/", $firstName)) { 
 		die ("Invalid first name.");
+	}
+
+	if(!preg_match("/^[a-zA-Z-]+$/", $lastName)) { 
+		die ("Invalid last name.");
 	}
 		
 	if($jobTitle !== "") {

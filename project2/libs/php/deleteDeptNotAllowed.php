@@ -27,33 +27,15 @@
 
 	}	
 
-	if(!mysqli_select_db($conn, 'companydirectory')) {
-        echo 'Database Not Selected';
-    }
-		
-	$locName = $_POST['locName']; 
-
-	// escaping content
-	$locName = strip_tags($_POST['locName']);
-
-	// filter the form input
-	$locName = mysqli_real_escape_string($conn, $locName);
-
-	$sql = "INSERT INTO location (name) VALUES ('$locName')";
-
-	//Make sure name is valid
-    if(!preg_match("/^[a-zA-Z-]+$/", $locName)) { 
-        die ("Invalid location name");
-    }
+	$deleteDept = $_POST['deleteDeptNot']; 
+	
+	$query = mysqli_query($conn,"SELECT * FROM personnel WHERE departmentID ='$deleteDept'");
+	
 
 	//Response
-    
-    if(!mysqli_query($conn, $sql)) {
-        echo 'Could not add location.';
-    }
-	
-    else {
-        echo "Added!";
-    }
-	
+	//Checking to see if there are employees in the department
+	if (mysqli_num_rows($query) > 0) {
+        echo "Deletion not allowed.";
+    } 
+
 ?>

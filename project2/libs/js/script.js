@@ -1,5 +1,4 @@
 $(window).on("load", function () {
-
   // Prevents Ajax requests from being cached in the browser
   $.ajaxSetup({ cache: false });
 
@@ -12,7 +11,6 @@ $(window).on("load", function () {
   }
 });
 
-
 $(document).ready(function () {
   // Automatically click the personnel tab on page load
   jQuery(function () {
@@ -24,7 +22,11 @@ $(document).ready(function () {
     event.preventDefault();
     $("#editEmployeeModal").modal("hide");
 
-    if ($("#editFirstName").val() === "" || $("#editEmail").val() === "") {
+    if (
+      $("#editFirstName").val() === "" ||
+      $("#editLastName").val() === "" ||
+      $("#editEmail").val() === ""
+    ) {
       $("#editEmployeeErrorMessage").html("");
       $("#editEmployeeErrorMessage").append("Please fill all fields.");
 
@@ -47,6 +49,13 @@ $(document).ready(function () {
         firstName[0].toUpperCase() + firstName.substring(1, firstName.length);
     }
 
+    let lastName = $("#editLastName").val();
+
+    if (lastName !== "") {
+      lastName =
+        lastName[0].toUpperCase() + lastName.substring(1, lastName.length);
+    }
+
     let jobTitle = $("#editJobTitle").val();
 
     if (jobTitle !== "") {
@@ -59,9 +68,9 @@ $(document).ready(function () {
       method: "post",
       dataType: "text",
       data: {
-        id: $(this).data("employee-id"),
+        id: $(this).data("edit-id"),
         firstName: firstName,
-        lastName: $("#editLastName").html(),
+        lastName: lastName,
         jobTitle: jobTitle,
         email: $("#editEmail").val(),
         dept: $("#editEmployeeDept").val(),
@@ -91,14 +100,8 @@ $(document).ready(function () {
     });
   });
 
-  // Delete employee event handler
-  $("#deleteEmployee").on("click", function () {
-    $("#editEmployeeModal").modal("hide");
-
-    $("#deleteEmployeeConfirmModal").modal("show");
-  });
-
   // Delete employee confirm event handler
+
   $("#deleteEmployeeConfirmSubmit").on("click", function (event) {
     event.preventDefault();
 
@@ -109,7 +112,7 @@ $(document).ready(function () {
       url: "libs/php/deleteEmployee.php",
       dataType: "text",
       data: {
-        id: $(this).data("employee-id"),
+        id: $(this).data("delete-id"),
       },
 
       success: function (resultDelete) {
@@ -141,11 +144,16 @@ $(document).ready(function () {
 
     $("#editDepartmentModal").modal("hide");
 
-    if ($("#editDeptLoc").val() === null) {
-      $("#editDeptLoc").val($(this).data("location-id"));
-    }
+    if ($("#editDepartment").val() === "") {
+      $("#editDepartmentErrorMessage").html("");
+      $("#editDepartmentErrorMessage").append("Please enter a department.");
 
-    $("#editDepartmentConfirmModal").modal("show");
+      $("#editDepartmentErrorModal").modal("show");
+    } else if ($("#editDeptLoc").val() === null) {
+      $("#editDeptLoc").val($(this).data("location-id"));
+    } else {
+      $("#editDepartmentConfirmModal").modal("show");
+    }
   });
 
   // Edit department confirmation event handler
@@ -169,7 +177,7 @@ $(document).ready(function () {
       method: "post",
       dataType: "text",
       data: {
-        id: $(this).data("department-id"),
+        id: $(this).data("deptedit-id"),
         dept: departmentName,
         loc: loc,
       },
@@ -197,14 +205,8 @@ $(document).ready(function () {
     });
   });
 
-  // Delete department event handler
-  $("#deleteDepartment").on("click", function () {
-    $("#editDepartmentModal").modal("hide");
+  // Delete department confirm submit event handler
 
-    $("#deleteDepartmentConfirmModal").modal("show");
-  });
-
-  // Delete department confirmation event handler
   $("#deleteDepartmentConfirmSubmit").on("click", function (event) {
     event.preventDefault();
 
@@ -212,24 +214,17 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "libs/php/deleteDepartment.php",
+      url: "libs/php/deleteDeptAllowed.php",
       dataType: "text",
       data: {
-        deleteDept: $(this).data("department-id"),
+        deleteDeptAllowed: $(this).data("deptdelete-id"),
       },
 
-      success: function (resultDeleteDept) {
-         //console.log(resultDeleteDept);
+      success: function (resultAllowed) {
         $("#deleteDepartmentSuccessMessage").html("");
-        $("#deleteDepartmentSuccessMessage").append(resultDeleteDept);
-       
+        $("#deleteDepartmentSuccessMessage").append(resultAllowed);
 
         $("#deleteDepartmentSuccessModal").modal("show");
-
-        // To stop form resubmission
-        if (window.history.replaceState) {
-          window.history.replaceState(null, null, window.location.href);
-        }
 
         $("#deleteDepartmentSuccessModal").on("hidden.bs.modal", function () {
           location.reload();
@@ -251,24 +246,28 @@ $(document).ready(function () {
 
     if ($("#editLoc").val() === "") {
       $("#editLocationErrorMessage").html("");
-      $("#editLocationErrorMessage").append("Please fill all fields.");
+      $("#editLocationErrorMessage").append("Please enter a location.");
 
       $("#editLocationErrorModal").modal("show");
+    } else if ($("#editLoc").val() === null) {
+      $("#editLoc").val($(this).data("locedit-id"));
     } else {
       $("#editLocationConfirmModal").modal("show");
     }
   });
 
-  // Edit location confirmation event handler
+  // Edit Location confirmation event handler
   $("#editLocationConfirmSubmit").on("click", function (event) {
     event.preventDefault();
 
     $("#editLocationConfirmModal").modal("hide");
 
-    let locName = $("#editLoc").val();
+    let locationName = $("#editLoc").val();
 
-    if (locName !== "") {
-      locName = locName[0].toUpperCase() + locName.substring(1, locName.length);
+    if (locationName !== "") {
+      locationName =
+        locationName[0].toUpperCase() +
+        locationName.substring(1, locationName.length);
     }
 
     $.ajax({
@@ -276,12 +275,11 @@ $(document).ready(function () {
       method: "post",
       dataType: "text",
       data: {
-        id: $(this).data("location-id"),
-        locName: locName,
+        id: $(this).data("locedit-id"),
+        locName: locationName,
       },
 
       success: function (result) {
-        //console.log(result);
         $("#editLocationSuccessMessage").html("");
         $("#editLocationSuccessMessage").append(result);
 
@@ -304,14 +302,8 @@ $(document).ready(function () {
     });
   });
 
-  // Delete location event handler
-  $("#deleteLocation").on("click", function () {
-    $("#editLocationModal").modal("hide");
+  // Delete Location confirm submit event handler
 
-    $("#deleteLocationConfirmModal").modal("show");
-  });
-
-  // Delete location confirmation event handler
   $("#deleteLocationConfirmSubmit").on("click", function (event) {
     event.preventDefault();
 
@@ -319,23 +311,17 @@ $(document).ready(function () {
 
     $.ajax({
       type: "POST",
-      url: "libs/php/deleteLocation.php",
+      url: "libs/php/deleteLocAllowed.php",
       dataType: "text",
       data: {
-        deleteLoc: $(this).data("location-id"),
+        deleteLocAllowed: $(this).data("locdelete-id"),
       },
 
-      success: function (resultDeleteLoc) {
-        //console.log(resultDeleteLoc);
+      success: function (resultLocAllowed) {
         $("#deleteLocationSuccessMessage").html("");
-        $("#deleteLocationSuccessMessage").append(resultDeleteLoc);
+        $("#deleteLocationSuccessMessage").append(resultLocAllowed);
 
         $("#deleteLocationSuccessModal").modal("show");
-
-        // To stop form resubmission
-        if (window.history.replaceState) {
-          window.history.replaceState(null, null, window.location.href);
-        }
 
         $("#deleteLocationSuccessModal").on("hidden.bs.modal", function () {
           location.reload();
@@ -347,62 +333,6 @@ $(document).ready(function () {
         console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
-  });
-
-  // Delete personnel submit event handler
-  $("#deletePersonnelSubmit").on("click", function (event) {
-    event.preventDefault();
-
-    $("#deletePersonnelModal").modal("hide");
-
-    if ($("input:checked").length < 1) {
-      $("#deletePersonnelErrorMessage").html("");
-      $("#deletePersonnelErrorMessage").append("Please mark checkboxes.");
-
-      $("#deletePersonnelErrorModal").modal("show");
-    } else {
-      $("#deletePersonnelConfirmModal").modal("show");
-    }
-  });
-
-  // Delete personnel confirmation event handler
-  $("#deletePersonnelConfirmSubmit").on("click", function (event) {
-    event.preventDefault();
-
-    $("#deletePersonnelConfirmModal").modal("hide");
-
-    let checkList = [];
-
-    $("input:checked").each(function () {
-      checkList.push($(this).val());
-    });
-
-    $.ajax({
-      type: "POST",
-      url: "libs/php/deletePersonnelCheckList.php",
-      dataType: "text",
-      data: {
-        checkList: checkList,
-      },
-
-      success: function (result) {
-        //console.log(result);
-        $("#deletePersonnelSuccessMessage").html("");
-        $("#deletePersonnelSuccessMessage").append(result);
-
-        $("#deletePersonnelSuccessModal").modal("show");
-
-        $("#deletePersonnelSuccessModal").on("hidden.bs.modal", function () {
-          location.reload();
-        });
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log("status code: " + jqXHR.status);
-        console.log("errorThrown: " + errorThrown);
-        console.log("jqXHR.responseText: " + jqXHR.responseText);
-      },
-    });
-    $("#selected").html("");
   });
 
   // Letters array
@@ -447,7 +377,6 @@ $(document).ready(function () {
   // Populate the directory with employees
 
   $("#personnel-tab").on("click", function () {
-
     $("#delete").show();
     $("#search").show();
     $("#directorySpace").show();
@@ -476,244 +405,54 @@ $(document).ready(function () {
                 '<div class="row" >' +
                 '<div class="col-sm-4"></div>' +
                 '<div class="col-sm-1">' +
-                `<div id="circle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
+                `<div id="circle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
                 "</div>" +
-                '<div class="col-sm-4 namePosition">' +
-                `<a id="searchLinkEmployee${result.data[index].id}" class="nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
-                " " +
+                '<div class="col-sm-2 namePosition">' +
                 `${result.data[index].lastName}` +
-                "</a></div>" +
+                ", " +
+                `${result.data[index].firstName}` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeEdit" id="searchEmployeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeDelete" id="searchEmployeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
+                "</div>" +
                 "</div>";
 
               $("#directoryData").append(searchEmployeeMarkup);
 
-              //Edit employee modal for search bar
-              $(`#searchLinkEmployee${result.data[index].id}`).on(
+              // Delete employee modal for search bar
+              $(`#searchEmployeeDelete${result.data[index].id}`).on(
                 "click",
                 function () {
-                  // Capturing the custom attribute data in the edit employee confirm button to be used in the edit employee confirm event handler
-                  $("#editEmployeeConfirmSubmit").data(
-                    "employee-id",
-                    $(this).data("employee-id")
-                  );
-
                   // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
                   $("#deleteEmployeeConfirmSubmit").data(
-                    "employee-id",
-                    $(this).data("employee-id")
+                    "delete-id",
+                    $(this).data("delete-id")
                   );
 
-                  $("#editFirstName").val(result.data[index].firstName);
-                  $("#editLastName").html(result.data[index].lastName);
-                  $("#editJobTitle").val(result.data[index].jobTitle);
-                  $("#editEmail").val(result.data[index].email);
-
-                  // Get department id
-                  let deptID;
-                  let locID;
-
-                  $.ajax({
-                    type: "POST",
-                    url: "libs/php/getDepartmentID.php",
-                    dataType: "json",
-                    data: {
-                      employeeDept: result.data[index].department,
-                    },
-
-                    success: function (resultDeptID) {
-                      //console.log(resultDeptID);
-
-                      deptID = resultDeptID.data[index].id;
-
-                      // Display the employee's department in the department dropdown
-                      $.ajax({
-                        type: "POST",
-                        url: "libs/php/getAllDepartments.php",
-                        dataType: "json",
-
-                        success: function (resultDept) {
-                          $(".deptEditSelectList").html("");
-
-                          $.each(resultDept.data, function (index) {
-                            $("#editEmployeeDept").val(deptID);
-
-                            $(".deptEditSelectList").append(
-                              $("<option>", {
-                                value: resultDept.data[index].id,
-                                text: resultDept.data[index].name,
-                              })
-                            );
-                          });
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                          console.log("status code: " + jqXHR.status);
-                          console.log("errorThrown: " + errorThrown);
-                          console.log(
-                            "jqXHR.responseText: " + jqXHR.responseText
-                          );
-                        },
-                      });
-
-                      $(".deptEditSelectList").on("change", function () {
-                        let departID = $(this).val();
-                        if (departID) {
-                          // Find the location id from the department id
-                          $.ajax({
-                            type: "POST",
-                            url: "libs/php/getLocationID.php",
-                            dataType: "json",
-                            data: {
-                              employeeDeptID: departID,
-                            },
-
-                            success: function (resultLocID) {
-                              locID = resultLocID.data[index].locationID;
-
-                              // Use location id to set location dropdown
-                              $.ajax({
-                                type: "POST",
-                                url: "libs/php/getAllLocations.php",
-                                dataType: "json",
-
-                                success: function (resultLoc) {
-                                  $(".locEditSelectList").html("");
-
-                                  $.each(resultLoc.data, function (index) {
-                                    $("#editEmployeeLoc").val(locID);
-
-                                    $(".locEditSelectList").append(
-                                      $("<option>", {
-                                        value: resultLoc.data[index].id,
-                                        text: resultLoc.data[index].name,
-                                      })
-                                    );
-                                  });
-                                },
-                                error: function (
-                                  jqXHR,
-                                  textStatus,
-                                  errorThrown
-                                ) {
-                                  console.log("status code: " + jqXHR.status);
-                                  console.log("errorThrown: " + errorThrown);
-                                  console.log(
-                                    "jqXHR.responseText: " + jqXHR.responseText
-                                  );
-                                },
-                              });
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                              console.log("status code: " + jqXHR.status);
-                              console.log("errorThrown: " + errorThrown);
-                              console.log(
-                                "jqXHR.responseText: " + jqXHR.responseText
-                              );
-                            },
-                          });
-                        }
-                      });
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("status code: " + jqXHR.status);
-                      console.log("errorThrown: " + errorThrown);
-                      console.log("jqXHR.responseText: " + jqXHR.responseText);
-                    },
-                  });
-
-                  $("#editEmployeeModal").modal("show");
+                  $("#deleteEmployeeConfirmModal").show();
                 }
               );
-            } else {
-              window.localStorage.setItem("focus_on", "#searchBar");
 
-              location.reload();
-            }
-          });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log("status code: " + jqXHR.status);
-          console.log("errorThrown: " + errorThrown);
-          console.log("jqXHR.responseText: " + jqXHR.responseText);
-        },
-      });
-    });
-
-    $.ajax({
-      type: "POST",
-      url: "libs/php/getAll.php",
-      dataType: "json",
-
-      success: function (result) {
-        //console.log(result);
-
-        $("#directoryData").html("");
-
-        $.each(alphabetArray, function (alphabetIndex) {
-          // Make sure letters without employees are not shown
-          if (
-            result.data.find(
-              (elem) =>
-                elem.lastName[0].toUpperCase() === alphabetArray[alphabetIndex]
-            )
-          ) {
-            let letterMarkup =
-              '<div class="row">' +
-              `<div class="col-sm-1 alignmentRight" id="letterIndex">${alphabetArray[alphabetIndex]}</div>` +
-              "</div>";
-
-            $("#directoryData").append(letterMarkup);
-
-            $.each(result.data, function (index) {
-              let lastNameUpper = result.data[index].lastName[0].toUpperCase();
-
-              if (lastNameUpper === alphabetArray[alphabetIndex]) {
-                employeeMarkup =
-                  '<div class="row">' +
-                  '<div class="col-sm-1"></div>' +
-                  '<div class="col-sm-1">' +
-                  `<div id="circle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-2 namePosition">' +
-                  `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
-                  " " +
-                  `${result.data[index].lastName}` +
-                  " " +
-                  "</a></div>" +
-                  '<div class="col-sm-2 namePosition d-none d-md-block">' +
-                  `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].jobTitle}` +
-                  "</a></div>" +
-                  '<div class="col-sm-3 namePosition d-none d-md-block">' +
-                  `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].email}` +
-                  "</a></div>" +
-                  '<div class="col-sm-3 namePosition nameFont d-none d-md-block">' +
-                  `<a class="nameLink${result.data[index].id} nameLink hoverOver" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].department}` +
-                  "</a></div>" +
-                  "</div>";
-
-                $("#directoryData").append(employeeMarkup);
-
-                //Edit employee modal
-                $(`.nameLink${result.data[index].id}`).on("click", function () {
+              //Edit employee modal for search bar
+              $(`#searchEmployeeEdit${result.data[index].id}`).on(
+                "click",
+                function () {
                   // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
                   $("#editEmployeeConfirmSubmit").data(
-                    "employee-id",
-                    $(this).data("employee-id")
-                  );
-
-                  // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
-                  $("#deleteEmployeeConfirmSubmit").data(
-                    "employee-id",
-                    $(this).data("employee-id")
+                    "edit-id",
+                    $(this).data("edit-id")
                   );
 
                   $("#editFirstName").val(result.data[index].firstName);
-                  $("#editLastName").html(result.data[index].lastName);
+                  $("#editLastName").val(result.data[index].lastName);
                   $("#editJobTitle").val(result.data[index].jobTitle);
                   $("#editEmail").val(result.data[index].email);
 
                   // Get department id
                   let deptID;
-                  let locID;
 
                   $.ajax({
                     type: "POST",
@@ -756,64 +495,146 @@ $(document).ready(function () {
                           );
                         },
                       });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
+                  });
 
-                      $(".deptEditSelectList").on("change", function () {
-                        let departID = $(this).val();
-                        if (departID) {
-                          // Find the location id from the department id
-                          $.ajax({
-                            type: "POST",
-                            url: "libs/php/getLocationID.php",
-                            dataType: "json",
-                            data: {
-                              employeeDeptID: departID,
-                            },
+                  $("#editEmployeeModal").modal("show");
+                }
+              );
+            } else {
+              window.localStorage.setItem("focus_on", "#searchBar");
+              location.reload();
+            }
+          });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log("status code: " + jqXHR.status);
+          console.log("errorThrown: " + errorThrown);
+          console.log("jqXHR.responseText: " + jqXHR.responseText);
+        },
+      });
+    });
 
-                            success: function (resultLocID) {
-                              locID = resultLocID.data[index].locationID;
+    $.ajax({
+      type: "POST",
+      url: "libs/php/getAll.php",
+      dataType: "json",
 
-                              // Use location id to set location dropdown
-                              $.ajax({
-                                type: "POST",
-                                url: "libs/php/getAllLocations.php",
-                                dataType: "json",
+      success: function (result) {
+        //console.log(result);
 
-                                success: function (resultLoc) {
-                                  $(".locEditSelectList").html("");
+        $("#directoryData").html("");
 
-                                  $.each(resultLoc.data, function (index) {
-                                    $("#editEmployeeLoc").val(locID);
+        $.each(alphabetArray, function (alphabetIndex) {
+          $.each(result.data, function (index) {
+            let lastNameUpper = result.data[index].lastName[0].toUpperCase();
 
-                                    $(".locEditSelectList").append(
-                                      $("<option>", {
-                                        value: resultLoc.data[index].id,
-                                        text: resultLoc.data[index].name,
-                                      })
-                                    );
-                                  });
-                                },
-                                error: function (
-                                  jqXHR,
-                                  textStatus,
-                                  errorThrown
-                                ) {
-                                  console.log("status code: " + jqXHR.status);
-                                  console.log("errorThrown: " + errorThrown);
-                                  console.log(
-                                    "jqXHR.responseText: " + jqXHR.responseText
-                                  );
-                                },
-                              });
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                              console.log("status code: " + jqXHR.status);
-                              console.log("errorThrown: " + errorThrown);
-                              console.log(
-                                "jqXHR.responseText: " + jqXHR.responseText
-                              );
-                            },
+            if (lastNameUpper === alphabetArray[alphabetIndex]) {
+              employeeMarkup =
+                '<div class="row">' +
+                `<div id="employCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
+                '<div class="col-sm-2 namePosition">' +
+                `${result.data[index].lastName}` +
+                ", " +
+                `${result.data[index].firstName}` +
+                " " +
+                "</div>" +
+                '<div class="col-sm-2 namePosition d-none d-md-block">' +
+                `${result.data[index].jobTitle}` +
+                "</div>" +
+                '<div class="col-sm-3 namePosition d-none d-md-block">' +
+                `${result.data[index].email}` +
+                "</div>" +
+                '<div class="col-sm-2 namePosition d-none d-md-block">' +
+                `${result.data[index].department}` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton employeeEdit" id="employeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton employeeDelete" id="employeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
+                "</div>" +
+                "</div>";
+
+              $("#directoryData").append(employeeMarkup);
+
+              // Delete employee modal
+              $(`#employeeDelete${result.data[index].id}`).on(
+                "click",
+                function () {
+                  // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
+                  $("#deleteEmployeeConfirmSubmit").data(
+                    "delete-id",
+                    $(this).data("delete-id")
+                  );
+
+                  $("#deleteEmployeeConfirmModal").show();
+                }
+              );
+
+              //Edit employee modal
+              $(`#employeeEdit${result.data[index].id}`).on(
+                "click",
+                function () {
+                  // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
+                  $("#editEmployeeConfirmSubmit").data(
+                    "edit-id",
+                    $(this).data("edit-id")
+                  );
+
+                  $("#editFirstName").val(result.data[index].firstName);
+                  $("#editLastName").val(result.data[index].lastName);
+                  $("#editJobTitle").val(result.data[index].jobTitle);
+                  $("#editEmail").val(result.data[index].email);
+
+                  // Get department id
+                  let deptID;
+
+                  $.ajax({
+                    type: "POST",
+                    url: "libs/php/getDepartmentID.php",
+                    dataType: "json",
+                    data: {
+                      employeeDept: result.data[index].department,
+                    },
+
+                    success: function (resultDeptID) {
+                      //console.log(resultDeptID);
+
+                      deptID = resultDeptID.data[0].id;
+
+                      // Display the employee's department in the department dropdown
+                      $.ajax({
+                        type: "POST",
+                        url: "libs/php/getAllDepartments.php",
+                        dataType: "json",
+
+                        success: function (resultDept) {
+                          $(".deptEditSelectList").html("");
+
+                          $.each(resultDept.data, function (index) {
+                            $("#editEmployeeDept").val(deptID);
+
+                            $(".deptEditSelectList").append(
+                              $("<option>", {
+                                value: resultDept.data[index].id,
+                                text: resultDept.data[index].name,
+                              })
+                            );
                           });
-                        }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                          console.log("status code: " + jqXHR.status);
+                          console.log("errorThrown: " + errorThrown);
+                          console.log(
+                            "jqXHR.responseText: " + jqXHR.responseText
+                          );
+                        },
                       });
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -824,10 +645,10 @@ $(document).ready(function () {
                   });
 
                   $("#editEmployeeModal").modal("show");
-                });
-              }
-            });
-          }
+                }
+              );
+            }
+          });
         });
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -840,10 +661,7 @@ $(document).ready(function () {
 
   //Populate the directory with departments
   $("#department-tab").on("click", function () {
-
-    $("#delete").hide();
     $("#search").hide();
-    $("#directorySpace").show();
 
     // Search bar for department
     $("#searchBar").keyup(function () {
@@ -870,35 +688,31 @@ $(document).ready(function () {
                 '<div class="col-sm-1">' +
                 `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
                 "</div>" +
-                '<div class="col-sm-4 namePosition">' +
-                `<a id="searchLinkDept${result.data[index].id}" class="nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
-                "</a></div>" +
+                '<div class="col-sm-2 namePosition">' +
+                `${result.data[index].name}` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchDeptEdit" id="searchDeptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchDeptDelete" id="searchDeptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
+                "</div>" +
                 "</div>";
 
               $("#directoryData").append(searchDepartmentMarkup);
 
               //Edit department modal for search bar
-              $(`#searchLinkDept${result.data[index].id}`).on(
+              $(`#searchDeptEdit${result.data[index].id}`).on(
                 "click",
                 function () {
-                  // Capturing the custom attribute data in the confirm button to be used in the edit department confirm event handler
-                  $("#editDepartmentConfirmSubmit").data(
-                    "department-id",
-                    $(this).data("department-id")
-                  );
-
-                  // Capturing the custom attribute data in the delete confirm button to be used in the delete department confirm event handler
-                  $("#deleteDepartmentConfirmSubmit").data(
-                    "department-id",
-                    $(this).data("department-id")
-                  );
+                  $("#editDepartment").val(result.data[index].name);
 
                   $.ajax({
                     type: "POST",
                     url: "libs/php/getAllLocations.php",
                     dataType: "json",
 
-                    success: function (result) {
+                    success: function (resultDep) {
                       $(".deptEditLocSelectList").html("");
 
                       $(".deptEditLocSelectList").append(
@@ -907,11 +721,13 @@ $(document).ready(function () {
                           "</option>"
                       );
 
-                      $.each(result.data, function (index) {
+                      $.each(resultDep.data, function (indexDep) {
+                        $("#editDeptLoc").val(result.data[index].locationID);
+
                         $(".deptEditLocSelectList").append(
                           $("<option>", {
-                            value: result.data[index].id,
-                            text: result.data[index].name,
+                            value: resultDep.data[indexDep].id,
+                            text: resultDep.data[indexDep].name,
                           })
                         );
                       });
@@ -923,9 +739,60 @@ $(document).ready(function () {
                     },
                   });
 
-                  $("#editDepartment").val(result.data[index].name);
+                  // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
+                  $("#editDepartmentConfirmSubmit").data(
+                    "deptedit-id",
+                    $(this).data("deptedit-id")
+                  );
+
+                  //Capturing the location custom attribute data in the confirm button to be used in the edit department submit event handler
+                  $("#editDepartmentSubmit").data(
+                    "location-id",
+                    $(this).data("location-id")
+                  );
 
                   $("#editDepartmentModal").modal("show");
+                }
+              );
+
+              //Delete department
+              $(`#searchDeptDelete${result.data[index].id}`).on(
+                "click",
+                function () {
+                  // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
+                  $("#deleteDepartmentConfirmSubmit").data(
+                    "deptdelete-id",
+                    $(this).data("deptdelete-id")
+                  );
+
+                  $.ajax({
+                    type: "POST",
+                    url: "libs/php/deleteDeptNotAllowed.php",
+                    dataType: "text",
+                    data: {
+                      deleteDeptNot: result.data[index].id,
+                    },
+
+                    success: function (resultNotAllowed) {
+                      //console.log(resultNotAllowed);
+
+                      if (resultNotAllowed) {
+                        $("#deleteDepartmentErrorMessage").html("");
+                        $("#deleteDepartmentErrorMessage").append(
+                          resultNotAllowed
+                        );
+
+                        $("#deleteDepartmentErrorModal").modal("show");
+                      } else {
+                        $("#deleteDepartmentConfirmModal").modal("show");
+                      }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
+                  });
                 }
               );
             } else {
@@ -952,54 +819,145 @@ $(document).ready(function () {
         $("#directoryData").html("");
 
         $.each(alphabetArray, function (alphabetIndex) {
-          if (
-            result.data.find(
-              (elem) =>
-                elem.name[0].toUpperCase() === alphabetArray[alphabetIndex]
-            )
-          ) {
-            let deptLetterMarkup =
-              '<div class="row">' +
-              `<div class="col-sm-3 alignmentRight" id="horizontal${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
-              "</div>";
+          $.each(result.data, function (index) {
+            let deptNameUpper = result.data[index].name[0].toUpperCase();
 
-            $("#directoryData").append(deptLetterMarkup);
+            if (deptNameUpper === alphabetArray[alphabetIndex]) {
+              let deptMarkup =
+                `<div class="row" id="directoryDept${index}" >` +
+                '<div class="col-sm-3"></div>' +
+                `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
+                '<div class="col-sm-2 namePosition">' +
+                `${result.data[index].name}` +
+                "</div>";
 
-            $.each(result.data, function (index) {
-              let deptNameUpper = result.data[index].name[0].toUpperCase();
+              $("#directoryData").append(deptMarkup);
 
-              if (deptNameUpper === alphabetArray[alphabetIndex]) {
-                let deptMarkup =
-                  `<div class="row" id="directoryDept${index}" >` +
-                  '<div class="col-sm-3"></div>' +
-                  '<div class="col-sm-1">' +
-                  `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-3 namePosition">' +
-                  `<a class="deptLink${result.data[index].id} nameLink hoverOver" data-department-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${result.data[index].name}` +
-                  "</a></div>";
+              let empLoc = result.data[index].locationID;
 
-                $("#directoryData").append(deptMarkup);
+              $.ajax({
+                url: "libs/php/getLocationName.php",
+                method: "POST",
+                dataType: "json",
+                data: {
+                  employeeLocationID: $("#editDeptLoc").val() || empLoc,
+                },
+                success: function (resultEmployeeLocName) {
+                  //console.log(resultEmployeeLocName);
 
-                let empLoc = result.data[index].locationID;
+                  let endMarkup =
+                    `<div class="col-sm-2 namePosition" data-location-id="${result.data[index].locationID}">` +
+                    `${resultEmployeeLocName.data[0].name}` +
+                    "</div>" +
+                    '<div class="col-sm-1">' +
+                    `<button type="button" class="text-white directoryButton editDeleteButton deptEdit" id="deptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
+                    "</div>" +
+                    '<div class="col-sm-1">' +
+                    `<button type="button" class="text-white directoryButton editDeleteButton deptDelete" id="deptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
+                    "</div>" +
+                    "</div>";
+
+                  // Appending the location markup by row id related to index after tha ajax call
+                  $(`#directoryDept${index}`).append(endMarkup);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("status code: " + jqXHR.status);
+                  console.log("errorThrown: " + errorThrown);
+                  console.log("jqXHR.responseText: " + jqXHR.responseText);
+                },
+              });
+            }
+
+            // Not able to access link within inner ajax call without $(document)
+
+            //Edit department modal
+
+            $(document).on(
+              "click",
+              `#deptEdit${result.data[index].id}`,
+              function () {
+                $("#editDepartment").val(result.data[index].name);
 
                 $.ajax({
-                  url: "libs/php/getLocationName.php",
-                  method: "POST",
+                  type: "POST",
+                  url: "libs/php/getAllLocations.php",
                   dataType: "json",
-                  data: {
-                    employeeLocationID: $("#editDeptLoc").val() || empLoc,
+
+                  success: function (resultDep) {
+                    $(".deptEditLocSelectList").html("");
+
+                    $(".deptEditLocSelectList").append(
+                      "<option selected disabled>" +
+                        "Select location" +
+                        "</option>"
+                    );
+
+                    $.each(resultDep.data, function (indexDep) {
+                      $("#editDeptLoc").val(result.data[index].locationID);
+
+                      $(".deptEditLocSelectList").append(
+                        $("<option>", {
+                          value: resultDep.data[indexDep].id,
+                          text: resultDep.data[indexDep].name,
+                        })
+                      );
+                    });
                   },
-                  success: function (resultEmployeeLocName) {
-                    //console.log(resultEmployeeLocName);
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
+                  },
+                });
 
-                    let endMarkup =
-                      '<div class="col-sm-4 namePosition">' +
-                      `<a class="deptLink${result.data[index].id} nameLink hoverOver d-none d-md-block" data-department-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-location-name="${resultEmployeeLocName.data[0].name}"data-bs-toggle="modal" data-bs-target="#editDepartmentModal">${resultEmployeeLocName.data[0].name}` +
-                      "</a></div>";
+                // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
+                $("#editDepartmentConfirmSubmit").data(
+                  "deptedit-id",
+                  $(this).data("deptedit-id")
+                );
 
-                    // Appending the location markup by row id related to index after tha ajax call
-                    $(`#directoryDept${index}`).append(endMarkup);
+                //Capturing the location custom attribute data in the confirm button to be used in the edit department submit event handler
+                $("#editDepartmentSubmit").data(
+                  "location-id",
+                  $(this).data("location-id")
+                );
+
+                $("#editDepartmentModal").modal("show");
+              }
+            );
+
+            //Delete department
+            $(document).on(
+              "click",
+              `#deptDelete${result.data[index].id}`,
+              function () {
+                // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
+                $("#deleteDepartmentConfirmSubmit").data(
+                  "deptdelete-id",
+                  $(this).data("deptdelete-id")
+                );
+
+                $.ajax({
+                  type: "POST",
+                  url: "libs/php/deleteDeptNotAllowed.php",
+                  dataType: "text",
+                  data: {
+                    deleteDeptNot: result.data[index].id,
+                  },
+
+                  success: function (resultNotAllowed) {
+                    //console.log(resultNotAllowed);
+
+                    if (resultNotAllowed) {
+                      $("#deleteDepartmentErrorMessage").html("");
+                      $("#deleteDepartmentErrorMessage").append(
+                        resultNotAllowed
+                      );
+
+                      $("#deleteDepartmentErrorModal").modal("show");
+                    } else {
+                      $("#deleteDepartmentConfirmModal").modal("show");
+                    }
                   },
                   error: function (jqXHR, textStatus, errorThrown) {
                     console.log("status code: " + jqXHR.status);
@@ -1008,69 +966,8 @@ $(document).ready(function () {
                   },
                 });
               }
-
-              //Edit department modal
-
-              // Not able to access link within inner ajax call without $(document)
-              $(document).on(
-                "click",
-                `.deptLink${result.data[index].id}`,
-                function () {
-                  // Capturing the department custom attribute data in the confirm button to be used in the edit department confirm event handler
-                  $("#editDepartmentConfirmSubmit").data(
-                    "department-id",
-                    $(this).data("department-id")
-                  );
-
-                  // Capturing the department custom attribute data in the delete confirm button to be used in the delete department confirm event handler
-                  $("#deleteDepartmentConfirmSubmit").data(
-                    "department-id",
-                    $(this).data("department-id")
-                  );
-
-                  //Capturing the location custom attribute data in the confirm button to be used in the edit department submit event handler
-                  $("#editDepartmentSubmit").data(
-                    "location-id",
-                    $(this).data("location-id")
-                  );
-
-                  $.ajax({
-                    type: "POST",
-                    url: "libs/php/getAllLocations.php",
-                    dataType: "json",
-
-                    success: function (result) {
-                      $(".deptEditLocSelectList").html("");
-
-                      $(".deptEditLocSelectList").append(
-                        "<option selected disabled>" +
-                          "Select location" +
-                          "</option>"
-                      );
-
-                      $.each(result.data, function (index) {
-                        $(".deptEditLocSelectList").append(
-                          $("<option>", {
-                            value: result.data[index].id,
-                            text: result.data[index].name,
-                          })
-                        );
-                      });
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("status code: " + jqXHR.status);
-                      console.log("errorThrown: " + errorThrown);
-                      console.log("jqXHR.responseText: " + jqXHR.responseText);
-                    },
-                  });
-
-                  $("#editDepartment").val(result.data[index].name);
-
-                  $("#editDepartmentModal").modal("show");
-                }
-              );
-            });
-          }
+            );
+          });
         });
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1083,10 +980,7 @@ $(document).ready(function () {
 
   // Populate the directory with locations
   $("#location-tab").on("click", function () {
-
-    $("#delete").hide();
     $("#search").hide();
-    $("#directorySpace").show();
 
     // Search bar for location
     $("#searchBar").keyup(function () {
@@ -1113,9 +1007,15 @@ $(document).ready(function () {
                 '<div class="col-sm-1">' +
                 `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
                 "</div>" +
-                '<div class="col-sm-4 namePosition">' +
-                `<a id="searchLocLink${result.data[index].id}" class="nameLink hoverOver" data-location-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
-                "</a></div>" +
+                '<div class="col-sm-1 namePosition">' +
+                `${result.data[index].name}` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchLocEdit" id="searchLocEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton searchLocDelete" id="searchLocDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
+                "</div>" +
                 "</div>";
 
               $("#directoryData").append(searchLocationMarkup);
@@ -1123,22 +1023,59 @@ $(document).ready(function () {
               $("#editLoc").val(result.data[index].name);
 
               //Edit location modal for search bar
-              $(`#searchLocLink${result.data[index].id}`).on(
+              $(`#searchLocEdit${result.data[index].id}`).on(
                 "click",
                 function () {
-                  // Capturing the custom attribute data in the confirm button to be used in the edit location confirm event handler
-                  $("#editLocationConfirmSubmit").data(
-                    "location-id",
-                    $(this).data("location-id")
-                  );
+                  $("#editLoc").val(result.data[index].name);
 
-                  // Capturing the custom attribute data in the delete confirm button to be used in the delete location confirm event handler
-                  $("#deleteLocationConfirmSubmit").data(
-                    "location-id",
-                    $(this).data("location-id")
+                  // Capturing the location custom attribute data in the confirm button to be used in the edit location confirm event handler
+                  $("#editLocationConfirmSubmit").data(
+                    "locedit-id",
+                    $(this).data("locedit-id")
                   );
 
                   $("#editLocationModal").modal("show");
+                }
+              );
+
+              //Delete location modal for search bar
+              $(`#searchLocDelete${result.data[index].id}`).on(
+                "click",
+                function () {
+                  // Capturing the location custom attribute data in the delete confirm button to be used in the delete location confirm event handler
+                  $("#deleteLocationConfirmSubmit").data(
+                    "locdelete-id",
+                    $(this).data("locdelete-id")
+                  );
+
+                  $.ajax({
+                    type: "POST",
+                    url: "libs/php/deleteLocNotAllowed.php",
+                    dataType: "text",
+                    data: {
+                      deleteLocNot: result.data[index].id,
+                    },
+
+                    success: function (resultLocNotAllowed) {
+                      //console.log(resultLocNotAllowed);
+
+                      if (resultLocNotAllowed) {
+                        $("#deleteLocationErrorMessage").html("");
+                        $("#deleteLocationErrorMessage").append(
+                          resultLocNotAllowed
+                        );
+
+                        $("#deleteLocationErrorModal").modal("show");
+                      } else {
+                        $("#deleteLocationConfirmModal").modal("show");
+                      }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("status code: " + jqXHR.status);
+                      console.log("errorThrown: " + errorThrown);
+                      console.log("jqXHR.responseText: " + jqXHR.responseText);
+                    },
+                  });
                 }
               );
             } else {
@@ -1165,57 +1102,79 @@ $(document).ready(function () {
         $("#directoryData").html("");
 
         $.each(alphabetArray, function (alphabetIndex) {
-          if (
-            result.data.find(
-              (elem) =>
-                elem.name[0].toUpperCase() === alphabetArray[alphabetIndex]
-            )
-          ) {
-            let locLetterMarkup =
-              '<div class="row">' +
-              `<div class="col-sm-4 alignmentRight" id="horizontal${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
-              "</div>";
+          $.each(result.data, function (index) {
+            let locNameUpper = result.data[index].name[0].toUpperCase();
 
-            $("#directoryData").append(locLetterMarkup);
+            if (locNameUpper === alphabetArray[alphabetIndex]) {
+              let locMarkup =
+                '<div class="row" >' +
+                '<div class="col-sm-4"></div>' +
+                `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
+                '<div class="col-sm-2 namePosition">' +
+                `${result.data[index].name}` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton locEdit" id="locEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
+                "</div>" +
+                '<div class="col-sm-1">' +
+                `<button type="button" class="text-white directoryButton editDeleteButton locDelete" id="locDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
+                "</div>" +
+                "</div>";
 
-            $.each(result.data, function (index) {
-              let locNameUpper = result.data[index].name[0].toUpperCase();
+              $("#directoryData").append(locMarkup);
 
-              if (locNameUpper === alphabetArray[alphabetIndex]) {
-                let locMarkup =
-                  '<div class="row" >' +
-                  '<div class="col-sm-4"></div>' +
-                  '<div class="col-sm-1">' +
-                  `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-4 namePosition">' +
-                  `<a id="locLink${result.data[index].id}" class="nameLink hoverOver" data-location-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">${result.data[index].name}` +
-                  "</a></div>" +
-                  "</div>";
+              //Edit location modal
+              $(`#locEdit${result.data[index].id}`).on("click", function () {
+                $("#editLoc").val(result.data[index].name);
 
-                $("#directoryData").append(locMarkup);
+                // Capturing the location custom attribute data in the confirm button to be used in the edit location confirm event handler
+                $("#editLocationConfirmSubmit").data(
+                  "locedit-id",
+                  $(this).data("locedit-id")
+                );
 
-                //Edit location modal
-                $(`#locLink${result.data[index].id}`).on("click", function () {
-                  // Capturing the custom attribute data in the confirm button to be used in the edit location confirm event handler
-                  $("#editLocationConfirmSubmit").data(
-                    "location-id",
-                    $(this).data("location-id")
-                  );
+                $("#editLocationModal").modal("show");
+              });
 
-                  // Capturing the custom attribute data in the delete confirm button to be used in the delete location confirm event handler
-                  $("#deleteLocationConfirmSubmit").data(
-                    "location-id",
-                    $(this).data("location-id")
-                  );
+              //Delete location modal
+              $(`#locDelete${result.data[index].id}`).on("click", function () {
+                // Capturing the location custom attribute data in the delete confirm button to be used in the delete location confirm event handler
+                $("#deleteLocationConfirmSubmit").data(
+                  "locdelete-id",
+                  $(this).data("locdelete-id")
+                );
 
-                  $("#editLoc").val(result.data[index].name);
+                $.ajax({
+                  type: "POST",
+                  url: "libs/php/deleteLocNotAllowed.php",
+                  dataType: "text",
+                  data: {
+                    deleteLocNot: result.data[index].id,
+                  },
 
-                  $("#editLocationModal").modal("show");
+                  success: function (resultLocNotAllowed) {
+                    //console.log(resultLocNotAllowed);
+
+                    if (resultLocNotAllowed) {
+                      $("#deleteLocationErrorMessage").html("");
+                      $("#deleteLocationErrorMessage").append(
+                        resultLocNotAllowed
+                      );
+
+                      $("#deleteLocationErrorModal").modal("show");
+                    } else {
+                      $("#deleteLocationConfirmModal").modal("show");
+                    }
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("status code: " + jqXHR.status);
+                    console.log("errorThrown: " + errorThrown);
+                    console.log("jqXHR.responseText: " + jqXHR.responseText);
+                  },
                 });
-              }
-            });
-          }
+              });
+            }
+          });
         });
       },
       error: function (jqXHR, textStatus, errorThrown) {
@@ -1276,48 +1235,6 @@ $(document).ready(function () {
         },
       });
 
-      $.ajax({
-        type: "POST",
-        url: "libs/php/getAllLocations.php",
-        dataType: "json",
-
-        success: function (result) {
-          $(".locSelectList").html("");
-
-          $(".locSelectList").append(
-            "<option selected disabled>" + "Select location" + "</option>"
-          );
-
-          $.each(result.data, function (index) {
-            $(".locSelectList").append(
-              $("<option>", {
-                value: result.data[index].id,
-                text: result.data[index].name,
-              })
-            );
-          });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log("status code: " + jqXHR.status);
-          console.log("errorThrown: " + errorThrown);
-          console.log("jqXHR.responseText: " + jqXHR.responseText);
-        },
-      });
-
-      $(".deptSelectList").change(function () {
-        $(".locSelectList option[value=" + $(this).val() + "]").prop(
-          "selected",
-          "selected"
-        );
-      });
-
-      $(".locSelectList").change(function () {
-        $(".deptSelectList option[value=" + $(this).val() + "]").prop(
-          "selected",
-          "selected"
-        );
-      });
-
       $("#createPersonnelModal").modal("show");
 
       $("#createPersonnelSubmit").on("click", function (event) {
@@ -1325,36 +1242,8 @@ $(document).ready(function () {
 
         $("#createPersonnelModal").modal("hide");
 
-        let email = $("#createEmail").val();
-        let emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-        if (
-          $("#createFirstName").val() === "" ||
-          $("#createLastName").val() === "" ||
-          $("#createEmail").val() === "" ||
-          $("#createPersonnelDept").val() === ""
-        ) {
-          $("#createPersonnelErrorMessage").html("");
-          $("#createPersonnelErrorMessage").append("Please fill all fields.");
-
-          $("#createPersonnelErrorModal").modal("show");
-        } else if (!email.match(emailformat)) {
-          $("#createPersonnelErrorMessage").html("");
-          $("#createPersonnelErrorMessage").append(
-            "Please enter a valid email address."
-          );
-          $("#createPersonnelErrorModal").modal("show");
-
-        } else if ($("#createPersonnelDept").val() === null) {
-          $("#createPersonnelErrorMessage").html("");
-          $("#createPersonnelErrorMessage").append(
-            "Please select a department."
-          );
-          $("#createPersonnelErrorModal").modal("show");
-
-        } else {
-          $("#createPersonnelConfirmModal").modal("show");
-        }
+        $("#createPersonnelConfirmModal").modal("show");
+        
       });
 
       $("#createPersonnelConfirmSubmit").on("click", function (event) {
@@ -1463,16 +1352,7 @@ $(document).ready(function () {
 
         $("#createDepartmentModal").modal("hide");
 
-        if ($("#createDeptName").val() === "") {
-          $("#createDepartmentErrorMessage").html("");
-          $("#createDepartmentErrorMessage").append(
-            "Please enter a department name."
-          );
-
-          $("#createDepartmentErrorModal").modal("show");
-        } else {
           $("#createDepartmentConfirmModal").modal("show");
-        }
       });
 
       $("#createDepartmentConfirmSubmit").on("click", function (event) {
@@ -1534,16 +1414,7 @@ $(document).ready(function () {
 
         $("#createLocationModal").modal("hide");
 
-        if ($("#createLocName").val() === "") {
-          $("#createLocationErrorMessage").html("");
-          $("#createLocationErrorMessage").append(
-            "Please enter a location name."
-          );
-
-          $("#createLocationErrorModal").modal("show");
-        } else {
           $("#createLocationConfirmModal").modal("show");
-        }
       });
 
       $("#createLocationConfirmSubmit").on("click", function (event) {
@@ -1591,179 +1462,6 @@ $(document).ready(function () {
     }
   });
 
-  // Delete modal for personnel
-  $("#delete").on("click", function () {
-    $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
-      // New selected tab id
-      let selectedTabId = e.target.id;
-    });
-
-    let id = $(".tab-content .active").attr("id");
-
-    if (id === "personnel") {
-      $.ajax({
-        type: "POST",
-        url: "libs/php/getAllPersonnel.php",
-        dataType: "json",
-
-        success: function (result) {
-          //console.log(result);
-
-          $("#deletePersonnelData").html("");
-
-          $.each(alphabetArray, function (alphabetIndex) {
-            if (
-              result.data.find(
-                (elem) =>
-                  elem.lastName[0].toUpperCase() ===
-                  alphabetArray[alphabetIndex]
-              )
-            ) {
-              let deletePersonnelLetterMarkup =
-                '<div class="row">' +
-                `<div class="col-sm-1 alignmentRight" id="delete${alphabetIndex}">${alphabetArray[alphabetIndex]}</div>` +
-                "</div>";
-
-              let deleteLetter = $("#deletePersonnelData").append(
-                deletePersonnelLetterMarkup
-              );
-
-              $.each(result.data, function (index) {
-                let lastNameDeleteUpper =
-                  result.data[index].lastName[0].toUpperCase();
-
-                if (lastNameDeleteUpper === alphabetArray[alphabetIndex]) {
-                  let deletePersonnelMarkup =
-                    '<div class="row">' +
-                    '<div class="col-sm-2"></div>' +
-                    '<div class="col-sm-2">' +
-                    `<div id="deleteCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
-                    "</div>" +
-                    '<div class="col-sm-6 namePosition">' +
-                    `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].firstName}` +
-                    " " +
-                    `${result.data[index].lastName}</div>` +
-                    "</div>" +
-                    '<div class="col-sm-1">' +
-                    '<form action="">' +
-                    `<input
-                        type="checkbox"
-                        class="deleteCheckbox"
-                        id="checkList${index}"
-                        name="checkList${index}"
-                        value="${result.data[index].id}"
-                      />` +
-                    "</form>" +
-                    "</div>" +
-                    "</div>";
-
-                  deleteLetter.append(deletePersonnelMarkup);
-                }
-              });
-
-              let clicked = false;
-              $("#selectAllPersonnel").on("click", function () {
-                $(".deleteCheckbox").prop("checked", !clicked);
-                clicked = !clicked;
-                this.innerHTML = clicked ? "Deselect" : "Select";
-                $("#selectedPersonnel").html("");
-                let n = $("input:checked").length;
-                $("#selectedPersonnel").append(n + " selected");
-              });
-
-              $(".deleteCheckbox").on("click", function () {
-                $("#selectedPersonnel").html("");
-                let n = $("input:checked").length;
-                $("#selectedPersonnel").append(n + " selected");
-              });
-            }
-          });
-
-          $("#deletePersonnelModal").modal("show");
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          console.log("status code: " + jqXHR.status);
-          console.log("errorThrown: " + errorThrown);
-          console.log("jqXHR.responseText: " + jqXHR.responseText);
-        },
-      });
-
-      // Delete search bar for personnel
-      $("#deletePersonnelSearchBar").keyup(function () {
-        let query = $(this).val();
-
-        $.ajax({
-          url: "libs/php/deletePersonnelSearchBar.php",
-          method: "POST",
-          dataType: "json",
-          data: {
-            query: query,
-          },
-          success: function (result) {
-            //console.log(result);
-
-            $("#deletePersonnelData").html("");
-
-            $.each(result.data, function (index) {
-              if (query != "") {
-                let deletePersonnelSearchMarkup =
-                  '<div class="row">' +
-                  '<div class="col-sm-2"></div>' +
-                  '<div class="col-sm-2">' +
-                  `<div id="deleteSearchCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-6 namePosition">' +
-                  `<div id="nameLink${index}" class="nameLink" href="#">${result.data[index].lastName}` +
-                  " " +
-                  `${result.data[index].firstName}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-1">' +
-                  '<form action="">' +
-                  `<input
-                        type="checkbox"
-                        class="deleteCheckbox"
-                        id="checkList${index}"
-                        name="checkList${index}"
-                        value="${result.data[index].id}"
-                      />` +
-                  "</form>" +
-                  "</div>" +
-                  "</div>";
-
-                $("#deletePersonnelData").append(deletePersonnelSearchMarkup);
-
-                let clicked = false;
-                $("#selectAllPersonnel").on("click", function () {
-                  $(".deleteCheckbox").prop("checked", !clicked);
-                  clicked = !clicked;
-                  this.innerHTML = clicked ? "Deselect" : "Select";
-                  $("#selectedPersonnel").html("");
-                  let n = $("input:checked").length;
-                  $("#selectedPersonnel").append(n + " selected");
-                });
-
-                $(".deleteCheckbox").on("click", function () {
-                  $("#selectedPersonnel").html("");
-                  let n = $("input:checked").length;
-                  $("#selectedPersonnel").append(n + " selected");
-                });
-
-                $("#deletePersonnelModal").modal("show");
-              } else {
-                window.localStorage.setItem("focus_on", "#deleteSearchBar");
-                location.reload();
-              }
-            });
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            console.log("status code: " + jqXHR.status);
-            console.log("errorThrown: " + errorThrown);
-            console.log("jqXHR.responseText: " + jqXHR.responseText);
-          },
-        });
-      });
-    }
-  });
 
   // Personnel search modal
 
@@ -1898,47 +1596,62 @@ $(document).ready(function () {
               $.each(result.data, function (index) {
                 searchResultsMarkup =
                   '<div class="row">' +
-                  '<div class="col-sm-3"></div>' +
+                  '<div class="col-sm-1"></div>' +
                   '<div class="col-sm-2">' +
                   `<div id="searchCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
                   "</div>" +
                   '<div class="col-sm-4 namePosition">' +
-                  `<a id="searchNameLink${result.data[index].id}" class="nameLink" data-employee-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">${result.data[index].firstName}` +
+                  `${result.data[index].firstName}` +
                   " " +
                   `${result.data[index].lastName}` +
-                  "</a></div>" +
+                  "</div>" +
+                  '<div class="col-sm-2">' +
+                  `<button type="button" class="text-white directoryButton editDeleteButton searchPersEdit" id="searchPersEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
+                  "</div>" +
+                  '<div class="col-sm-1">' +
+                  `<button type="button" class="text-white directoryButton editDeleteButton searchPersDelete" id="searchPersDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
+                  "</div>" +
                   "</div>";
 
                 $("#searchResultsData").append(searchResultsMarkup);
 
                 $("#searchPersonnelResultsModal").modal("show");
 
-                //Edit employee modal
-                $(`#searchNameLink${result.data[index].id}`).on(
+                // Delete employee modal for search button
+                $(`#searchPersDelete${result.data[index].id}`).on(
+                  "click",
+                  function () {
+                    $("#searchPersonnelResultsModal").modal("hide");
+
+                    // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
+                    $("#deleteEmployeeConfirmSubmit").data(
+                      "delete-id",
+                      $(this).data("delete-id")
+                    );
+
+                    $("#deleteEmployeeConfirmModal").show();
+                  }
+                );
+
+                //Edit employee modal for search bar
+                $(`#searchPersEdit${result.data[index].id}`).on(
                   "click",
                   function () {
                     // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
                     $("#editEmployeeConfirmSubmit").data(
-                      "employee-id",
-                      $(this).data("employee-id")
-                    );
-
-                    // Capturing the custom attribute data in the delete confirm button to be used in the delete employee confirm event handler
-                    $("#deleteEmployeeConfirmSubmit").data(
-                      "employee-id",
-                      $(this).data("employee-id")
+                      "edit-id",
+                      $(this).data("edit-id")
                     );
 
                     $("#searchPersonnelResultsModal").modal("hide");
 
                     $("#editFirstName").val(result.data[index].firstName);
-                    $("#editLastName").html(result.data[index].lastName);
+                    $("#editLastName").val(result.data[index].lastName);
                     $("#editJobTitle").val(result.data[index].jobTitle);
                     $("#editEmail").val(result.data[index].email);
 
                     // Get department id
-                    let departmentID;
-                    let locatID;
+                    let deptID;
 
                     $.ajax({
                       type: "POST",
@@ -1951,7 +1664,7 @@ $(document).ready(function () {
                       success: function (resultDeptID) {
                         //console.log(resultDeptID);
 
-                        departmentID = resultDeptID.data[0].id;
+                        deptID = resultDeptID.data[0].id;
 
                         // Display the employee's department in the department dropdown
                         $.ajax({
@@ -1963,7 +1676,7 @@ $(document).ready(function () {
                             $(".deptEditSelectList").html("");
 
                             $.each(resultDept.data, function (index) {
-                              $("#editEmployeeDept").val(departmentID);
+                              $("#editEmployeeDept").val(deptID);
 
                               $(".deptEditSelectList").append(
                                 $("<option>", {
@@ -1980,68 +1693,6 @@ $(document).ready(function () {
                               "jqXHR.responseText: " + jqXHR.responseText
                             );
                           },
-                        });
-
-                        $(".deptEditSelectList").on("change", function () {
-                          let depID = $(this).val();
-                          if (depID) {
-                            // Find the location id from the department id
-                            $.ajax({
-                              type: "POST",
-                              url: "libs/php/getLocationID.php",
-                              dataType: "json",
-                              data: {
-                                employeeDeptID: depID,
-                              },
-
-                              success: function (resultLocID) {
-                                //console.log(resultLocID);
-
-                                locatID = resultLocID.data[0].locationID;
-
-                                // Use location id to set location dropdown
-                                $.ajax({
-                                  type: "POST",
-                                  url: "libs/php/getAllLocations.php",
-                                  dataType: "json",
-
-                                  success: function (resultLoc) {
-                                    $(".locEditSelectList").html("");
-
-                                    $.each(resultLoc.data, function (index) {
-                                      $("#editEmployeeLoc").val(locatID);
-
-                                      $(".locEditSelectList").append(
-                                        $("<option>", {
-                                          value: resultLoc.data[index].id,
-                                          text: resultLoc.data[index].name,
-                                        })
-                                      );
-                                    });
-                                  },
-                                  error: function (
-                                    jqXHR,
-                                    textStatus,
-                                    errorThrown
-                                  ) {
-                                    console.log("status code: " + jqXHR.status);
-                                    console.log("errorThrown: " + errorThrown);
-                                    console.log(
-                                      "jqXHR.responseText: " +
-                                        jqXHR.responseText
-                                    );
-                                  },
-                                });
-                              },
-                              error: function (jqXHR, textStatus, errorThrown) {
-                                console.log("status code: " + jqXHR.status);
-                                console.log("errorThrown: " + errorThrown);
-                                console.log(
-                                  "jqXHR.responseText: " + jqXHR.responseText
-                                );
-                              },
-                            });
-                          }
                         });
                       },
                       error: function (jqXHR, textStatus, errorThrown) {

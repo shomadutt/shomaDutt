@@ -27,30 +27,17 @@
 
 	}	
 
-	if(!mysqli_select_db($conn, 'companydirectory')) {
-        echo 'Database Not Selected';
-    }
+	$deleteLoc = $_POST['deleteLocAllowed']; 
 		
-	if (isset($_POST['checkList'])) {
-
-
-		$checkList = $_POST['checkList']; 
-
-		//print_r($checkList);
-
-
-		foreach($checkList as $check) {
-		
-			$sql = "DELETE FROM personnel WHERE id ='".$check."'";
-			$result = mysqli_query ($conn, $sql);
-        		
-        }
+	$sql = "DELETE FROM location WHERE id = '$deleteLoc'";
+	
+	//Response
+	 if (!mysqli_query($conn, $sql)) {
+        echo 'Could not delete location.';
+	} 
+	
+	else {
+		echo "Deleted!";
 	}
 
-
-	if ($result) {
-        echo "Deleted!";
-    }else{
-        echo 'Could not delete.';	
-}
 ?>

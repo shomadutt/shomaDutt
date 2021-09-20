@@ -40,8 +40,6 @@
 	// filter the form input
 	$deptName = mysqli_real_escape_string($conn, $deptName);
 
-	$query = mysqli_query($conn,"SELECT * FROM department WHERE name = '$deptName'");
-
 	$sql = "INSERT INTO department (name, locationID) VALUES ('$deptName', '$addDeptLoc')";
 
 	//Make sure name is valid
@@ -49,13 +47,13 @@
         die ("Invalid department name");
     }
 
-	//Response
-    //Checking to see if name already exists
-    if(mysqli_num_rows($query) > 0) {
-        echo "The department " . $deptName .  " already exists.";
+	if(empty($addDeptLoc)) { 
+        die ("Please select a location.");
     }
+
+	//Response
     
-    elseif(!mysqli_query($conn, $sql)) {
+    if(!mysqli_query($conn, $sql)) {
         echo 'Could not add department.';
     }
 	
