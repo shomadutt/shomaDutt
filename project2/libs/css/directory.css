@@ -443,6 +443,12 @@ input[type="search"]::-webkit-search-results-decoration {
   #locCircle {
     margin-left: -20px;
   }
+  #emailMove {
+    margin-right: 35px;
+  }
+  #editEmpMove {
+    margin-left: -20px;
+  }
 }
 
 /* Large devices (landscape phones, desktops and larger) */
@@ -455,5 +461,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
   #locCircle {
     margin-left: -30px;
+  }
+  #emailMove {
+    margin-right: 25px;
+  }
+  #editEmpMove {
+    margin-left: -10px;
   }
 }
