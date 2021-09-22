@@ -405,17 +405,17 @@ $(document).ready(function () {
                 '<div class="row" >' +
                 '<div class="col-sm-4"></div>' +
                 '<div class="col-sm-1">' +
-                `<div id="circle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
+                `<div id="searchEmpCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
                 "</div>" +
                 '<div class="col-sm-2 namePosition">' +
                 `${result.data[index].lastName}` +
                 ", " +
                 `${result.data[index].firstName}` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchEmpEdit">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeEdit" id="searchEmployeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchEmpDelete">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeDelete" id="searchEmployeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
                 "</div>" +
                 "</div>";
@@ -547,16 +547,16 @@ $(document).ready(function () {
                 '<div class="col-sm-2 namePosition d-none d-md-block">' +
                 `${result.data[index].jobTitle}` +
                 "</div>" +
-                '<div class="col-sm-3 namePosition d-none d-md-block">' +
+                '<div class="col-sm-3 namePosition d-none d-lg-block">' +
                 `${result.data[index].email}` +
                 "</div>" +
                 '<div class="col-sm-2 namePosition d-none d-md-block">' +
                 `${result.data[index].department}` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="editEmpMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton employeeEdit" id="employeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="deleteEmpMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton employeeDelete" id="employeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
                 "</div>" +
                 "</div>";
@@ -691,10 +691,10 @@ $(document).ready(function () {
                 '<div class="col-sm-2 namePosition">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchDeptEdit">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchDeptEdit" id="searchDeptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchDeptDelete">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchDeptDelete" id="searchDeptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
                 "</div>";
@@ -849,10 +849,10 @@ $(document).ready(function () {
                     `<div class="col-sm-2 namePosition" data-location-id="${result.data[index].locationID}">` +
                     `${resultEmployeeLocName.data[0].name}` +
                     "</div>" +
-                    '<div class="col-sm-1">' +
+                    '<div class="col-sm-1" id="editDeptMove">' +
                     `<button type="button" class="text-white directoryButton editDeleteButton deptEdit" id="deptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
                     "</div>" +
-                    '<div class="col-sm-1">' +
+                    '<div class="col-sm-1" id="deleteDeptMove">' +
                     `<button type="button" class="text-white directoryButton editDeleteButton deptDelete" id="deptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
                     "</div>" +
                     "</div>";
@@ -1007,13 +1007,13 @@ $(document).ready(function () {
                 '<div class="col-sm-1">' +
                 `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
                 "</div>" +
-                '<div class="col-sm-1 namePosition">' +
+                '<div class="col-sm-1 namePosition" id="searchLocName">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchLocEdit">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchLocEdit" id="searchLocEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="searchLocDelete">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchLocDelete" id="searchLocDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
                 "</div>";
@@ -1113,10 +1113,10 @@ $(document).ready(function () {
                 '<div class="col-sm-2 namePosition">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="editLocMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton locEdit" id="locEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1">' +
+                '<div class="col-sm-1" id="deleteLocMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton locDelete" id="locDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
                 "</div>";
