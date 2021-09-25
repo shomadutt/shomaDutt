@@ -199,8 +199,8 @@
                   ></label>
                   <select
                     id="createPersonnelDept"
-                    class="form-select form-select-sm deptSelectList"
-                    aria-label=".form-select-sm example"
+                    class="form-select form-select deptSelectList"
+                    aria-label=".form-select example"
                   ></select>
                 </div>
               </form>
@@ -341,8 +341,8 @@
                   <label for="createDeptLoc" class="col-form-label"></label>
                   <select
                     id="createDeptLoc"
-                    class="form-select form-select-sm locSelectList"
-                    aria-label=".form-select-sm example"
+                    class="form-select form-select locSelectList"
+                    aria-label=".form-select example"
                   ></select>
                 </div>
               </form>
@@ -472,12 +472,14 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <div class="form-group">
-                <label for="createLocName" class="col-form-label"
-                  >Location</label
-                >
-                <input type="text" class="form-control" id="createLocName" />
-              </div>
+              <form>
+                <div class="form-group">
+                  <label for="createLocName" class="col-form-label"
+                    >Location</label
+                  >
+                  <input type="text" class="form-control" id="createLocName" />
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -632,8 +634,8 @@
                   >
                   <select
                     id="editEmployeeDept"
-                    class="form-select form-select-sm deptEditSelectList"
-                    aria-label=".form-select-sm example"
+                    class="form-select form-select deptEditSelectList"
+                    aria-label=".form-select example"
                   ></select>
                 </div>
               </form>
@@ -874,22 +876,24 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <div class="form-group">
-                <label for="editDepartment" class="col-form-label"
-                  >Department</label
-                >
-                <input type="text" class="form-control" id="editDepartment" />
-              </div>
-              <div class="form-group">
-                <label for="editEmployeeDept" class="col-form-label"
-                  >Location</label
-                >
-                <select
-                  id="editDeptLoc"
-                  class="form-select form-select-sm deptEditLocSelectList"
-                  aria-label=".form-select-sm example"
-                ></select>
-              </div>
+              <form>
+                <div class="form-group">
+                  <label for="editDepartment" class="col-form-label"
+                    >Department</label
+                  >
+                  <input type="text" class="form-control" id="editDepartment" />
+                </div>
+                <div class="form-group">
+                  <label for="editEmployeeDept" class="col-form-label"
+                    >Location</label
+                  >
+                  <select
+                    id="editDeptLoc"
+                    class="form-select form-select deptEditLocSelectList"
+                    aria-label=".form-select example"
+                  ></select>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -1160,10 +1164,12 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <div class="form-group">
-                <label for="editLoc" class="col-form-label">Location</label>
-                <input type="text" class="form-control" id="editLoc" />
-              </div>
+              <form>
+                <div class="form-group">
+                  <label for="editLoc" class="col-form-label">Location</label>
+                  <input type="text" class="form-control" id="editLoc" />
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -1468,16 +1474,16 @@
                   <label for="searchDept" class="col-form-label"></label>
                   <select
                     id="searchDept"
-                    class="form-select form-select-sm deptSelectList"
-                    aria-label=".form-select-sm example"
+                    class="form-select form-select deptSelectList"
+                    aria-label=".form-select example"
                   ></select>
                 </div>
                 <div class="form-group">
                   <label for="searchLoc" class="col-form-label"></label>
                   <select
                     id="searchLoc"
-                    class="form-select form-select-sm locSelectList"
-                    aria-label=".form-select-sm example"
+                    class="form-select form-select locSelectList"
+                    aria-label=".form-select example"
                   ></select>
                 </div>
               </form>

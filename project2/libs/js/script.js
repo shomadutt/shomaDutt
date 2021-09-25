@@ -929,12 +929,13 @@ $(document).ready(function () {
                   dataType: "json",
 
                   success: function (resultDep) {
+                    //console.log(resultDep);
+
                     $(".deptEditLocSelectList").html("");
 
                     $.each(resultDep.data, function (indexDep) {
-                      $("#editDeptLoc").val(result.data[index].locationID);
 
-                      console.log(result.data[index].locationID);
+                    $("#editDeptLoc").val(result.data[index].locationID);
 
                       $(".deptEditLocSelectList").append(
                         $("<option>", {
