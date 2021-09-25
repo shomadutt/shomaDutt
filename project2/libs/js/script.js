@@ -402,23 +402,33 @@ $(document).ready(function () {
           $.each(result.data, function (index) {
             if (query != "") {
               let searchEmployeeMarkup =
-                '<div class="row" >' +
-                '<div class="col-sm-4"></div>' +
-                '<div class="col-sm-1">' +
+                '<table class="table table-borderless" id="searchEmpTable">' +
+                "<tbody>" +
+                "<tr>" +
+                '<td id="searchEmpCircleCol">' +
                 `<div id="searchEmpCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
-                "</div>" +
-                '<div class="col-sm-2 namePosition">' +
+                "</td>" +
+                '<td id="searchEmpNameCol">' +
+                '<div id="searchEmpName" class="namePosition">' +
                 `${result.data[index].lastName}` +
                 ", " +
                 `${result.data[index].firstName}` +
+                " " +
                 "</div>" +
-                '<div class="col-sm-1" id="searchEmpEdit">' +
+                "</td>" +
+                '<td id="searchEmpEditCol">' +
+                '<div id="searchEmpEditMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeEdit" id="searchEmployeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1" id="searchEmpDelete">' +
+                "</td>" +
+                '<td id="searchEmpDeleteCol">' +
+                '<div id="searchEmpDeleteMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchEmployeeDelete" id="searchEmployeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
                 "</div>" +
-                "</div>";
+                "</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table>";
 
               $("#directoryData").append(searchEmployeeMarkup);
 
@@ -536,30 +546,48 @@ $(document).ready(function () {
 
             if (lastNameUpper === alphabetArray[alphabetIndex]) {
               employeeMarkup =
-                '<div class="row">' +
-                `<div id="employCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
-                '<div class="col-sm-2 namePosition">' +
+                '<table class="table table-borderless" id="empTable">' +
+                "<tbody>" +
+                "<tr>" +
+                '<td id="empCircleCol">' +
+                `<div id="empCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
+                "</td>" +
+                '<td id="empNameCol">' +
+                '<div class="namePosition" id="empName">' +
                 `${result.data[index].lastName}` +
                 ", " +
                 `${result.data[index].firstName}` +
                 " " +
                 "</div>" +
-                '<div class="col-sm-2 namePosition d-none d-md-block">' +
+                "</td>" +
+                '<td id="empJobCol">' +
+                '<div id="empJob" class="namePosition d-none d-md-block">' +
                 `${result.data[index].jobTitle}` +
                 "</div>" +
-                '<div class="col-sm-3 namePosition d-none d-lg-block">' +
+                "</td>" +
+                '<td id="empEmailCol">' +
+                '<div id="empEmail" class="namePosition d-none d-lg-block" id="emailMove">' +
                 `${result.data[index].email}` +
                 "</div>" +
-                '<div class="col-sm-2 namePosition d-none d-md-block">' +
+                "</td>" +
+                '<td id="empDeptCol">' +
+                '<div id="empDept" class="namePosition d-none d-md-block">' +
                 `${result.data[index].department}` +
                 "</div>" +
-                '<div class="col-sm-1" id="editEmpMove">' +
+                "</td>" +
+                '<td id="empEditCol">' +
+                '<div id="empEditMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton employeeEdit" id="employeeEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1" id="deleteEmpMove">' +
+                "</td>" +
+                '<td id="empDeleteCol">' +
+                '<div id="empDeleteMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton employeeDelete" id="employeeDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
                 "</div>" +
-                "</div>";
+                "</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table>";
 
               $("#directoryData").append(employeeMarkup);
 
@@ -683,21 +711,30 @@ $(document).ready(function () {
           $.each(result.data, function (index) {
             if (query != "") {
               let searchDepartmentMarkup =
-                '<div class="row" >' +
-                '<div class="col-sm-4"></div>' +
-                '<div class="col-sm-1">' +
-                `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
-                "</div>" +
-                '<div class="col-sm-2 namePosition">' +
+                '<table class="table table-borderless" id="searchDeptTable">' +
+                "<tbody>" +
+                "<tr>" +
+                '<td id="searchDeptCircleCol">' +
+                `<div id="searchDeptCircle" class="circle">${result.data[index].name[0]}</div>` +
+                "</td>" +
+                '<td id="searchDeptNameCol">' +
+                '<div id="searchDeptName" class="namePosition">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1" id="searchDeptEdit">' +
+                "</td>" +
+                '<td id="searchDeptEditCol">' +
+                '<div id="searchDeptEditMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchDeptEdit" id="searchDeptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1" id="searchDeptDelete">' +
+                "</td>" +
+                '<td id="searchDeptDeleteCol">' +
+                '<div id="searchDeptDeleteMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchDeptDelete" id="searchDeptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
-                "</div>";
+                "</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table>";
 
               $("#directoryData").append(searchDepartmentMarkup);
 
@@ -714,12 +751,6 @@ $(document).ready(function () {
 
                     success: function (resultDep) {
                       $(".deptEditLocSelectList").html("");
-
-                      $(".deptEditLocSelectList").append(
-                        "<option selected disabled>" +
-                          "Select location" +
-                          "</option>"
-                      );
 
                       $.each(resultDep.data, function (indexDep) {
                         $("#editDeptLoc").val(result.data[index].locationID);
@@ -824,12 +855,17 @@ $(document).ready(function () {
 
             if (deptNameUpper === alphabetArray[alphabetIndex]) {
               let deptMarkup =
-                `<div class="row" id="directoryDept${index}" >` +
-                '<div class="col-sm-3"></div>' +
+                '<table class="table table-borderless" id="deptTable">' +
+                "<tbody>" +
+                `<tr id="directoryDept${index}">` +
+                '<td id="deptCircleCol">' +
                 `<div id="deptCircle" class="circle">${result.data[index].name[0]}</div>` +
-                '<div class="col-sm-2 namePosition">' +
+                "</td>" +
+                '<td id="deptNameCol">' +
+                `<div id="deptName" class="namePosition">` +
                 `${result.data[index].name}` +
-                "</div>";
+                "</div>" +
+                "</td>";
 
               $("#directoryData").append(deptMarkup);
 
@@ -846,16 +882,25 @@ $(document).ready(function () {
                   //console.log(resultEmployeeLocName);
 
                   let endMarkup =
-                    `<div class="col-sm-2 namePosition" data-location-id="${result.data[index].locationID}">` +
+                    '<td id="deptLocNameCol">' +
+                    `<div id="deptLocName" class="namePosition d-none d-md-block" data-location-id="${result.data[index].locationID}">` +
                     `${resultEmployeeLocName.data[0].name}` +
                     "</div>" +
-                    '<div class="col-sm-1" id="editDeptMove">' +
+                    "</td>" +
+                    '<td id="deptEditCol">' +
+                    '<div id="deptEditMove">' +
                     `<button type="button" class="text-white directoryButton editDeleteButton deptEdit" id="deptEdit${result.data[index].id}" data-deptedit-id="${result.data[index].id}" data-location-id="${result.data[index].locationID}" data-bs-toggle="modal" data-bs-target="#editDepartmentModal">Edit</button>` +
                     "</div>" +
-                    '<div class="col-sm-1" id="deleteDeptMove">' +
+                    "</td>" +
+                    '<td id="deptDeleteCol">' +
+                    '<div id="deptDeleteMove">' +
                     `<button type="button" class="text-white directoryButton editDeleteButton deptDelete" id="deptDelete${result.data[index].id}" data-deptdelete-id="${result.data[index].id}">Delete</button>` +
                     "</div>" +
-                    "</div>";
+                    "</td>" +
+                    "</tr>" +
+                    "</tbody>" +
+                    "</table>";
+                 
 
                   // Appending the location markup by row id related to index after tha ajax call
                   $(`#directoryDept${index}`).append(endMarkup);
@@ -886,14 +931,10 @@ $(document).ready(function () {
                   success: function (resultDep) {
                     $(".deptEditLocSelectList").html("");
 
-                    $(".deptEditLocSelectList").append(
-                      "<option selected disabled>" +
-                        "Select location" +
-                        "</option>"
-                    );
-
                     $.each(resultDep.data, function (indexDep) {
                       $("#editDeptLoc").val(result.data[index].locationID);
+
+                      console.log(result.data[index].locationID);
 
                       $(".deptEditLocSelectList").append(
                         $("<option>", {
@@ -1002,21 +1043,30 @@ $(document).ready(function () {
           $.each(result.data, function (index) {
             if (query != "") {
               let searchLocationMarkup =
-                '<div class="row" >' +
-                '<div class="col-sm-4"></div>' +
-                '<div class="col-sm-1">' +
-                `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
-                "</div>" +
-                '<div class="col-sm-1 namePosition" id="searchLocName">' +
+                '<table class="table table-borderless" id="searchLocTable">' +
+                "<tbody>" +
+                "<tr>" +
+                '<td id="searchLocCircleCol">' +
+                `<div id="searchLocCircle" class="circle">${result.data[index].name[0]}</div>` +
+                "</td>" +
+                '<td id="searchLocNameCol">' +
+                '<div id="searchLocName" class="namePosition">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1" id="searchLocEdit">' +
+                "</td>" +
+                '<td id="searchLocEditCol">' +
+                '<div id="searchLocEditMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchLocEdit" id="searchLocEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1" id="searchLocDelete">' +
+                "</td>" +
+                '<td id="searchLocDeleteCol">' +
+                '<div id="searchLocDeleteMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton searchLocDelete" id="searchLocDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
-                "</div>";
+                "</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table>";
 
               $("#directoryData").append(searchLocationMarkup);
 
@@ -1107,19 +1157,30 @@ $(document).ready(function () {
 
             if (locNameUpper === alphabetArray[alphabetIndex]) {
               let locMarkup =
-                '<div class="row" >' +
-                '<div class="col-sm-4"></div>' +
+                '<table class="table table-borderless" id="locTable">' +
+                "<tbody>" +
+                "<tr>" +
+                '<td id="locCircleCol">' +
                 `<div id="locCircle" class="circle">${result.data[index].name[0]}</div>` +
-                '<div class="col-sm-2 namePosition">' +
+                "</td>" +
+                '<td id="locNameCol">' +
+                '<div id="locName" class="namePosition">' +
                 `${result.data[index].name}` +
                 "</div>" +
-                '<div class="col-sm-1" id="editLocMove">' +
+                "</td>" +
+                '<td id="locEditCol">' +
+                '<div id="locEditMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton locEdit" id="locEdit${result.data[index].id}" data-locedit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editLocationModal">Edit</button>` +
                 "</div>" +
-                '<div class="col-sm-1" id="deleteLocMove">' +
+                "</td>" +
+                '<td id="locDeleteCol">' +
+                '<div id="locDeleteMove">' +
                 `<button type="button" class="text-white directoryButton editDeleteButton locDelete" id="locDelete${result.data[index].id}" data-locdelete-id="${result.data[index].id}">Delete</button>` +
                 "</div>" +
-                "</div>";
+                "</td>" +
+                "</tr>" +
+                "</tbody>" +
+                "</table>";
 
               $("#directoryData").append(locMarkup);
 
@@ -1243,7 +1304,6 @@ $(document).ready(function () {
         $("#createPersonnelModal").modal("hide");
 
         $("#createPersonnelConfirmModal").modal("show");
-        
       });
 
       $("#createPersonnelConfirmSubmit").on("click", function (event) {
@@ -1352,7 +1412,7 @@ $(document).ready(function () {
 
         $("#createDepartmentModal").modal("hide");
 
-          $("#createDepartmentConfirmModal").modal("show");
+        $("#createDepartmentConfirmModal").modal("show");
       });
 
       $("#createDepartmentConfirmSubmit").on("click", function (event) {
@@ -1414,7 +1474,7 @@ $(document).ready(function () {
 
         $("#createLocationModal").modal("hide");
 
-          $("#createLocationConfirmModal").modal("show");
+        $("#createLocationConfirmModal").modal("show");
       });
 
       $("#createLocationConfirmSubmit").on("click", function (event) {
@@ -1461,7 +1521,6 @@ $(document).ready(function () {
       });
     }
   });
-
 
   // Personnel search modal
 

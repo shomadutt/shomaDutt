@@ -73,27 +73,27 @@ input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
 
-.alignmentRight {
-  text-align: right;
-}
-
 .circle {
   height: 43px;
   width: 43px;
   line-height: 43px;
   border-radius: 50%;
-  background-color: #dc3545;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  margin-top: -3px;
   color: white;
   text-align: center;
   font-size: 15px;
 }
 
-#deptCircle {
+#searchEmpCircle, #empCircle {
+  background-color: #dc3545;
+}
+
+#searchDeptCircle, #deptCircle {
   background-color: #6f42c1;
 }
 
-#locCircle {
+#searchLocCircle, #locCircle {
   background-color: #198754;
 }
 
@@ -149,17 +149,13 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .editDeleteButton {
-  margin-top: 5px;
+  margin-top: 2px;
   width: 65px;
   height: 30px;
 }
 
 .namePosition {
-  padding-top: 10px;
-}
-
-#employCircle {
-  margin-left: 60px;
+  margin-top: 7px;
 }
 
 .modal-content {
@@ -184,15 +180,6 @@ input[type="search"]::-webkit-search-results-decoration {
   border: none;
   background-color: transparent;
   font-size: 18px;
-}
-
-#selectAllPersonnel {
-  width: 100px;
-  margin-left: 8px;
-}
-
-.deleteCheckbox {
-  margin-top: 12px;
 }
 
 .modalBodyFont {
@@ -235,10 +222,6 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .space {
   height: 30px;
-}
-
-.noPaddingRight {
-  padding-right: 0;
 }
 
 .nav-item {
@@ -284,20 +267,286 @@ input[type="search"]::-webkit-search-results-decoration {
   width: 100px;
 }
 
+
+/* Table column widths for employees page */
+
+#empTable{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#empCircleCol {
+  width: 1%;
+}
+
+#empNameCol {
+  width: 15%;
+}
+
+#empJobCol {
+  width: 20%;
+}
+
+#empEmailCol {
+  width: 25%;
+}
+
+#empDeptCol {
+  width: 19%;
+}
+
+#empEditCol {
+  width: 5%;
+}
+
+#empDeleteCol {
+  width: 5%;
+}
+
+
+td {
+  color: #6666ff;
+}
+
+
+
+/* Table column widths for search pages */
+
+#searchEmpCircleCol, #searchDeptCircleCol, #searchLocCircleCol {
+  width: 1%;
+}
+
+#searchEmpNameCol, #searchDeptNameCol, #searchLocNameCol {
+  width: 30%;
+}
+
+#searchEmpEditCol, #searchDeptEditCol, #searchLocEditCol {
+  width: 5%;
+}
+
+#searchEmpDeleteCol, #searchDeptDeleteCol, #searchLocDeleteCol {
+  width: 5%;
+}
+
+
+ 
+#searchEmpTable, #searchDeptTable, #searchLocTable {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+} 
+
+
+/* Table column widths for departments page */
+#deptCircleCol {
+  width: 1%;
+}
+
+#deptNameCol {
+  width: 30%;
+}
+
+#deptLocNameCol {
+  width: 30%;
+}
+
+#deptEditCol {
+  width: 5%;
+}
+
+#deptDeleteCol {
+  width: 5%;
+}
+
+#deptTable {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Table column widths for locations page */
+
+#locCircleCol {
+  width: 1%;
+}
+
+#locNameCol {
+  width: 30%;
+}
+
+#locEditCol {
+  width: 5%;
+}
+
+#locDeleteCol {
+  width: 5%;
+}
+
+
+#locTable {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
 /* Extra small devices (portrait phones, less than 576px) */
-@media (min-width: 270px) and (max-width: 576px) and (orientation: portrait) {
+@media (min-width: 280px) and (max-width: 359px) and (orientation: portrait) {
+
   .nav {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
-  #employCircle {
+ 
+  #search {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-right: 60px;
+    margin-bottom: -20px;
+  }
+
+  #plus {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+  }
+
+  #searchBar {
+    margin-bottom: -20px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
     margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: -15px;
   }
-  .circle {
-    margin-top: 30px;
-    margin-bottom: 0px;
-    margin-left: 0px;
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 28px;
   }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 110px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 154px;
+  }
+
+
+  /* Employees page */
+
+  #empCircle {
+    margin-left: -15px;
+  }
+
+  #empName {
+    margin-left: 25px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -55px;
+  }
+
+  #empDeleteMove {
+    margin-left: -25px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
+  #deptCircle {
+    margin-left: -79px;
+  }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -41px;
+  }
+
+  #deptEditMove {
+    margin-left: 30px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 50px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -111px;
+  }
+
+  #locName {
+    margin-left: -68px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 15px;
+  }
+
+  #locDeleteMove {
+    margin-left: 58px;
+  }
+
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (min-width: 360px) and (max-width: 414px) and (orientation: portrait) {
+
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
   #plus,
   #search {
     margin-top: 20px;
@@ -306,166 +555,1415 @@ input[type="search"]::-webkit-search-results-decoration {
   #searchBar {
     margin-bottom: -25px;
   }
-}
 
-/* Extra small devices (landscape phones) */
-@media (min-width: 480px) and (max-width: 576px) and (orientation: landscape) {
-  .nav {
-    margin-top: -25px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  #plus {
-    margin-top: 5px;
-    margin-right: 80px;
-  }
-  #search {
-    margin-top: 5px;
-    margin-right: 110px;
-  }
-  #searchBar {
-    margin-top: -30px;
-    margin-bottom: 5px;
-  }
-  #employCircle {
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
     margin-left: 0px;
-    margin-bottom: 8px;
+  } 
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 53px;
   }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 157px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 205px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 50px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -60px;
+  }
+
+  #empDeleteMove {
+    margin-left: -30px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
   #deptCircle {
-    margin-bottom: 8px;
+    margin-left: -83px;
   }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -38px;
+  }
+
+  #deptEditMove {
+    margin-left: 48px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 67px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
   #locCircle {
-    margin-bottom: 8px;
+    margin-left: -125px;
   }
-  #deleteEmpMove, #deleteDeptMove, #deleteLocMove {
-    margin-bottom: 40px;
+
+  #locName {
+    margin-left: -72px;
   }
-  #searchEmpDelete, #searchDeptDelete, #searchLocDelete {
-    margin-bottom: 40px;
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 30px;
   }
-  #searchEmpCircle { 
-    margin-bottom: 8px;
+
+  #locDeleteMove {
+    margin-left: 78px;
   }
+
 }
 
-/* Small devices (landscape phones, 576px to medium devices) */
-@media (min-width: 576px) and (max-width: 768px) and (orientation: landscape) {
-  #employCircle {
-    margin-left: 190px;
-    margin-top: 10px;
+/* Extra small devices (portrait phones) */
+@media (min-width: 415px) and (max-width: 576px) and (orientation: portrait) {
+
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
   }
+ 
   #plus {
-    margin-left: -40px;
+    margin-top: 20px;
+    margin-right: 60px;
+    margin-bottom: -50px;
   }
+
+  #search {
+    margin-top: 20px;
+    margin-right: 120px;
+    margin-bottom: -50px;
+  }
+
   #searchBar {
-    margin-top: -20px;
+    margin-bottom: -25px;
   }
-  #editEmpMove,
-  #editDeptMove,
-  #editLocMove {
-    margin-right: 25px;
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 84px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 130px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 235px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 270px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 38px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -5px;
+  }
+
+  #empDeleteMove {
+    margin-left: 0px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
   }
 
   #deptCircle {
-    margin-left: -20px;
+    margin-left: -43px;
   }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -10px;
+  }
+
+  #deptEditMove {
+    margin-left: 68px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 60px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
   #locCircle {
-    margin-left: -33px;
+    margin-left: -108px;
   }
-  #searchEmpEdit, #searchDeptEdit, #searchLocEdit {
-    margin-right: 25px;
+
+  #locName {
+    margin-left: -65px;
   }
-  #searchLocName {
-    margin-left: -20px;
-    margin-right: 30px;
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 42px;
+  }
+
+  #locDeleteMove {
+    margin-left: 78px;
+  }
+
+}
+
+/* Responsive */
+@media (min-width: 577px) and (max-width: 768px) and (orientation: portrait) {
+
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  #plus {
+    margin-top: 20px;
+    margin-right: 60px;
+    margin-bottom: -50px;
+  }
+
+  #search {
+    margin-top: 20px;
+    margin-right: 120px;
+    margin-bottom: -50px;
+  }
+
+  #searchBar {
+    margin-bottom: -15px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 100px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 145px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 280px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 300px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 38px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -5px;
+  }
+
+  #empDeleteMove {
+    margin-left: 0px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
+  #deptCircle {
+    margin-left: -43px;
+  }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -10px;
+  }
+
+  #deptEditMove {
+    margin-left: 68px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 60px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -108px;
+  }
+
+  #locName {
+    margin-left: -65px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 42px;
+  }
+
+  #locDeleteMove {
+    margin-left: 78px;
   }
 }
+
 
 /* Medium devices (portrait phones, tablets to desktop) */
 @media (min-width: 768px) and (max-width: 992px) and (orientation: portrait) {
   .nav {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
-  #employCircle {
-    margin-left: 95px;
-  }
-  #deptCircle {
-    margin-left: -50px;
-  }
-  #locCircle {
-    margin-left: -30px;
-  }
+ 
   #plus {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-  #editEmpMove,
-  #editDeptMove,
-  #editLocMove {
-    margin-right: 15px;
-  }
-}
-
-/* Medium devices landscape phones, tablets to desktop) */
-@media (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
-  #employCircle {
-    margin-left: 120px;
-  }
-  #editEmpMove,
-  #editDeptMove,
-  #editLocMove {
-    margin-right: 10px;
-  }
-  #deptCircle {
-    margin-left: -20px;
-  }
-  #locCircle {
-    margin-left: -30px;
-  }
-  #searchEmpEdit, #searchDeptEdit, #searchLocEdit {
-    margin-right: 15px;
-  }
-  #searchLocName {
-    margin-left: -20px;
     margin-right: 30px;
+    margin-left: 10px;
   }
+
+  #searchBar {
+    margin-bottom: -20px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 150px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 200px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 350px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 360px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 40px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 2%;
+  } 
+  
+  #empJob {
+    margin-left: 120px;
+ 
+  } 
+
+  #empJobCol {
+    width: 15%;
+  } 
+
+  #empEmail {
+    margin-left: 100px;
+  } 
+
+  #empDept {
+    margin-right: 100px;
+  } 
+
+  #empDeptCol {
+    width: 8%;
+  } 
+ 
+  #empEmailCol {
+    width: 0%;
+  } 
+
+  #empEditMove {
+    margin-left: -5px;
+  }
+
+  #empDeleteMove {
+    margin-left: 0px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
+  #deptCircle {
+    margin-left: -70px;
+  }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -40px;
+  }
+
+  #deptLocName {
+    margin-left: 30px;
+  }
+
+  #deptEditMove {
+    margin-left: 130px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 70px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -128px;
+  }
+
+  #locName {
+    margin-left: -85px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 73px;
+  }
+
+  #locDeleteMove {
+    margin-left: 80px;
+  }
+
 }
 
 /* Large devices (portrait phones, desktops and larger) */
 @media (min-width: 992px) and (max-width: 1200px) and (orientation: portrait) {
-  #employCircle {
-    margin-left: 20px;
+
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
   }
+ 
+  #plus {
+    margin-right: 70px;
+    margin-left: 30px;
+  }
+
+  #searchBar {
+    margin-bottom: -20px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 260px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 290px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 500px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 475px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 40px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 2%;
+  } 
+  
+  #empJob {
+    margin-left: 90px;
+ 
+  } 
+
+  #empJobCol {
+    width: 8%;
+  } 
+
+  #empEmail {
+    margin-left: 10px;
+  } 
+
+  #empDept {
+    margin-left: 150px;
+  } 
+
+  #empDeptCol {
+    width: 5%;
+  } 
+ 
+  #empEmailCol {
+    width: 5%;
+  } 
+
+  #empEditMove {
+    margin-left: 150px;
+  }
+
+  #empDeleteMove {
+    margin-left: 70px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
   #deptCircle {
-    margin-left: -30px;
+    margin-left: -10px;
   }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: 10px;
+  }
+
+  #deptLocName {
+    margin-left: 100px;
+  }
+
+  #deptEditMove {
+    margin-left: 200px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 90px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
   #locCircle {
-    margin-left: -20px;
+    margin-left: -98px;
   }
-  #emailMove {
-    margin-right: 35px;
+
+  #locName {
+    margin-left: -65px;
   }
-  #editEmpMove {
-    margin-left: -20px;
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 130px;
+  }
+
+  #locDeleteMove {
+    margin-left: 110px;
   }
 }
 
-/* Large devices (landscape phones, desktops and larger) */
-@media (min-width: 992px) and (orientation: landscape) {
-  #employCircle {
-    margin-left: 25px;
+/* Extra small devices (landscape phones) */
+ @media (min-width: 480px) and (max-width: 576px) and (orientation: landscape) {
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -18px;
   }
+ 
+  #plus {
+    margin-top: 10px;
+    margin-right: 60px;
+    
+  }
+
+  #search {
+    margin-top: 10px;
+    margin-right: 120px;
+  }
+
+  #searchBar {
+    margin-top: -30px;
+    margin-bottom: -25px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 93px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 135px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 244px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 284px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 38px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -5px;
+  }
+
+  #empDeleteMove {
+    margin-left: 0px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
   #deptCircle {
-    margin-left: -20px;
+    margin-left: -43px;
   }
-  #locCircle {
-    margin-left: -30px;
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
   }
-  #emailMove {
-    margin-right: 25px;
-  }
-  #editEmpMove {
+
+  #deptName {
     margin-left: -10px;
   }
+
+  #deptEditMove {
+    margin-left: 68px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 60px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -112px;
+  }
+
+  #locName {
+    margin-left: -70px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 40px;
+  }
+
+  #locDeleteMove {
+    margin-left: 80px;
+  }
+
+}  
+
+/* Small devices (landscape phones, 576px to medium devices) */
+@media (min-width: 577px) and (max-width: 768px) and (orientation: landscape) {
+
+  .nav {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -25px;
+  }
+ 
+  #plus, #search {
+   margin-left: 10px;
+  }
+
+  #searchBar {
+    margin-top: -20px;
+    margin-bottom: -20px;
+  }
+
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 111px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 154px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 267px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 313px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 38px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 1%;
+  } 
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 0%;
+  }   
+
+  #empEditMove {
+    margin-left: -5px;
+  }
+
+  #empDeleteMove {
+    margin-left: 0px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
+  #deptCircle {
+    margin-left: -43px;
+  }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -10px;
+  }
+
+  #deptEditMove {
+    margin-left: 68px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 60px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -112px;
+  }
+
+  #locName {
+    margin-left: -70px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 40px;
+  }
+
+  #locDeleteMove {
+    margin-left: 80px;
+  }
+  
+} 
+
+
+/* Medium devices landscape phones, tablets to desktop) */
+@media (min-width: 768px) and (max-width: 992px) and (orientation: landscape) {
+ 
+ #searchBar {
+   margin-top: -10px;
+   margin-bottom: -10px;
+ }
+ 
+
+  /* All search bars */
+  #searchEmpTable, #searchDeptTable,  #searchLocTable{
+    table-layout: fixed;
+    margin-left: 0px;
+  } 
+
+  #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+    margin-left: 210px;
+  }
+
+  #searchEmpName,  #searchDeptName,  #searchLocName {
+    margin-left: 250px;
+  }
+
+  #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+    width: 1%;
+  }
+
+  #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+    margin-left: 380px;
+  }
+
+  #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+    margin-left: 370px;
+  }
+
+
+  /* Employees page */
+
+  #empName {
+    margin-left: 30px;
+  }
+
+  #empTable {
+    table-layout: fixed;
+  }
+
+  #empNameCol {
+    width: 5%;
+  } 
+
+  #empJobCol {
+    width: 5%;
+  } 
+
+  #empJob {
+    margin-left: 40px;
+  }
+  
+  #empEmailCol {
+    width: 0%;
+  }
+
+  #empDeptCol {
+    width: 5%;
+  }   
+
+  #empDept {
+    margin-left: 40px;
+  }
+
+  #empEditMove {
+    margin-left: 100px;
+  }
+
+  #empDeleteMove {
+    margin-left: 50px;
+  } 
+    
+
+  /* Departments page */
+
+  #deptTable {
+    table-layout: fixed;
+  }
+
+  #deptCircle {
+    margin-left: -80px;
+  }
+
+  #deptNameCol {
+    width: 1%;
+  } 
+
+  #deptLocNameCol {
+    width: 1%;
+  }
+
+  #deptName {
+    margin-left: -55px;
+  }
+
+  #deptLocName {
+    margin-left: 55px;
+  }
+
+  #deptEditMove {
+    margin-left: 200px;
+  }
+
+  #deptDeleteMove {
+    margin-left: 130px;
+  } 
+    
+
+/* Locations page */
+
+  #locTable {
+    table-layout: fixed;
+  }
+
+  #locCircle {
+    margin-left: -112px;
+  }
+
+  #locName {
+    margin-left: -70px;
+  }
+
+  #locNameCol {
+    width: 1%;
+  } 
+
+  #locEditMove {
+    margin-left: 130px;
+  }
+
+  #locDeleteMove {
+    margin-left: 130px;
+  }
+} 
+
+
+/* Large devices (landscape phones, desktops and larger) */
+@media (min-width: 992px) and (max-width: 1365px) and (orientation: landscape) {
+  
+  #searchBar {
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+  
+ 
+   /* All search bars */
+   #searchEmpTable, #searchDeptTable,  #searchLocTable{
+     table-layout: fixed;
+     margin-left: 0px;
+   } 
+ 
+   #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+     margin-left: 310px;
+   }
+ 
+   #searchEmpName,  #searchDeptName,  #searchLocName {
+     margin-left: 350px;
+   }
+ 
+   #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+     width: 1%;
+   }
+ 
+   #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+     margin-left: 500px;
+   }
+ 
+   #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+     margin-left: 470px;
+   }
+ 
+ 
+   /* Employees page */
+ 
+   #empName {
+     margin-left: 30px;
+   }
+ 
+   #empTable {
+     table-layout: fixed;
+   }
+ 
+   #empNameCol {
+     width: 7%;
+   } 
+ 
+   #empJobCol {
+     width: 7%;
+   } 
+ 
+   #empJob {
+     margin-left: 10px;
+   }
+   
+   #empEmailCol {
+     width: 11%;
+   }
+ 
+   #empDeptCol {
+     width: 3%;
+   }   
+ 
+   #empDept {
+     margin-left: 40px;
+   }
+ 
+   #empEditMove {
+     margin-left: 100px;
+   }
+ 
+   #empDeleteMove {
+     margin-left: 50px;
+   } 
+     
+ 
+   /* Departments page */
+ 
+   #deptTable {
+     table-layout: fixed;
+   }
+ 
+   #deptCircle {
+     margin-left: -30px;
+   }
+ 
+   #deptNameCol {
+     width: 1%;
+   } 
+ 
+   #deptLocNameCol {
+     width: 1%;
+   }
+ 
+   #deptName {
+     margin-left: -15px;
+   }
+ 
+   #deptLocName {
+     margin-left: 65px;
+   }
+ 
+   #deptEditMove {
+     margin-left: 245px;
+   }
+ 
+   #deptDeleteMove {
+     margin-left: 130px;
+   } 
+     
+ 
+ /* Locations page */
+ 
+   #locTable {
+     table-layout: fixed;
+   }
+ 
+   #locCircle {
+     margin-left: -112px;
+   }
+ 
+   #locName {
+     margin-left: -70px;
+   }
+ 
+   #locNameCol {
+     width: 1%;
+   } 
+ 
+   #locEditMove {
+     margin-left: 160px;
+   }
+ 
+   #locDeleteMove {
+     margin-left: 130px;
+   }
+ 
+}
+
+/* Large devices (landscape phones, desktops and larger) */
+@media (min-width: 1366px) and (orientation: landscape) {
+  
+  #searchBar {
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+  
+ 
+   /* All search bars */
+   #searchEmpTable, #searchDeptTable,  #searchLocTable{
+     table-layout: fixed;
+     margin-left: 0px;
+   } 
+ 
+   #searchEmpCircle,  #searchDeptCircle,  #searchLocCircle {
+     margin-left: 410px;
+   }
+ 
+   #searchEmpName,  #searchDeptName,  #searchLocName {
+     margin-left: 450px;
+   }
+ 
+   #searchEmpNameCol, #searchDeptNameCol,  #searchLocNameCol {
+     width: 1%;
+   }
+ 
+   #searchEmpEditMove, #searchDeptEditMove,  #searchLocEditMove {
+     margin-left: 708px;
+   }
+ 
+   #searchEmpDeleteMove, #searchDeptDeleteMove, #searchLocDeleteMove {
+     margin-left: 650px;
+   }
+ 
+ 
+   /* Employees page */
+ 
+   #empName {
+     margin-left: 42px;
+   }
+ 
+   #empTable {
+     table-layout: fixed;
+   }
+ 
+   #empNameCol {
+     width: 18%;
+   } 
+ 
+   #empJobCol {
+     width: 20%;
+   } 
+ 
+   #empEmailCol {
+     width: 25%;
+   }
+
+   #empDeptCol {
+     width: 19%;
+   }   
+ 
+   #empEditCol {
+    width: 5%;
+  }
+  
+  #empDeleteCol {
+    width: 5%;
+  }
+
+   #empEditMove {
+     margin-left: -20px;
+   }
+
+   #empDeleteMove {
+    margin-left: -10px;
+  }
+ 
+   /* Departments page */
+ 
+   #deptTable {
+     table-layout: fixed;
+   }
+ 
+   #deptCircle {
+     margin-left: 45px;
+   }
+ 
+   #deptNameCol {
+     width: 5%;
+   } 
+ 
+   #deptLocNameCol {
+     width: 5%;
+   }
+ 
+   #deptName {
+     margin-left: 74px;
+   }
+ 
+   #deptLocName {
+     margin-left: 85px;
+   }
+ 
+   #deptEditMove {
+     margin-left: 105px;
+   }
+ 
+   #deptDeleteMove {
+     margin-left: 30px;
+   } 
+     
+ 
+ /* Locations page */
+ 
+   #locTable {
+     table-layout: fixed;
+   }
+ 
+   #locCircle {
+     margin-left: -112px;
+   }
+ 
+   #locName {
+     margin-left: -80px;
+   }
+ 
+   #locNameCol {
+     width: 1%;
+   } 
+ 
+   #locEditMove {
+     margin-left: 196px;
+   }
+ 
+   #locDeleteMove {
+     margin-left: 140px;
+   }
+ 
 }

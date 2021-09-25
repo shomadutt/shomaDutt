@@ -5,8 +5,14 @@
     <title>Company Directory</title>
     <meta name="description" content="Company directory" />
     <meta name="author" content="Shoma Dutt" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-    <script src="https://kit.fontawesome.com/4dd02a24ea.js" crossorigin="anonymous"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1"
+    />
+    <script
+      src="https://kit.fontawesome.com/4dd02a24ea.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -103,11 +109,17 @@
             </div>
 
             <div class="col-sm-1">
-              <button class="text-white directoryButton functionButton" id="plus"></button>
+              <button
+                class="text-white directoryButton functionButton"
+                id="plus"
+              ></button>
             </div>
 
             <div class="col-sm-1">
-              <button class="text-white directoryButton functionButton" id="search"></button>
+              <button
+                class="text-white directoryButton functionButton"
+                id="search"
+              ></button>
             </div>
           </nav>
         </div>
@@ -153,68 +165,45 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>First name</td>
-                  <td>
-                    <input
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                      id="createFirstName"
-                      name="createFirstName"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Last name</td>
-                  <td>
-                    <input
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                      id="createLastName"
-                      name="createLastName"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Job title</td>
-                  <td>
-                    <input
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                      id="createJobTitle"
-                      name="createJobTitle"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td>
-                    <input
-                      class="form-control form-control-sm"
-                      type="email"
-                      aria-label=".form-control-sm example"
-                      id="createEmail"
-                      name="createEmail"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Department</td>
-                  <td>
-                    <select
-                      id="createPersonnelDept"
-                      class="form-select form-select-sm deptSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
+              <form>
+                <div class="form-group">
+                  <label for="createFirstName" class="col-form-label"
+                    >First name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="createFirstName"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="createLastName" class="col-form-label"
+                    >Last name</label
+                  >
+                  <input type="text" class="form-control" id="createLastName" />
+                </div>
+                <div class="form-group">
+                  <label for="createJobTitle" class="col-form-label"
+                    >Job title</label
+                  >
+                  <input type="text" class="form-control" id="createJobTitle" />
+                </div>
+                <div class="form-group">
+                  <label for="createEmail" class="col-form-label">Email</label>
+                  <input type="text" class="form-control" id="createEmail" />
+                </div>
+                <div class="form-group">
+                  <label
+                    for="createPersonnelDept"
+                    class="col-form-label"
+                  ></label>
+                  <select
+                    id="createPersonnelDept"
+                    class="form-select form-select-sm deptSelectList"
+                    aria-label=".form-select-sm example"
+                  ></select>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -274,7 +263,7 @@
                   class="btn btn-primary"
                   id="createPersonnelConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -341,33 +330,22 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>Department</td>
-                  <td>
-                    <input
-                      name="createDeptName"
-                      id="createDeptName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    <select
-                      name="createDeptLoc"
-                      id="createDeptLoc"
-                      class="form-select form-select-sm locSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
+              <form>
+                <div class="form-group">
+                  <label for="createDeptName" class="col-form-label"
+                    >Department</label
+                  >
+                  <input type="text" class="form-control" id="createDeptName" />
+                </div>
+                <div class="form-group">
+                  <label for="createDeptLoc" class="col-form-label"></label>
+                  <select
+                    id="createDeptLoc"
+                    class="form-select form-select-sm locSelectList"
+                    aria-label=".form-select-sm example"
+                  ></select>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -427,7 +405,7 @@
                   class="btn btn-primary"
                   id="createDepartmentConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -494,22 +472,12 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    <input
-                      name="createLocName"
-                      id="createLocName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-              </table>
+              <div class="form-group">
+                <label for="createLocName" class="col-form-label"
+                  >Location</label
+                >
+                <input type="text" class="form-control" id="createLocName" />
+              </div>
             </div>
             <div class="modal-footer">
               <button
@@ -569,7 +537,7 @@
                   class="btn btn-primary"
                   id="createLocationConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -635,69 +603,40 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>First name</td>
-                  <td>
-                    <input
-                      id="editFirstName"
-                      name="editFirstName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Last name</td>
-                  <td>
-                    <input
-                      id="editLastName"
-                      name="editLastName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Job title</td>
-                  <td>
-                    <input
-                      id="editJobTitle"
-                      name="editJobTitle"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td>
-                    <input
-                      id="editEmail"
-                      name="editEmail"
-                      class="form-control form-control-sm"
-                      type="email"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Department</td>
-                  <td>
-                    <select
-                      id="editEmployeeDept"
-                      name="editEmployeeDept"
-                      class="form-select form-select-sm deptEditSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
+              <form>
+                <div class="form-group">
+                  <label for="editFirstName" class="col-form-label"
+                    >First name</label
+                  >
+                  <input type="text" class="form-control" id="editFirstName" />
+                </div>
+                <div class="form-group">
+                  <label for="editLastName" class="col-form-label"
+                    >Last name</label
+                  >
+                  <input type="text" class="form-control" id="editLastName" />
+                </div>
+                <div class="form-group">
+                  <label for="editJobTitle" class="col-form-label"
+                    >Job title</label
+                  >
+                  <input type="text" class="form-control" id="editJobTitle" />
+                </div>
+                <div class="form-group">
+                  <label for="editEmail" class="col-form-label">Email</label>
+                  <input type="text" class="form-control" id="editEmail" />
+                </div>
+                <div class="form-group">
+                  <label for="editEmployeeDept" class="col-form-label"
+                    >Department</label
+                  >
+                  <select
+                    id="editEmployeeDept"
+                    class="form-select form-select-sm deptEditSelectList"
+                    aria-label=".form-select-sm example"
+                  ></select>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -785,7 +724,7 @@
                   class="btn btn-primary"
                   id="editEmployeeConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -867,7 +806,7 @@
                   class="btn btn-primary"
                   id="deleteEmployeeConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -935,33 +874,22 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>Department</td>
-                  <td>
-                    <input
-                      id="editDepartment"
-                      name="editDepartment"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    <select
-                      id="editDeptLoc"
-                      name="editDeptLoc"
-                      class="form-select form-select-sm deptEditLocSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
+              <div class="form-group">
+                <label for="editDepartment" class="col-form-label"
+                  >Department</label
+                >
+                <input type="text" class="form-control" id="editDepartment" />
+              </div>
+              <div class="form-group">
+                <label for="editEmployeeDept" class="col-form-label"
+                  >Location</label
+                >
+                <select
+                  id="editDeptLoc"
+                  class="form-select form-select-sm deptEditLocSelectList"
+                  aria-label=".form-select-sm example"
+                ></select>
+              </div>
             </div>
             <div class="modal-footer">
               <button
@@ -1049,7 +977,7 @@
                   class="btn btn-primary"
                   id="editDepartmentConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -1093,40 +1021,40 @@
         </div>
       </div>
 
-       <!-- Delete department error modal -->
-       <div
-       class="modal fade"
-       id="deleteDepartmentErrorModal"
-       tabindex="-1"
-       aria-labelledby="exampleModalLabel"
-       aria-hidden="true"
-     >
-       <div class="modal-dialog">
-         <div class="modal-content">
-           <div class="modal-header btn-primary">
-             <h5 class="modal-title"></h5>
-             <button
-               type="button"
-               class="btn-close"
-               data-bs-dismiss="modal"
-               aria-label="Close"
-             ></button>
-           </div>
-           <div class="modal-body modalBodyFont">
-             <div id="deleteDepartmentErrorMessage"></div>
-           </div>
-           <div class="modal-footer">
-             <button
-               type="button"
-               class="btn btn-secondary"
-               data-bs-dismiss="modal"
-             >
-               Close
-             </button>
-           </div>
-         </div>
-       </div>
-     </div>
+      <!-- Delete department error modal -->
+      <div
+        class="modal fade"
+        id="deleteDepartmentErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <div id="deleteDepartmentErrorMessage"></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Delete department confirmation modal -->
 
@@ -1166,7 +1094,7 @@
                   class="btn btn-primary"
                   id="deleteDepartmentConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -1232,22 +1160,10 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    <input
-                      id="editLoc"
-                      name="editLoc"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-              </table>
+              <div class="form-group">
+                <label for="editLoc" class="col-form-label">Location</label>
+                <input type="text" class="form-control" id="editLoc" />
+              </div>
             </div>
             <div class="modal-footer">
               <button
@@ -1335,7 +1251,7 @@
                   class="btn btn-primary"
                   id="editLocationConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -1417,7 +1333,7 @@
                   class="btn btn-primary"
                   id="deleteLocationConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
@@ -1426,41 +1342,40 @@
       </div>
 
       <!-- Delete location error modal -->
-      
+
       <div
-      class="modal fade"
-      id="deleteLocationErrorModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header btn-primary">
-            <h5 class="modal-title"></h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body modalBodyFont">
-            <div id="deleteLocationErrorMessage"></div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
+        class="modal fade"
+        id="deleteLocationErrorModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header btn-primary">
+              <h5 class="modal-title"></h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body modalBodyFont">
+              <div id="deleteLocationErrorMessage"></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
 
       <!-- Delete location success modal -->
 
@@ -1522,80 +1437,50 @@
               ></button>
             </div>
             <div class="modal-body modalBodyFont">
-              <table
-                class="table table-striped modalTable modal-body modalBodyFont"
-              >
-                <tr>
-                  <td>First name</td>
-                  <td>
-                    <input
-                      id="searchFirstName"
-                      name="searchFirstName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Last name</td>
-                  <td>
-                    <input
-                      id="searchLastName"
-                      name="searchLastName"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Job title</td>
-                  <td>
-                    <input
-                      id="searchJobTitle"
-                      name="searchJobTitle"
-                      class="form-control form-control-sm"
-                      type="text"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td>
-                    <input
-                      id="searchEmail"
-                      name="searchEmail"
-                      class="form-control form-control-sm"
-                      type="email"
-                      aria-label=".form-control-sm example"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Department</td>
-                  <td>
-                    <select
-                      name="searchDept"
-                      id="searchDept"
-                      class="form-select form-select-sm deptSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Location</td>
-                  <td>
-                    <select
-                      name="searchLoc"
-                      id="searchLoc"
-                      class="form-select form-select-sm locSelectList"
-                      aria-label=".form-select-sm example"
-                    ></select>
-                  </td>
-                </tr>
-              </table>
+              <form>
+                <div class="form-group">
+                  <label for="searchFirstName" class="col-form-label"
+                    >First name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="searchFirstName"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="searchLastName" class="col-form-label"
+                    >Last name</label
+                  >
+                  <input type="text" class="form-control" id="searchLastName" />
+                </div>
+                <div class="form-group">
+                  <label for="searchJobTitle" class="col-form-label"
+                    >Job title</label
+                  >
+                  <input type="text" class="form-control" id="searchJobTitle" />
+                </div>
+                <div class="form-group">
+                  <label for="searchEmail" class="col-form-label">Email</label>
+                  <input type="text" class="form-control" id="searchEmail" />
+                </div>
+                <div class="form-group">
+                  <label for="searchDept" class="col-form-label"></label>
+                  <select
+                    id="searchDept"
+                    class="form-select form-select-sm deptSelectList"
+                    aria-label=".form-select-sm example"
+                  ></select>
+                </div>
+                <div class="form-group">
+                  <label for="searchLoc" class="col-form-label"></label>
+                  <select
+                    id="searchLoc"
+                    class="form-select form-select-sm locSelectList"
+                    aria-label=".form-select-sm example"
+                  ></select>
+                </div>
+              </form>
             </div>
             <div class="modal-footer">
               <button
@@ -1691,7 +1576,7 @@
                   class="btn btn-primary"
                   id="searchPersonnelConfirmSubmit"
                 >
-                OK
+                  OK
                 </button>
               </div>
             </div>
