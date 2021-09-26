@@ -1614,7 +1614,7 @@ $(document).ready(function () {
         ) {
           $("#searchPersonnelErrorMessage").html("");
           $("#searchPersonnelErrorMessage").append(
-            "Please also type in another field."
+            "Please type in a field."
           );
 
           $("#searchPersonnelErrorModal").modal("show");
