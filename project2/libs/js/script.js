@@ -268,7 +268,7 @@ $(document).ready(function () {
     }
   });
 
-  // Edit Location confirmation event handler
+  // Edit location confirmation event handler
   $("#editLocationConfirmSubmit").on("click", function (event) {
     event.preventDefault();
 
@@ -1905,7 +1905,7 @@ $(document).ready(function () {
                   `${result.data[index].lastName}` +
                   "</div>" +
                   '<div class="col-sm-2">' +
-                  `<button type="button" class="text-white directoryButton editDeleteButton searchPersEdit" id="searchPersEdit${result.data[index].id}" data-edit-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
+                  `<button type="button" class="text-white directoryButton editDeleteButton searchPersEdit" id="searchPersEdit${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                   "</div>" +
                   '<div class="col-sm-1">' +
                   `<button type="button" class="text-white directoryButton editDeleteButton searchPersDelete" id="searchPersDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
@@ -1932,66 +1932,101 @@ $(document).ready(function () {
                   }
                 );
 
-                //Edit employee modal for search bar
+                //Edit employee modal 
                 $(`#searchPersEdit${result.data[index].id}`).on(
                   "click",
                   function () {
-                    // Capturing the custom attribute data in the confirm button to be used in the edit employee confirm event handler
-                    $("#editEmployeeConfirmSubmit").data(
-                      "edit-id",
-                      $(this).data("edit-id")
-                    );
-
                     $("#searchPersonnelResultsModal").modal("hide");
 
-                    $("#editFirstName").val(result.data[index].firstName);
-                    $("#editLastName").val(result.data[index].lastName);
-                    $("#editJobTitle").val(result.data[index].jobTitle);
-                    $("#editEmail").val(result.data[index].email);
+                    // Create a user id
+                    const personnelUserID = uniqueId();
 
-                    // Get department id
-                    let deptID;
+                    // Retrieve current database values
 
                     $.ajax({
                       type: "POST",
-                      url: "libs/php/getDepartmentID.php",
+                      url: "libs/php/getAllEmployeeUserID.php",
                       dataType: "json",
                       data: {
-                        employeeDept: result.data[index].department,
+                        employeeUserID: personnelUserID,
                       },
 
-                      success: function (resultDeptID) {
-                        //console.log(resultDeptID);
+                      success: function (resultPersonnelUserID) {
+                        //console.log(resultPersonnelUserID);
 
-                        deptID = resultDeptID.data[0].id;
-
-                        // Display the employee's department in the department dropdown
-                        $.ajax({
-                          type: "POST",
-                          url: "libs/php/getAllDepartments.php",
-                          dataType: "json",
-
-                          success: function (resultDept) {
-                            $(".deptEditSelectList").html("");
-
-                            $.each(resultDept.data, function (index) {
-                              $("#editEmployeeDept").val(deptID);
-
-                              $(".deptEditSelectList").append(
-                                $("<option>", {
-                                  value: resultDept.data[index].id,
-                                  text: resultDept.data[index].name,
-                                })
-                              );
-                            });
-                          },
-                          error: function (jqXHR, textStatus, errorThrown) {
-                            console.log("status code: " + jqXHR.status);
-                            console.log("errorThrown: " + errorThrown);
-                            console.log(
-                              "jqXHR.responseText: " + jqXHR.responseText
+                        $.each(resultPersonnelUserID.data, function (indexPersonnelUserID) {
+                          if (
+                            result.data[index].id ===
+                            resultPersonnelUserID.data[indexPersonnelUserID].id
+                          ) {
+                            $("#editFirstName").val(
+                              resultPersonnelUserID.data[indexPersonnelUserID].firstName
                             );
-                          },
+                            $("#editLastName").val(resultPersonnelUserID.data[indexPersonnelUserID].lastName);
+                            $("#editJobTitle").val(resultPersonnelUserID.data[indexPersonnelUserID].jobTitle);
+                            $("#editEmail").val(resultPersonnelUserID.data[indexPersonnelUserID].email);
+
+                            empUserID = resultPersonnelUserID.data[indexPersonnelUserID].id;
+
+                            // Get department id
+                            let deptID;
+
+                            $.ajax({
+                              type: "POST",
+                              url: "libs/php/getDepartmentID.php",
+                              dataType: "json",
+                              data: {
+                                employeeDept: resultPersonnelUserID.data[indexPersonnelUserID].department,
+                              },
+
+                              success: function (resultDeptID) {
+                                //console.log(resultDeptID);
+
+                                deptID = resultDeptID.data[0].id;
+
+                                // Display the employee's department in the department dropdown
+                                $.ajax({
+                                  type: "POST",
+                                  url: "libs/php/getAllDepartments.php",
+                                  dataType: "json",
+
+                                  success: function (resultDept) {
+                                    $(".deptEditSelectList").html("");
+
+                                    $.each(resultDept.data, function (index) {
+                                      $("#editEmployeeDept").val(deptID);
+
+                                      $(".deptEditSelectList").append(
+                                        $("<option>", {
+                                          value: resultDept.data[index].id,
+                                          text: resultDept.data[index].name,
+                                        })
+                                      );
+                                    });
+                                  },
+                                  error: function (
+                                    jqXHR,
+                                    textStatus,
+                                    errorThrown
+                                  ) {
+                                    console.log("status code: " + jqXHR.status);
+                                    console.log("errorThrown: " + errorThrown);
+                                    console.log(
+                                      "jqXHR.responseText: " +
+                                        jqXHR.responseText
+                                    );
+                                  },
+                                });
+                              },
+                              error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("status code: " + jqXHR.status);
+                                console.log("errorThrown: " + errorThrown);
+                                console.log(
+                                  "jqXHR.responseText: " + jqXHR.responseText
+                                );
+                              },
+                            });
+                          }
                         });
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
