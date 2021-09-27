@@ -1994,7 +1994,7 @@ $(document).ready(function () {
                                     $(".deptEditSelectList").html("");
 
                                     $.each(resultDept.data, function (index) {
-                                      $("#editEmployeeDept").val(deptID);
+                                      
 
                                       $(".deptEditSelectList").append(
                                         $("<option>", {
@@ -2002,6 +2002,7 @@ $(document).ready(function () {
                                           text: resultDept.data[index].name,
                                         })
                                       );
+                                      $("#editEmployeeDept").val(deptID);
                                     });
                                   },
                                   error: function (
