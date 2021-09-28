@@ -395,30 +395,6 @@ td {
   margin-right: auto;
 }
 
-/* Table column widths for search personnel modal */
-
-#searchCircleCol {
-  width: 1%;
-}
-
-#searchNameCol {
-  width: 30%;
-}
-
-#searchEditCol {
-  width: 5%;
-}
-
-#searchDeleteCol {
-  width: 5%;
-}
-
-#searchTable {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 /* Extra small devices (portrait phones, less than 576px) */
 @media (min-width: 280px) and (max-width: 359px) and (orientation: portrait) {
   .nav {
@@ -570,40 +546,6 @@ td {
   #locDeleteMove {
     margin-left: 58px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: -20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: -10px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
@@ -738,40 +680,6 @@ td {
 
   #locDeleteMove {
     margin-left: 78px;
-  }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: -20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: -10px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
   }
 }
 
@@ -921,40 +829,6 @@ td {
   #locDeleteMove {
     margin-left: 78px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -40px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 30px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
 }
 
 /* Responsive */
@@ -1102,40 +976,6 @@ td {
 
   #locDeleteMove {
     margin-left: 78px;
-  }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: -20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: -10px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
   }
 }
 
@@ -1298,44 +1138,6 @@ td {
   #locDeleteMove {
     margin-left: 80px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
-  }
 }
 
 /* Large devices (portrait phones, desktops and larger) */
@@ -1497,44 +1299,6 @@ td {
   #locDeleteMove {
     margin-left: 110px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
-  }
 }
 
 /* Extra small devices (landscape phones) */
@@ -1683,44 +1447,6 @@ td {
   #locDeleteMove {
     margin-left: 80px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
-  }
 }
 
 /* Small devices (landscape phones, 576px to medium devices) */
@@ -1863,44 +1589,6 @@ td {
 
   #locDeleteMove {
     margin-left: 80px;
-  }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
   }
 }
 
@@ -2050,44 +1738,6 @@ td {
   #locDeleteMove {
     margin-left: 130px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
-  }
 }
 
 /* Large devices (landscape phones, desktops and larger) */
@@ -2236,44 +1886,6 @@ td {
   #locDeleteMove {
     margin-left: 130px;
   }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
-  }
 }
 
 /* Large devices (landscape phones, desktops and larger) */
@@ -2421,43 +2033,5 @@ td {
 
   #locDeleteMove {
     margin-left: 140px;
-  }
-
-  /* Search personnel modal */
-
-  #searchTable {
-    table-layout: fixed;
-  }
-
-  #searchCircleCol {
-    width: 1%;
-  }
-
-  #searchCircle {
-    margin-left: 20px;
-  }
-
-  #searchNameCol {
-    width: 1%;
-  }
-
-  #searchName {
-    margin-left: -30px;
-  }
-
-  #searchEditCol {
-    width: 1%;
-  }
-
-  #searchEditMove {
-    margin-left: 50px;
-  }
-
-  #searchDeleteCol {
-    width: 1%;
-  }
-
-  #searchDeleteMove {
-    margin-left: 20px;
   }
 }
