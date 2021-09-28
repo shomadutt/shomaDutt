@@ -1894,23 +1894,32 @@ $(document).ready(function () {
 
               $.each(result.data, function (index) {
                 searchResultsMarkup =
-                  '<div class="row">' +
-                  '<div class="col-sm-1"></div>' +
-                  '<div class="col-sm-2">' +
-                  `<div id="searchCircle" class="circle">${result.data[index].firstName[0]}${result.data[index].lastName[0]}</div>` +
-                  "</div>" +
-                  '<div class="col-sm-4 namePosition">' +
-                  `${result.data[index].firstName}` +
-                  " " +
+                  '<table class="table table-borderless" id="searchTable">' +
+                  "<tbody>" +
+                  "<tr>" +
+                  '<td id="searchCircleCol">' +
+                  `<div id="searchCircle" class="circle">${result.data[index].lastName[0]}${result.data[index].firstName[0]}</div>` +
+                  "</td>" +
+                  '<td id="searchNameCol">' +
+                  '<div id="searchName" class="namePosition">' +
                   `${result.data[index].lastName}` +
+                  ", " +
+                  `${result.data[index].firstName}` +
                   "</div>" +
-                  '<div class="col-sm-2">' +
+                  "</td>" +
+                  '<td id="searchEditCol">' +
+                  '<div id="searchEditMove">' +
                   `<button type="button" class="text-white directoryButton editDeleteButton searchPersEdit" id="searchPersEdit${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Edit</button>` +
                   "</div>" +
-                  '<div class="col-sm-1">' +
+                  "</td>" +
+                  '<td id="searchDeleteCol">' +
+                  '<div id="searchDeleteMove">' +
                   `<button type="button" class="text-white directoryButton editDeleteButton searchPersDelete" id="searchPersDelete${result.data[index].id}" data-delete-id="${result.data[index].id}" data-bs-toggle="modal" data-bs-target="#deleteEmployeeConfirmModal">Delete</button>` +
                   "</div>" +
-                  "</div>";
+                  "</td>" +
+                  "</tr>" +
+                  "</tbody>" +
+                  "</table>";
 
                 $("#searchResultsData").append(searchResultsMarkup);
 
@@ -1932,7 +1941,7 @@ $(document).ready(function () {
                   }
                 );
 
-                //Edit employee modal 
+                //Edit employee modal
                 $(`#searchPersEdit${result.data[index].id}`).on(
                   "click",
                   function () {
@@ -1954,81 +1963,106 @@ $(document).ready(function () {
                       success: function (resultPersonnelUserID) {
                         //console.log(resultPersonnelUserID);
 
-                        $.each(resultPersonnelUserID.data, function (indexPersonnelUserID) {
-                          if (
-                            result.data[index].id ===
-                            resultPersonnelUserID.data[indexPersonnelUserID].id
-                          ) {
-                            $("#editFirstName").val(
-                              resultPersonnelUserID.data[indexPersonnelUserID].firstName
-                            );
-                            $("#editLastName").val(resultPersonnelUserID.data[indexPersonnelUserID].lastName);
-                            $("#editJobTitle").val(resultPersonnelUserID.data[indexPersonnelUserID].jobTitle);
-                            $("#editEmail").val(resultPersonnelUserID.data[indexPersonnelUserID].email);
+                        $.each(
+                          resultPersonnelUserID.data,
+                          function (indexPersonnelUserID) {
+                            if (
+                              result.data[index].id ===
+                              resultPersonnelUserID.data[indexPersonnelUserID]
+                                .id
+                            ) {
+                              $("#editFirstName").val(
+                                resultPersonnelUserID.data[indexPersonnelUserID]
+                                  .firstName
+                              );
+                              $("#editLastName").val(
+                                resultPersonnelUserID.data[indexPersonnelUserID]
+                                  .lastName
+                              );
+                              $("#editJobTitle").val(
+                                resultPersonnelUserID.data[indexPersonnelUserID]
+                                  .jobTitle
+                              );
+                              $("#editEmail").val(
+                                resultPersonnelUserID.data[indexPersonnelUserID]
+                                  .email
+                              );
 
-                            empUserID = resultPersonnelUserID.data[indexPersonnelUserID].id;
+                              empUserID =
+                                resultPersonnelUserID.data[indexPersonnelUserID]
+                                  .id;
 
-                            // Get department id
-                            let deptID;
+                              // Get department id
+                              let deptID;
 
-                            $.ajax({
-                              type: "POST",
-                              url: "libs/php/getDepartmentID.php",
-                              dataType: "json",
-                              data: {
-                                employeeDept: resultPersonnelUserID.data[indexPersonnelUserID].department,
-                              },
+                              $.ajax({
+                                type: "POST",
+                                url: "libs/php/getDepartmentID.php",
+                                dataType: "json",
+                                data: {
+                                  employeeDept:
+                                    resultPersonnelUserID.data[
+                                      indexPersonnelUserID
+                                    ].department,
+                                },
 
-                              success: function (resultDeptID) {
-                                //console.log(resultDeptID);
+                                success: function (resultDeptID) {
+                                  //console.log(resultDeptID);
 
-                                deptID = resultDeptID.data[0].id;
+                                  deptID = resultDeptID.data[0].id;
 
-                                // Display the employee's department in the department dropdown
-                                $.ajax({
-                                  type: "POST",
-                                  url: "libs/php/getAllDepartments.php",
-                                  dataType: "json",
+                                  // Display the employee's department in the department dropdown
+                                  $.ajax({
+                                    type: "POST",
+                                    url: "libs/php/getAllDepartments.php",
+                                    dataType: "json",
 
-                                  success: function (resultDept) {
-                                    $(".deptEditSelectList").html("");
+                                    success: function (resultDept) {
+                                      $(".deptEditSelectList").html("");
 
-                                    $.each(resultDept.data, function (index) {
-                                      
-
-                                      $(".deptEditSelectList").append(
-                                        $("<option>", {
-                                          value: resultDept.data[index].id,
-                                          text: resultDept.data[index].name,
-                                        })
+                                      $.each(resultDept.data, function (index) {
+                                        $(".deptEditSelectList").append(
+                                          $("<option>", {
+                                            value: resultDept.data[index].id,
+                                            text: resultDept.data[index].name,
+                                          })
+                                        );
+                                        $("#editEmployeeDept").val(deptID);
+                                      });
+                                    },
+                                    error: function (
+                                      jqXHR,
+                                      textStatus,
+                                      errorThrown
+                                    ) {
+                                      console.log(
+                                        "status code: " + jqXHR.status
                                       );
-                                      $("#editEmployeeDept").val(deptID);
-                                    });
-                                  },
-                                  error: function (
-                                    jqXHR,
-                                    textStatus,
-                                    errorThrown
-                                  ) {
-                                    console.log("status code: " + jqXHR.status);
-                                    console.log("errorThrown: " + errorThrown);
-                                    console.log(
-                                      "jqXHR.responseText: " +
-                                        jqXHR.responseText
-                                    );
-                                  },
-                                });
-                              },
-                              error: function (jqXHR, textStatus, errorThrown) {
-                                console.log("status code: " + jqXHR.status);
-                                console.log("errorThrown: " + errorThrown);
-                                console.log(
-                                  "jqXHR.responseText: " + jqXHR.responseText
-                                );
-                              },
-                            });
+                                      console.log(
+                                        "errorThrown: " + errorThrown
+                                      );
+                                      console.log(
+                                        "jqXHR.responseText: " +
+                                          jqXHR.responseText
+                                      );
+                                    },
+                                  });
+                                },
+                                error: function (
+                                  jqXHR,
+                                  textStatus,
+                                  errorThrown
+                                ) {
+                                  console.log("status code: " + jqXHR.status);
+                                  console.log("errorThrown: " + errorThrown);
+                                  console.log(
+                                    "jqXHR.responseText: " + jqXHR.responseText
+                                  );
+                                },
+                              });
+                            }
                           }
-                        });
+                        );
                       },
                       error: function (jqXHR, textStatus, errorThrown) {
                         console.log("status code: " + jqXHR.status);
