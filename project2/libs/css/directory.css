@@ -100,10 +100,6 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: #198754;
 }
 
-#searchCircle {
-  background-color: #dc3545;
-}
-
 .functionButton {
   width: 43px;
   height: 43px;
@@ -127,17 +123,12 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: #ffcc33;
 }
 
-#search {
-  background-color: #dc3545;
-}
-
 .employeeEdit,
 .deptEdit,
 .searchEmployeeEdit,
 .searchDeptEdit,
 .searchLocEdit,
-.locEdit,
-.searchPersEdit {
+.locEdit {
   background-color: #05cafc;
 }
 
@@ -146,8 +137,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .searchEmployeeDelete,
 .searchDeptDelete,
 .searchLocDelete,
-.locDelete,
-.searchPersDelete {
+.locDelete {
   background-color: #02b98b;
 }
 
@@ -201,7 +191,6 @@ input[type="search"]::-webkit-search-results-decoration {
 #deleteDepartmentSuccessMessage,
 #deleteLocationSuccessMessage,
 #deleteDepartmentButtonSuccessMessage,
-#searchPersonnelErrorMessage,
 #createDepartmentErrorMessage,
 #createLocationErrorMessage,
 #editEmployeeErrorMessage,
@@ -246,14 +235,8 @@ input[type="search"]::-webkit-search-results-decoration {
 #deleteDepartmentConfirmMessage,
 #deleteLocationConfirmMessage,
 #deletePersonnelConfirmMessage,
-#deleteDepartmentButtonConfirmMessage,
-#searchPersonnelConfirmMessage {
+#deleteDepartmentButtonConfirmMessage {
   text-align: center;
-}
-
-#noMatch {
-  text-align: center;
-  margin-top: 23px;
 }
 
 .header {
@@ -402,13 +385,6 @@ td {
     margin-right: auto;
   }
 
-  #search {
-    margin-left: 50px;
-    margin-top: 20px;
-    margin-right: 60px;
-    margin-bottom: -20px;
-  }
-
   #plus {
     margin-left: 50px;
     margin-top: 20px;
@@ -555,11 +531,11 @@ td {
     margin-right: auto;
   }
 
-  #plus,
-  #search {
+  #plus {
     margin-top: 20px;
     margin-right: 60px;
   }
+
   #searchBar {
     margin-bottom: -25px;
   }
@@ -693,12 +669,6 @@ td {
   #plus {
     margin-top: 20px;
     margin-right: 60px;
-    margin-bottom: -50px;
-  }
-
-  #search {
-    margin-top: 20px;
-    margin-right: 120px;
     margin-bottom: -50px;
   }
 
@@ -841,12 +811,6 @@ td {
   #plus {
     margin-top: 20px;
     margin-right: 60px;
-    margin-bottom: -50px;
-  }
-
-  #search {
-    margin-top: 20px;
-    margin-right: 120px;
     margin-bottom: -50px;
   }
 
@@ -1314,11 +1278,6 @@ td {
     margin-right: 60px;
   }
 
-  #search {
-    margin-top: 10px;
-    margin-right: 120px;
-  }
-
   #searchBar {
     margin-top: -30px;
     margin-bottom: -25px;
@@ -1457,8 +1416,7 @@ td {
     margin-top: -25px;
   }
 
-  #plus,
-  #search {
+  #plus {
     margin-left: 10px;
   }
 
