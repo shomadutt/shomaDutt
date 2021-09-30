@@ -117,27 +117,6 @@ $(document).ready(function () {
           $("#txtContinent").html(result.data[0].continent);
           $("#txtContinentName").html(result.data[0].continentName);
           $("#txtCountryName").html(result.data[0].countryName);
-
-          // Country flag
-          $.ajax({
-            url: "libs/php/countryFlag.php",
-            type: "POST",
-            dataType: "json",
-            data: {
-              countryCode: $("#selectCountry").val(),
-            },
-
-            success: function (result) {
-              //console.log(JSON.stringify(result));
-
-              if (result.status.name == "ok") {
-                $("#txtFlag").html(
-                  `<img class="flag" src=${result["data"].flag} />`
-                );
-              }
-            },
-          });
-
           $("#txtCurrencyCode").html(result.data[0].currencyCode);
 
           // Income information
@@ -238,7 +217,7 @@ $(document).ready(function () {
       success: function (result) {
         //console.log(JSON.stringify(result));
 
-        console.log(result);
+        //console.log(result);
 
         $("#uniHeading").empty();
         $("#uniHeading").append(
