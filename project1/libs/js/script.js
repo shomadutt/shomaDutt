@@ -29,6 +29,11 @@ $(document).ready(function () {
         );
       });
     },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log("status code: " + jqXHR.status);
+      console.log("errorThrown: " + errorThrown);
+      console.log("jqXHR.responseText: " + jqXHR.responseText);
+    },
   });
 
   let map = L.map("map");
@@ -65,6 +70,11 @@ $(document).ready(function () {
               .trigger("change");
           }
         },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log("status code: " + jqXHR.status);
+          console.log("errorThrown: " + errorThrown);
+          console.log("jqXHR.responseText: " + jqXHR.responseText);
+        },
       });
     });
   }
@@ -94,6 +104,11 @@ $(document).ready(function () {
             map.fitBounds(geojsonLayer.getBounds());
           }
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -136,6 +151,11 @@ $(document).ready(function () {
                 $("#txtIncome").html(income);
               }
             },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log("status code: " + jqXHR.status);
+              console.log("errorThrown: " + errorThrown);
+              console.log("jqXHR.responseText: " + jqXHR.responseText);
+            },
           });
 
           if (result.data[0].population < 1000000) {
@@ -148,6 +168,11 @@ $(document).ready(function () {
             );
           }
         }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -195,8 +220,18 @@ $(document).ready(function () {
                 $("#txtNZD").html(resultRate.data.conversion_rates.NZD);
               }
             },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.log("status code: " + jqXHR.status);
+              console.log("errorThrown: " + errorThrown);
+              console.log("jqXHR.responseText: " + jqXHR.responseText);
+            },
           });
         }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -236,6 +271,11 @@ $(document).ready(function () {
 
           $("#uniTable").append(uniMarkup);
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -473,10 +513,25 @@ $(document).ready(function () {
                     $("#iconDay4").html("<img src='" + iconURL + "'>");
                   }
                 },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("status code: " + jqXHR.status);
+                  console.log("errorThrown: " + errorThrown);
+                  console.log("jqXHR.responseText: " + jqXHR.responseText);
+                },
               });
             }
           },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log("status code: " + jqXHR.status);
+            console.log("errorThrown: " + errorThrown);
+            console.log("jqXHR.responseText: " + jqXHR.responseText);
+          },
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -536,6 +591,11 @@ $(document).ready(function () {
 
           $("#holidayTable").append(holidayMarkup);
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -614,7 +674,17 @@ $(document).ready(function () {
               $("#earthquakeTable").append(earthquakeMarkup);
             });
           },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log("status code: " + jqXHR.status);
+            console.log("errorThrown: " + errorThrown);
+            console.log("jqXHR.responseText: " + jqXHR.responseText);
+          },
         });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
 
@@ -702,6 +772,11 @@ $(document).ready(function () {
           );
         }
       },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
+      },
     });
 
     // Cities cluster markers
@@ -738,6 +813,11 @@ $(document).ready(function () {
         });
 
         map.addLayer(markers);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log("status code: " + jqXHR.status);
+        console.log("errorThrown: " + errorThrown);
+        console.log("jqXHR.responseText: " + jqXHR.responseText);
       },
     });
   });
